@@ -1,0 +1,45 @@
+
+// █     █░ ▄▄▄     ▓██   ██▓ ▄▄▄▄    ▄▄▄       ██▀███
+// ▓█░ █ ░█░▒████▄    ▒██  ██▒▓█████▄ ▒████▄    ▓██ ▒ ██▒
+// ▒█░ █ ░█ ▒██  ▀█▄   ▒██ ██░▒██▒ ▄██▒██  ▀█▄  ▓██ ░▄█ ▒
+// ░█░ █ ░█ ░██▄▄▄▄██  ░ ▐██▓░▒██░█▀  ░██▄▄▄▄██ ▒██▀▀█▄
+// ░░██▒██▓  ▓█   ▓██▒ ░ ██▒▓░░▓█  ▀█▓ ▓█   ▓██▒░██▓ ▒██▒
+// ░ ▓░▒ ▒   ▒▒   ▓▒█░  ██▒▒▒ ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒▓ ░▒▓░
+//  ▒ ░ ░    ▒   ▒▒ ░▓██ ░▒░ ▒░▒   ░   ▒   ▒▒ ░  ░▒ ░ ▒░
+//  ░   ░    ░   ▒   ▒ ▒ ░░   ░    ░   ░   ▒     ░░   ░
+//    ░          ░  ░░ ░      ░            ░  ░   ░
+//                   ░ ░           ░
+// by Aislx Flames (2024)
+// ------------------------------------------------------------
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": "30",
+  "spacing": 4,
+
+// Load Modules
+"include": ["~/.config/waybar/modules.json"],
+
+  "modules-left": [
+    "custom/appmenuicon",
+    "wlr/taskbar",
+    "hyprland/window",
+    "cava"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "custom/pacman",
+    "pulseaudio",
+    "battery",
+    "tray",
+    "custom/stats",
+    "custom/shotcuts",
+    "bluetooth",
+    "custom/pmenu",
+    "network",
+    "clock"
+  ]
+}

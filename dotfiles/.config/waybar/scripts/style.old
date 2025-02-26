@@ -1,0 +1,193 @@
+/*
+ * __        __          _                  ____  _         _       
+ * \ \      / /_ _ _   _| |__   __ _ _ __  / ___|| |_ _   _| | ___  
+ *  \ \ /\ / / _` | | | | '_ \ / _` | '__| \___ \| __| | | | |/ _ \ 
+ *   \ V  V / (_| | |_| | |_) | (_| | |     ___) | |_| |_| | |  __/ 
+ *    \_/\_/ \__,_|\__, |_.__/ \__,_|_|    |____/ \__|\__, |_|\___| 
+ *                 |___/                              |___/         
+ *  
+ * ----------------------------------------------------- 
+*/
+
+/* -----------------------------------------------------
+ * Import Pywal colors 
+ * ----------------------------------------------------- */
+/* @import 'style-dark.css'; */
+@import '../../.cache/wal/colors-waybar.css';
+
+/* -----------------------------------------------------
+ * General 
+ * ----------------------------------------------------- */
+* {
+    font-family: "Source Code Pro", "Courier New", monospace;
+    border: none;
+    font-size: 14px;
+    border-radius: 0px;
+    background-color: rgba(255, 215, 196, 0);
+    color: white;
+    padding: 0px;
+}
+
+.modules-center {
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.modules-right {
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.modules-left {
+    margin-left: 0px;
+    margin-top: 0px;
+}
+
+#workspaces {
+    background: @background;
+    margin: 2px 1px 3px 1px;
+    padding: 0px 1px;
+    border-radius: 15px;
+    border: 0px;
+    font-weight: bold;
+    font-style: normal;
+    opacity: 0.8;
+    font-size: 16px;
+    color: @textcolor1;
+}
+
+#workspaces button {
+    padding: 0px 5px;
+    margin: 4px 3px;
+    border-radius: 15px;
+    border: 0px;
+    color: @textcolor1;
+    background-color: @color9;
+    transition: all 0.3s ease-in-out;
+    opacity: 0.4;
+}
+
+#workspaces button.active {
+    color: @textcolor1;
+    background: @color12;
+    border-radius: 15px;
+    min-width: 40px;
+    transition: all 0.3s ease-in-out;
+    opacity: 1.0;
+}
+
+#workspaces button:hover {
+    color: @textcolor1;
+    background: @color14;
+    border-radius: 15px;
+    opacity: 0.7;
+}
+
+
+#custom-appmenuicon {
+    font-weight: bold;
+    background-color: @color11;
+    border-radius: 40px;
+    padding: 0px 10px 0px 10px;
+    margin: 6px 5px 3px 14px;
+    border: 1px solid #FFF;
+    opacity: 0.9;
+}
+
+#taskbar {
+    background-color: #0f0f0f;
+    opacity: 0.9;
+    border-radius: 100px;
+    padding: 0px 7px 0px 7px;
+    margin: 6px 15px 3px 0px;
+    border: 0px solid #FFF;
+}
+
+#taskbar button {
+    font-weight: bold;
+    padding: 3px;
+    border-radius: 60px;
+}
+
+#window {
+    border: 0px solid;
+    font-size: 4px;
+    background: rgba(0, 0, 0, 0.541);
+    margin: 5px 15px 5px 0px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 12px;
+    color: @textcolor2;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+#pulseaudio {
+    font-size: 15px;
+}
+
+#network {
+    padding: 0px 10px 0px 10px;
+    border-radius: 400px;
+    background-color: @color11;
+    margin: 5px 6px 3px 0px;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #FFF;
+}
+
+
+#clock {
+    font-weight: bold;
+    background-color: @color11;
+    border-radius: 400px;
+    padding: 0px 10px 0px 10px;
+    margin: 5px 15px 3px 0px;
+    border: 1px solid #FFF;
+}
+
+#battery {
+    background-color: @background;
+    font-size: 12px;
+    color: @textcolor2;
+    border-radius: 500px;
+    padding: 2px 15px 0px 10px;
+    margin: 7px 15px 7px 0px;
+    opacity: 0.8;
+}
+
+#pulseaudio {
+    background-color: @background;
+    font-size: 14px;
+    color: @textcolor2;
+    border-radius: 50px;
+    padding: 2px 10px 0px 10px;
+    margin: 7px 0px 7px 0px;
+    opacity: 0.7;
+}
+
+#custom-pacman {
+    background-color: @background;
+    font-size: 14px;
+    color: @textcolor2;
+    border-radius: 50px;
+    padding: 2px 10px 0px 10px;
+    margin: 7px 0px 7px 0px;
+    opacity: 0.7;
+}
+
+
+#custom-pmenu,
+#custom-stats,
+#custom-shotcuts,
+#bluetooth {
+    font-size: 17px;
+    font-weight: bold;
+    color: @cursor;
+    padding: 3px;
+
+}
+
+#custom-pmenu {
+    padding: 5px;
+
+}

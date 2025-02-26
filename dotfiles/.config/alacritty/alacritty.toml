@@ -1,0 +1,20 @@
+[general]
+
+import = ["/home/aislx/.cache/wal/colors-alacritty.toml",]
+
+[window]
+
+opacity = 0.8
+
+padding.x = 10
+padding.y = 10
+
+decorations = "Full"
+decorations_theme_variant = "Dark" # "Dark"
+
+[font]
+
+normal = { family = "Source Code Pro", style = "Regular" }
+
+[terminal]
+shell = "zsh"

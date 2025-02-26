@@ -1,0 +1,212 @@
+{
+  "hyprland/window": {
+    "max-length": 25
+  },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "max-length": 10,
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "tray": {
+    "format": "{icons}"
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}{capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": [" ", " ", " ", " ", " "]
+  },
+  "memory": {
+    "format": " {}% /"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "C {}%",
+    "max-length": 10
+  },
+  "network": {
+    "interval": 1,
+    "format": "{ifname}  off",
+    "format-wifi": " {essid}",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": " disconnected",
+    "format-wifi-alt": "  {ssid}",
+    "tooltip-format": " {ifname} via {gwaddri}",
+    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 60,
+    "on-click": "~/.config/hypr/scripts/wifi.sh",
+    "on-click-right": "nm-connection-editor"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "rotate": 0,
+    "icon-size": 18,
+    "icon-theme": "Tela-circle-dracula",
+    "spacing": 0,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": ["Alacritty"],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "max-length": 10
+  },
+  "pulseaudio": {
+    "format": "/ {icon}{volume}% / ",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "  {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": ["", "", ""]
+    },
+    "on-click": "~/.config/waybar/scripts/pavu.sh"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "interval": 30,
+    "on-click": "pypr toggle bluetooth && hyprctl dispatch brigactivetotop",
+    "format-no-controller": ""
+  },
+  "user": {
+    "format": "{user}",
+    "interval": 60,
+    "icon": false
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "scroll-step": 1
+  },
+  "clock": {
+    "format": "{:%H:%M %a}",
+    "on-click": "gnome-clocks",
+    "tooltip": false
+  },
+  "custom/pacman": {
+    "format": " {}",
+    "interval": 3600,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar",
+    "signal": 8
+  },
+  "custom/pmenu": {
+    "format": " / ",
+    "on-click": "~/.config/rofi/scripts/powermenu_t6"
+  },
+  "custom/notification": {
+    "format": "",
+    "on-click": "swaync-client -t"
+  },
+  "custom/stats": {
+    "format": " 󰓅",
+    "on-click": "pypr toggle btop && hyprctl dispatch brigactivetotop"
+  },
+  "custom/settings": {
+    "format": "",
+    "on-click": "alacritty -e ~/.config/flameos/settings.sh"
+  },
+  "custom/appmenu": {
+    "format": "Apps",
+    "on-click": "~/.config/rofi/scripts/launcher_t6",
+    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+  },
+  "custom/appmenuicon": {
+    "format": "Apps",
+    "on-click": "~/.config/rofi/scripts/launcher_t6",
+    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+  },
+  "custom/filemanager": {
+    "format": "",
+    "on-click": "thunar",
+    "tooltip-format": "Open file manager"
+  },
+
+  "cava": {
+    //        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+    "framerate": 30,
+    "autosens": 1,
+    "sensitivity": 100,
+    "bars": 14,
+    "lower_cutoff_freq": 50,
+    "higher_cutoff_freq": 10000,
+    "method": "pulse",
+    "source": "auto",
+    "stereo": true,
+    "reverse": false,
+    "bar_delimiter": 0,
+    "monstercat": false,
+    "waves": false,
+    "noise_reduction": 0.77,
+    "input_delay": 2,
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+    "actions": {
+      "on-click-right": "mode"
+    }
+  },
+
+// CUSTOM GROUP
+"group/utils": {
+  "orientation": "horizontal",
+  "modules": [
+    "custom/pacman",
+    "pulseaudio",
+    "battery",
+    "network"
+  ]
+},
+
+"group/extra": {
+  "orientation": "horizontal",
+  "modules": [
+    "custom/notification",
+    "custom/pmenu"
+  ]
+}
+}

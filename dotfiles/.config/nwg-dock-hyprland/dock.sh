@@ -1,0 +1,1 @@
+~/.config/rofi/scripts/launcher_t6

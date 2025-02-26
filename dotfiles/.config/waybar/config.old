@@ -1,0 +1,204 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": "30",
+  "spacing": 4,
+  "modules-left": [
+    "custom/appmenuicon",
+    "wlr/taskbar",
+    "hyprland/window",
+    "cava"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "custom/pacman",
+    "pulseaudio",
+    "battery",
+    "tray",
+    "custom/stats",
+    "custom/shotcuts",
+    "bluetooth",
+    "custom/pmenu",
+    "network",
+    "clock"
+  ],
+  "hyprland/window": {
+    "max-length": 15
+  },
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "max-length": 10,
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "tray": {
+    "format": "{icons}"
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+  "battery": {
+    "interval": 1,
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}{capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": [
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ]
+  },
+  "memory": {
+    "format": " {}% /"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "C {}%",
+    "max-length": 10
+  },
+  "network": {
+    "interval": 1,
+    "format": "{ifname}  off",
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": " disconnected",
+    "format-wifi-alt": "  {ssid}",
+    "tooltip-format": " {ifname} via {gwaddri}",
+    "tooltip-format-wifi": "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 60,
+    "on-click": "~/.config/hypr/scripts/wifi.sh",
+    "on-click-right": "nm-connection-editor"
+  },
+  "custom/appmenu": {
+    // START APPS LABEL
+    "format": "Apps",
+    // END APPS LABEL
+    "on-click": "~/.config/rofi/scripts/launcher_t6",
+    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+  },
+  "custom/appmenuicon": {
+    "format": " Apps",
+    "on-click": "~/.config/rofi/scripts/launcher_t6",
+    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "rotate": 0,
+    "icon-size": 18,
+    "icon-theme": "Tela-circle-dracula",
+    "spacing": 0,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "Alacritty"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "max-length": 10
+  },
+  "pulseaudio": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon} {volume}% ",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "  {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": " ",
+      "hands-free": " ",
+      "headset": " ",
+      "phone": " ",
+      "portable": " ",
+      "car": " ",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "~/.config/waybar/scripts/pavu.sh"
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "",
+    "interval": 30,
+    "on-click": "pypr toggle bluetooth && hyprctl dispatch brigactivetotop",
+    "format-no-controller": ""
+  },
+  "user": {
+    "format": "{user}",
+    "interval": 60,
+    "icon": false
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "scroll-step": 1
+  },
+  "clock": {
+    "format": "{:%H:%M %a}",
+    "on-click": "gnome-clocks",
+    "tooltip": false
+  },
+  //alternate
+  "custom/pacman": {
+    "format": " {}",
+    "interval": 3600, // every hour
+    "exec": "checkupdates | wc -l", // # of updates
+    "exec-if": "exit 0", // always run; consider advanced run conditions
+    "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+    "signal": 8
+  },
+  "custom/pmenu": {
+    "format": "⏻",
+    "on-click": "~/.config/rofi/scripts/powermenu_t6"
+  },
+  "custom/stats": {
+    "format": " 󰓅",
+    "on-click": "pypr toggle btop && hyprctl dispatch brigactivetotop"
+  },
+  "custom/shotcuts": {
+    "format": "",
+    "on-click": "rofi -show keys"
+  }
+}
