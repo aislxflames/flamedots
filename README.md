@@ -20,7 +20,7 @@ Follow these steps to install **FlamEs OS** on your system:
 
 ## Screenshots
 
-![image](https://github.com/user-attachments/assets/acdc028e-0d10-4acc-83e1-2de524c2a109)
+![Uploading image.png…]()
 ![image](https://github.com/user-attachments/assets/5acd02f5-81f7-4986-8743-0e65f2cf0049)
 ![image](https://github.com/user-attachments/assets/5bc60986-d312-4fe5-b347-e037f0ca5a76)
 ![image](https://github.com/user-attachments/assets/0dd0031c-7f45-436e-8c4d-f55073387de5)
