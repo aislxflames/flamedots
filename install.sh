@@ -1,5 +1,5 @@
 #!/bin/bash
-
+pacman -S lolcat
 # Exit immediately if a command exits with a non-zero status
 set -e
 pacman -Syu lolcat ttf-jetbrains-mono-nerd --noconfirm  > /dev/null 2>&1 | echo "Updating the system..."
