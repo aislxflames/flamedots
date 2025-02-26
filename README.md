@@ -1,6 +1,6 @@
-# FlamEs Dots
+# Flame OS
 
-**FlamEs Dots** is a beautiful and functional dotfiles setup for the **Hyprland** window manager, designed for ease of use and customization. This repository contains all the configuration files and scripts you need to get started with a stunning Hyprland setup.
+**Flame OS** is a beautiful and functional dotfiles and oparating system setup for the **Hyprland** window manager, designed for ease of use and customization. This repository contains all the configuration files and scripts you need to get started with a stunning Hyprland setup.
 
 ## Features
 
