@@ -1,4 +1,4 @@
-# Flame OS
+![image](https://github.com/user-attachments/assets/fd8d13fa-ea1d-4910-9421-9292109f77a9)# Flame OS
 
 **Flame OS** is a beautiful and functional dotfiles and oparating system setup for the **Hyprland** window manager, designed for ease of use and customization. This repository contains all the configuration files and scripts you need to get started with a stunning Hyprland setup.
 
@@ -20,7 +20,7 @@ Follow these steps to install **FlamEs OS** on your system:
 
 ## Screenshots
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/e7ff414e-0790-4977-a8ce-0409e0f99c9b)
 ![image](https://github.com/user-attachments/assets/5acd02f5-81f7-4986-8743-0e65f2cf0049)
 ![image](https://github.com/user-attachments/assets/5bc60986-d312-4fe5-b347-e037f0ca5a76)
 ![image](https://github.com/user-attachments/assets/0dd0031c-7f45-436e-8c4d-f55073387de5)
