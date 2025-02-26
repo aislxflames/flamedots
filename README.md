@@ -30,8 +30,8 @@ Follow these steps to install **FlamEs OS** on your system:
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/aislxflames/hyprdots
-cd hyprdots
+git clone https://github.com/aislxflames/FlameOS
+cd FlameOS
 ```
 
 ### 2. Run install script
