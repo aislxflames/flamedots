@@ -1,27 +1,44 @@
 #!/bin/bash
 
-# Define the GitHub repository URL and the ZIP file URL
-REPO_URL="https://github.com/aislxflames/flamedots"
-ZIP_URL="${REPO_URL}/archive/refs/heads/main.zip"
-
 # Define the directory to extract to (in the home directory)
 HOME_DIR="$HOME"
 DIR_NAME="flamedots"
+ZIP_NAME="${DIR_NAME}.zip"
+REPO_URL="https://github.com/aislxflames/flamedots/archive/refs/heads/main.zip"  # Replace with your repository's URL
 
 # Navigate to the home directory
 cd "$HOME_DIR" || exit
 
-# Download the repository as a ZIP file
-curl -L -o "${DIR_NAME}.zip" "$ZIP_URL"
+# Check if the directory already exists
+if [ -d "$DIR_NAME" ]; then
+    echo "$DIR_NAME directory already exists. Checking for updates..."
 
-# Extract the ZIP file
-unzip "${DIR_NAME}.zip"
+    # Navigate into the directory and pull the latest changes if it is a git repository
+    if [ -d "${DIR_NAME}/.git" ]; then
+        cd "$DIR_NAME" || exit
+        echo "Git repository found. Pulling latest changes..."
+        git pull origin main
+    else
+        echo "No git repository found. Skipping update."
+    fi
 
-# Clean up: Remove the downloaded ZIP file
-rm "${DIR_NAME}.zip"
+else
+    # Download the repository as a ZIP file
+    echo "$DIR_NAME directory does not exist. Downloading the repository..."
+    curl -L -o "$ZIP_NAME" "$REPO_URL"
+
+    # Extract the ZIP file
+    unzip "$ZIP_NAME"
+
+    # Clean up: Remove the downloaded ZIP file
+    rm "$ZIP_NAME"
+
+    # Rename extracted folder
+    mv "${DIR_NAME}-main" "$DIR_NAME"
+fi
 
 # Change to the extracted directory
-cd "${DIR_NAME}-main" || exit
+cd "$DIR_NAME" || exit
 
 # Setup completed message
 echo "Setup completed."
@@ -36,4 +53,3 @@ else
 fi
 
 echo "Script completed."
-
