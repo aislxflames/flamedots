@@ -1,8 +1,8 @@
 #!/bin/bash
-pacman -S lolcat
+
 # Exit immediately if a command exits with a non-zero status
 set -e
-pacman -Syu lolcat ttf-jetbrains-mono-nerd --noconfirm  > /dev/null 2>&1 | echo "Updating the system..."
+sudo pacman -Syu lolcat --noconfirm  > /dev/null 2>&1 | echo "Updating the system..."
 clear
 
 # Display script heading
@@ -48,7 +48,6 @@ install_yay(){
 # List of packages to install
 packages=(
     swww
-    amberol
     hyprpaper
     pyprland
     network-manager-applet
@@ -77,7 +76,7 @@ packages=(
     thunar
     firefox
     pavucontrol
-    neofetch
+    fastfetch
     cava
     neo-matrix
     tty-clock
@@ -87,7 +86,7 @@ packages=(
     noto-fonts-cjk
     noto-fonts-emoji
     drun
-    alacritty
+    kitty
     vim
     nano
     pywal
@@ -158,6 +157,27 @@ fi
 # Update the system and install any missing packages
 
 install_missing_packages
+clear
+echo "
+  ▄████  ██▀███   █    ██  ▄▄▄▄
+ ██▒ ▀█▒▓██ ▒ ██▒ ██  ▓██▒▓█████▄
+▒██░▄▄▄░▓██ ░▄█ ▒▓██  ▒██░▒██▒ ▄██
+░▓█  ██▓▒██▀▀█▄  ▓▓█  ░██░▒██░█▀
+░▒▓███▀▒░██▓ ▒██▒▒▒█████▓ ░▓█  ▀█▓
+ ░▒   ▒ ░ ▒▓ ░▒▓░░▒▓▒ ▒ ▒ ░▒▓███▀▒
+  ░   ░   ░▒ ░ ▒░░░▒░ ░ ░ ▒░▒   ░
+░ ░   ░   ░░   ░  ░░░ ░ ░  ░    ░
+      ░    ░        ░      ░
+                                ░
+" | lolcat
+    read -p "You want custom grub theme (sddm included)? (y/n): " response
+    if [[ "$response" =~ ^[Yy]$ ]]; then
+        ./custom-configs/grub/install.sh
+        sudo cp -rf ./custom-configs/sddm/sddm.conf /etc/sddm.conf
+        echo "Grub theme successfully installed!"
+    else
+        echo "Grub theme installation skipped."
+    fi
 clear
 echo "
 ▓█████▄  ▒█████  ▄▄▄█████▓     █████▒██▓ ██▓    ▓█████   ██████
@@ -241,31 +261,6 @@ else
 fi
 sed -i 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
 
-# Ensure the source directories exist
-
-if [ ! -d "$USER_HOME/.config" ]; then
-    mkdir -p "$USER_HOME/.config"
-    echo "Created .config directory at $USER_HOME"
-fi
-
-if [ -d "$USER_HOME/.config" ]; then
-    rsync -av --ignore-existing "$SOURCE_CONFIG/" "$USER_HOME/.config/"
-    echo "Synced .config to $USER_HOME"
-else
-    echo "Warning: $SOURCE_CONFIG directory does not exist. Skipping .config copy."
-fi
-
-if [ ! -d "$USER_HOME/Wallpapers" ]; then
-    mkdir -p "$USER_HOME/Wallpapers"
-    echo "Created Wallpapers directory at $USER_HOME"
-fi
-
-if [ -d "$USER_HOME/Wallpapers"  ]; then
-    rsync -av --ignore-existing "$SOURCE_WALLPAPERS/" "$USER_HOME/Wallpapers/"
-    echo "Synced Wallpapers to $USER_HOME"
-else
-    echo "Warning: $SOURCE_WALLPAPERS directory does not exist. Skipping Wallpapers copy."
-fi
 echo "Setup complete! Enjoy your FlamEs Hyprdots!"
 
 echo "Installing gtk themes"
@@ -324,34 +319,14 @@ echo "
     # Ask if the user wants to install additional packages (sddm-theme-sugar-candy-git, visual-studio-bin)
     read -p "Do you want to install the additional packages (vesktop(discord),brave,vscod etc.)? (y/n): " response
     if [[ "$response" =~ ^[Yy]$ ]]; then
-        yay -S visual-studio-bin vesktop brave
-        echo "Additional packages installed: vesktop(discord),brave,vscod etc."
+        yay -S visual-studio-bin discord brave
+        echo "Additional packages installed: discord,brave,vscod etc."
     else
         echo "No additional packages installed."
     fi
 
     # Copy .config and Wallpapers directories to the home directory
-clear
-echo "
-  ▄████  ██▀███   █    ██  ▄▄▄▄
- ██▒ ▀█▒▓██ ▒ ██▒ ██  ▓██▒▓█████▄
-▒██░▄▄▄░▓██ ░▄█ ▒▓██  ▒██░▒██▒ ▄██
-░▓█  ██▓▒██▀▀█▄  ▓▓█  ░██░▒██░█▀
-░▒▓███▀▒░██▓ ▒██▒▒▒█████▓ ░▓█  ▀█▓
- ░▒   ▒ ░ ▒▓ ░▒▓░░▒▓▒ ▒ ▒ ░▒▓███▀▒
-  ░   ░   ░▒ ░ ▒░░░▒░ ░ ░ ▒░▒   ░
-░ ░   ░   ░░   ░  ░░░ ░ ░  ░    ░
-      ░    ░        ░      ░
-                                ░
-" | lolcat
-    read -p "You want custom grub theme (sddm included)? (y/n): " response
-    if [[ "$response" =~ ^[Yy]$ ]]; then
-        sudo ./custom-configs/grub/install.sh
-        sudo cp -r ./custom-configs/sddm/sddm.conf /etc/sddm.conf
-        echo "Grub theme successfully installed!"
-    else
-        echo "Grub theme installation skipped."
-    fi
+
 clear
 echo "
   █████▒██▓ ███▄    █  ██▓  ██████  ██░ ██ ▓█████ ▓█████▄

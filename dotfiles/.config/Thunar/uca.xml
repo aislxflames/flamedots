@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
 <action>
-	<icon>Alacritty</icon>
+	<icon>kitty</icon>
 	<name>Open Terminal Here</name>
 	<submenu></submenu>
 	<unique-id>1731931758531109-1</unique-id>
-	<command>alacritty --working-directory .</command>
+	<command>kitty --working-directory .</command>
 	<description>Alacritty</description>
 	<range></range>
 	<patterns>*</patterns>

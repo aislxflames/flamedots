@@ -64,7 +64,7 @@
     "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": ["Alacritty"],
+    "ignore-list": ["kitty"],
     "app_ids-mapping": {
       "firefoxdeveloperedition": "firefox-developer-edition"
     },
@@ -148,7 +148,7 @@
   },
   "custom/settings": {
     "format": "",
-    "on-click": "alacritty -e ~/.config/flameos/settings.sh"
+    "on-click": "kitty -e ~/.config/flameos/settings.sh"
   },
   "custom/appmenu": {
     "format": "Apps",

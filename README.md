@@ -1,4 +1,5 @@
-![image](https://github.com/user-attachments/assets/fd8d13fa-ea1d-4910-9421-9292109f77a9)# Flame OS
+![image](https://github.com/user-attachments/assets/fd8d13fa-ea1d-4910-9421-9292109f77a9)
+# Flame OS
 
 **Flame OS** is a beautiful and functional dotfiles and oparating system setup for the **Hyprland** window manager, designed for ease of use and customization. This repository contains all the configuration files and scripts you need to get started with a stunning Hyprland setup.
 
@@ -40,3 +41,4 @@ cd FlameOS
 chmod +x install.sh
 ./install.sh
 ```
+

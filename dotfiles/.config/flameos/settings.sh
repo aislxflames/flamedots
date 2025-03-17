@@ -20,7 +20,7 @@ CONFIG_WINDOWRULES="$HOME/.config/hypr/conf/windowrules"
 CONFIG_MONITORS="$HOME/.config/hypr/conf/monitors"
 
 # Menu Options
-main_options=("Appearance" "System" "SDDM (Coming Soon)" "Waybar (Coming Soon)" "EXIT")
+main_options=("Appearance" "System" "SDDM (Coming Soon)" "Waybar" "EXIT")
 
 appearance_options=("Animations" "Decorations" "Window Rules" "Wallpaper" "GTK Settings" "Back")
 animations_options=($(ls "$CONFIG_ANIMATIONS"))
@@ -255,7 +255,8 @@ execute_selection() {
             current_menu="system"
             draw_system
             ;;
-        2 | 3) echo -e "${RED}Coming soon!${RESET}" && sleep 1 ;;
+        2) echo -e "${RED}Coming soon!${RESET}" && sleep 1 ;;
+        3) ~/.config/waybar/switcher.sh;;
         4) exit_script ;;
         esac
         ;;

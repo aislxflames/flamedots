@@ -1,8 +1,5 @@
-killall waybar
-waybar
-
-killall dunst
-dunst
+killall swaync
+swaync
 
 killall swww-daemon
 swww-daemon

@@ -1,0 +1,40 @@
+// █     █░ ▄▄▄     ▓██   ██▓ ▄▄▄▄    ▄▄▄       ██▀███
+// ▓█░ █ ░█░▒████▄    ▒██  ██▒▓█████▄ ▒████▄    ▓██ ▒ ██▒
+// ▒█░ █ ░█ ▒██  ▀█▄   ▒██ ██░▒██▒ ▄██▒██  ▀█▄  ▓██ ░▄█ ▒
+// ░█░ █ ░█ ░██▄▄▄▄██  ░ ▐██▓░▒██░█▀  ░██▄▄▄▄██ ▒██▀▀█▄
+// ░░██▒██▓  ▓█   ▓██▒ ░ ██▒▓░░▓█  ▀█▓ ▓█   ▓██▒░██▓ ▒██▒
+// ░ ▓░▒ ▒   ▒▒   ▓▒█░  ██▒▒▒ ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒▓ ░▒▓░
+//  ▒ ░ ░    ▒   ▒▒ ░▓██ ░▒░ ▒░▒   ░   ▒   ▒▒ ░  ░▒ ░ ▒░
+//  ░   ░    ░   ▒   ▒ ▒ ░░   ░    ░   ░   ▒     ░░   ░
+//    ░          ░  ░░ ░      ░            ░  ░   ░
+//                   ░ ░           ░
+// by Aislx Flames (2024)
+// ------------------------------------------------------------
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": "30",
+  "spacing": 10,
+
+  // Load Modules
+
+  "modules-left": [
+    "custom/appmenuicon",
+    "custom/settings",
+    "custom/filemanager",
+    "bluetooth",
+    "wlr/taskbar",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "group/utils",
+    "tray",
+    "group/extra",
+    "clock"
+  ],
+  "include": ["~/.config/waybar/modules.json"]
+}
