@@ -39,3 +39,10 @@ typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
 export LIBVA_DRIVER_NAME=iHD
 eval "$(zoxide init zsh)"
+
+source <(fzf --zsh)
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory

@@ -4,8 +4,8 @@ THEMES_DIR="$HOME/.config/waybar/themes"
 THEME_FILE="$HOME/.config/waybar/theme.sh"
 LAUNCH_SCRIPT="$HOME/.config/waybar/launch.sh"
 
-# Get selected theme
-theme=$(ls "$THEMES_DIR" | fzf --prompt="Select a theme: ")
+# Get selected theme using Rofi
+theme=$(ls "$THEMES_DIR" | rofi -dmenu -p "Select a theme")
 
 # Check if a theme was selected
 if [ -n "$theme" ]; then

@@ -18,10 +18,7 @@
 /* -----------------------------------------------------
  * General 
  * ----------------------------------------------------- */
-window#waybar{
-  background-color: rgba(0,0,0,0.6)
 
-}
 * {
   font-family: "Ubuntu Nerd Font";
   border: none;
@@ -89,8 +86,7 @@ window#waybar{
  *------------------------------------------ */
 
 #taskbar {
-  background-color: #0f0f0f;
-  opacity: 0.9;
+  background-color: rgba(0,0,0,0.7);
   border-radius: 100px;
   padding: 0px 7px 0px 7px;
   margin: 7px 0px 4px 0px;
@@ -111,8 +107,8 @@ window#waybar{
   border: 0px solid;
   font-size: 4px;
   background: rgba(0, 0, 0, 0.541);
-  margin: 5px 0px 5px 0px;
-  padding: 0px 10px 0px 10px;
+  margin: 7px 0px 7px 0px;
+  padding: 0 10px;
   border-radius: 12px;
   color: @textcolor2;
   font-weight: normal;

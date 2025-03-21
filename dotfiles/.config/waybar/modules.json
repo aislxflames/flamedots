@@ -150,6 +150,13 @@
     "format": "",
     "on-click": "kitty -e ~/.config/flameos/settings.sh"
   },
+
+  "custom/filemanager": {
+    "format": "",
+    "on-click": "thunar",
+    "tooltip-format": "Open file manager"
+  },
+
   "custom/appmenu": {
     "format": "Apps",
     "on-click": "~/.config/rofi/scripts/launcher_t6",
@@ -161,11 +168,6 @@
     "on-click": "~/.config/rofi/scripts/launcher_t6",
     "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
     "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
-  },
-  "custom/filemanager": {
-    "format": "",
-    "on-click": "thunar",
-    "tooltip-format": "Open file manager"
   },
 
   "cava": {
