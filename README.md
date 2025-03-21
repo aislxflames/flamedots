@@ -37,6 +37,11 @@ cd FlameOS
 
 ### 2. Run install script
 
+## Auto Installation
+```bash
+curl -fsSL https://raw.githubusercontent.com/aislxflames/flamedots/refs/heads/main/setup.sh | bash
+```
+## Manual Installation 
 ```bash
 chmod +x install.sh
 ./install.sh
