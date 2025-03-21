@@ -35,8 +35,8 @@ curl -fsSL https://raw.githubusercontent.com/aislxflames/flamedots/refs/heads/ma
 ```
 ### 2. Manual Installation 
 ```bash
-git clone https://github.com/aislxflames/FlameOS
-cd FlameOS
+git clone https://github.com/aislxflames/flamedots
+cd flamedots
 chmod +x install.sh
 ./install.sh
 ```
