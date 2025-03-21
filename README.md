@@ -26,23 +26,17 @@ Follow these steps to install **FlamEs OS** on your system:
 ![image](https://github.com/user-attachments/assets/5bc60986-d312-4fe5-b347-e037f0ca5a76)
 ![image](https://github.com/user-attachments/assets/0dd0031c-7f45-436e-8c4d-f55073387de5)
 
-### 1. Clone the Repository
 
-Clone the repository to your local machine:
+## Run install script
 
-```bash
-git clone https://github.com/aislxflames/FlameOS
-cd FlameOS
-```
-
-### 2. Run install script
-
-## Auto Installation
+### 1. Auto Installation
 ```bash
 curl -fsSL https://raw.githubusercontent.com/aislxflames/flamedots/refs/heads/main/setup.sh | bash
 ```
-## Manual Installation 
+### 2. Manual Installation 
 ```bash
+git clone https://github.com/aislxflames/FlameOS
+cd FlameOS
 chmod +x install.sh
 ./install.sh
 ```
