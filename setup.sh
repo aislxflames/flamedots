@@ -6,7 +6,7 @@ DIR_NAME="flamedots"
 ZIP_NAME="${DIR_NAME}.zip"
 REPO_URL="https://github.com/aislxflames/flamedots/archive/refs/heads/main.zip"  # Replace with your repository's URL
 
-sudo pacman -S unzip git
+sudo pacman -S unzip git --noconfirm unzip git
 # Navigate to the home directory
 cd "$HOME_DIR" || exit
 
