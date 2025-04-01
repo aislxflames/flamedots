@@ -4,14 +4,14 @@
 sudo chown -R "$USER:$USER" "$HOME"
 
 # Navigate to home directory
-cd "$HOME" || exit
+cd "$HOME"
 
 # Clone the FlameDots repository
 sudo pacman -S git
 git clone https://github.com/aislxflames/flamedots
 
 # Navigate to the cloned directory
-cd flamedots || exit
+cd flamedots
 
 # Make the install script executable
 chmod +x install.sh
