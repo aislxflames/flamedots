@@ -7,6 +7,7 @@ sudo chown -R "$USER:$USER" "$HOME"
 cd "$HOME" || exit
 
 # Clone the FlameDots repository
+sudo pacman -S git
 git clone https://github.com/aislxflames/flamedots
 
 # Navigate to the cloned directory
