@@ -52,6 +52,7 @@ alacritty
 hyprland
 
 # Aur Packages
+ttf-font-awesome-5
 ocs-url
 spicetify-cli
 watchdog
