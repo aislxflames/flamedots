@@ -28,4 +28,4 @@ done)
 
 # Show in rofi
 sleep 0.2
-echo "$keybinds" | rofi -dmenu -theme gruvbox-dark -i -markup -eh 2 -replace -p "keybinds"
+echo "$keybinds" | rofi -dmenu -i -markup -eh 2 -replace -p "keybinds"

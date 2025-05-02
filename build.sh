@@ -29,14 +29,6 @@ else
   exit
 fi
 
-# Functions
-go_back() {
-  # Save the current working directory
-  ORIG_DIR="$(pwd)"
-
-  # Go back to the original directory
-  cd "$ORIG_DIR" || exit 1
-}
 
 # Yay install function
 install_yay() {
@@ -168,6 +160,8 @@ install_zshplugins() {
     echo "ZSH_THEME line not found in ~/.zshrc"
   fi
   echo '[ -x /bin/zsh ] && exec /bin/zsh' > ~/.bashrc
+  cp -rf $SOURCE_CONFIG/.zshrc $USER_HOME/.zshrc
+  cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
 }
 
 copy_dotfiles() {

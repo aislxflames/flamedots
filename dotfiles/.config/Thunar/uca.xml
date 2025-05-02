@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>kitty</icon>
+	<name>Open Terminal Here</name>
+	<submenu></submenu>
+	<unique-id>1746032260358840-1</unique-id>
+	<command>kitty -d .</command>
+	<description></description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>visualstudiocode</icon>
+	<name>Visual Studio Code</name>
+	<submenu></submenu>
+	<unique-id>1746181879940676-1</unique-id>
+	<command>code .</command>
+	<description>open vscode here</description>
+	<range>*</range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+</actions>

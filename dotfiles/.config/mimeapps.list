@@ -1,0 +1,14 @@
+[Default Applications]
+text/markdown=kitty nvim.desktop
+inode/directory=Thunar.desktop
+image/png=lximage-qt.desktop
+application/x-desktop=kitty-nvim.desktop
+x-scheme-handler/terminal=kitty.desktop
+text/plain=org.gnome.TextEditor.desktop
+
+[Added Associations]
+text/markdown=kitty nvim.desktop;
+image/png=feh.desktop;lximage-qt.desktop;
+image/jpeg=lximage-qt.desktop;feh.desktop;
+text/plain=org.gnome.TextEditor.desktop;
+application/x-shellscript=org.gnome.TextEditor.desktop;

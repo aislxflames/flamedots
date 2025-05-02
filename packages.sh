@@ -1,4 +1,10 @@
 # Official Packages
+gnome-text-editor
+lximage-qt
+libopenraw
+poppler-glib
+ffmpegthumbs
+tumbler
 chromium
 7zip
 neovim
