@@ -13,8 +13,8 @@ echo "
  ░     ░ ░ ▒  ░ ▒   ▒▒ ░░  ░      ░ ░ ░  ░     ░ ▒ ▒░ ░ ░▒  ░ ░
  ░ ░     ░ ░    ░   ▒   ░      ░      ░      ░ ░ ░ ▒  ░  ░  ░
            ░  ░     ░  ░       ░      ░  ░       ░ ░        ░  
-                Welcome to FlamEs OS Setup!            
-                    FlamEs OS Setup                  
+                Welcome to FlamEs DOTS Setup!            
+                    FlamEs DOTS Setup                  
                   Author: Aislx FlamEs                
 " | lolcat
 
