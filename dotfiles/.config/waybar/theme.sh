@@ -1,1 +1,1 @@
-compact
+modern
