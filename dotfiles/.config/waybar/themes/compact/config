@@ -10,7 +10,7 @@
     "modules-left": [
         "custom/appmenuicon",
         "hyprland/workspaces",
-        "cava"
+        "custom/cava"
     ],
     "modules-center": [
         "clock"

@@ -8,6 +8,13 @@
     padding: 0 2px;
 }
 
+#custom-cava {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 2px 0 2px 4px;
+    padding: 0 2px;
+}
+
 #taskbar button {
     padding: 0 3px;
     margin: 2px 1px;
