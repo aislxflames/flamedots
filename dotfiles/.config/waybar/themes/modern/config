@@ -24,7 +24,8 @@
     "group/essentials",
     "bluetooth",
     "wlr/taskbar",
-    "hyprland/window"
+    "hyprland/window",
+    "custom/cava"
   ],
   "modules-center": [
     "hyprland/workspaces"
