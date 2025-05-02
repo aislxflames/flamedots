@@ -10,7 +10,8 @@
     "modules-left": [
         "custom/appmenuicon",
         "hyprland/workspaces",
-        "wlr/taskbar"
+        "wlr/taskbar",
+        "custom/cava"
     ],
     
     "modules-center": [
