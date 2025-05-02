@@ -1,4 +1,9 @@
 # Official Packages
+7zip
+neovim
+gvfs-afc
+gvfs-mtp
+gvfs
 rsync
 fastfetch
 yazi
