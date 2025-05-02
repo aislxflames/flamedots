@@ -1,0 +1,123 @@
+@import "../../../../.cache/wal/colors-waybar.css";
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 14px;
+    min-height: 0;
+    transition-duration: 0.2s;
+}
+
+window#waybar {
+    background-color: transparent;
+}
+
+#waybar > .horizontal {
+    background-color: alpha(@background, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.4);
+}
+
+#workspaces {
+    margin: 0 8px;
+    border-radius: 10px;
+    background-color: alpha(@color1, 0.1);
+    padding: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#workspaces button {
+    color: @foreground;
+    padding: 0 6px;
+    border-radius: 8px;
+    margin: 2px;
+    font-weight: bold;
+    transition: all 0.2s cubic-bezier(.55,-0.68,.48,1.68);
+}
+
+#workspaces button.active {
+    color: @background;
+    background-color: @color3;
+    padding: 0 12px;
+    border-radius: 8px;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#workspaces button:hover {
+    color: @background;
+    background-color: @color5;
+    padding: 0 12px;
+}
+
+#custom-logo {
+    margin: 3px 8px 3px 12px;
+    font-size: 18px;
+    color: @color6;
+}
+
+#clock {
+    background-color: alpha(@color2, 0.15);
+    color: @foreground;
+    border-radius: 10px;
+    padding: 0 12px;
+    margin: 3px 0;
+    font-weight: bold;
+}
+
+#battery,
+#network,
+#pulseaudio,
+#tray {
+    background-color: alpha(@color4, 0.1);
+    color: @foreground;
+    padding: 0 12px;
+    margin: 3px 4px;
+    border-radius: 10px;
+}
+
+#tray {
+    margin-right: 0;
+}
+
+#battery.warning {
+    background-color: alpha(@color3, 0.3);
+}
+
+#battery.critical {
+    background-color: alpha(@color1, 0.5);
+    color: @background;
+    animation: blink 1s infinite alternate;
+}
+
+#custom-power {
+    color: @color1;
+    background-color: alpha(@color1, 0.15);
+    border-radius: 10px;
+    margin: 3px 12px 3px 4px;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+#custom-power:hover {
+    background-color: @color1;
+    color: @background;
+}
+
+@keyframes blink {
+    to {
+        background-color: @background;
+        color: @color1;
+    }
+}
+
+tooltip {
+    background-color: @background;
+    border: 1px solid @color2;
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: @foreground;
+}

@@ -1,6 +1,6 @@
 [general]
 
-import = ["/home/aislx/.cache/wal/colors-alacritty.toml",]
+import = ["~/.config/alacritty/colors.toml",]
 
 [window]
 
@@ -14,7 +14,7 @@ decorations_theme_variant = "Dark" # "Dark"
 
 [font]
 
-normal = { family = "Source Code Pro", style = "Regular" }
+normal = { family = "JetBrains Mono", style = "Regular" }
 
 [terminal]
 shell = "zsh"

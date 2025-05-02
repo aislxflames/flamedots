@@ -21,16 +21,17 @@
 
   "modules-left": [
     "custom/appmenuicon",
-    "wlr/taskbar",
-    "custom/settings",
-    "custom/filemanager",
+    "group/essentials",
     "bluetooth",
+    "wlr/taskbar",
     "hyprland/window"
   ],
-  "modules-center": ["hyprland/workspaces", "cava"],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
   "modules-right": [
     "group/utils",
-    "tray",
+    "group/tray",
     "group/extra",
     "clock"
   ],

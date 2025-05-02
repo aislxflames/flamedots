@@ -1,0 +1,302 @@
+/* Import pywal colors */
+@import "../../../../.cache/wal/colors-waybar.css";
+
+#taskbar {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 2px 0 2px 4px;
+    padding: 0 2px;
+}
+
+#taskbar button {
+    padding: 0 3px;
+    margin: 2px 1px;
+    border-radius: 4px;
+  }
+
+/* Global styling */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+}
+
+window#waybar {
+    background-color: rgba(0, 0, 0, 0);
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Main bar styling */
+#waybar {
+    background: rgba(0, 0, 0, 0);
+    color: @foreground;
+}
+
+/* Module containers */
+.modules-left{
+    background-color: transparent;
+    margin: 2px 0;
+    padding: 0;
+}
+
+.modules-center, .modules-right {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 2px 0;
+    padding: 0 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Add visual separation between modules */
+#workspaces, #taskbar, #clock, #group-utils, #group-tray, #group-extra, #custom-stats {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 0 3px;
+    padding: 0 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.modules-left {
+    margin-right: 8px;
+}
+
+.modules-right {
+    margin-left: 8px;
+}
+
+/* Workspaces */
+#workspaces {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 2px 4px 2px 0;
+    padding: 0 2px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: @color7;
+    border-radius: 4px;
+    padding: 0 3px;
+    margin: 2px 1px;
+    min-width: 20px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    background: alpha(@color4, 0.4);
+    box-shadow: inset 0 -2px @color4;
+}
+
+#workspaces button.active {
+    background: @color4;
+    color: @background;
+    border-radius: 4px;
+}
+
+#workspaces button.urgent {
+    background: @color1;
+    color: @background;
+}
+
+/* Common module styling */
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray,
+#bluetooth,
+#backlight,
+#custom-pacman,
+#custom-pmenu,
+#custom-notification,
+#custom-stats,
+#custom-filemanager,
+#custom-appmenu,
+#custom-settings,
+#custom-trayicon {
+    padding: 0 5px;
+    margin: 2px 0;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Hover effects */
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#network:hover,
+#pulseaudio:hover,
+#bluetooth:hover,
+#backlight:hover,
+#custom-pacman:hover,
+#custom-pmenu:hover,
+#custom-notification:hover,
+#custom-stats:hover,
+#custom-filemanager:hover,
+#custom-settings:hover {
+    background: alpha(@color3, 0.2);
+}
+
+/* Specific module styling */
+#custom-appmenuicon {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 0 3px;
+    padding: 0 8px;
+    color: @color4;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#clock {
+    font-weight: bold;
+    color: @color5;
+}
+
+#battery {
+    color: @color2;
+}
+
+#battery.warning {
+    color: @color3;
+}
+
+#battery.critical {
+    color: @color1;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    to {
+        color: @background;
+        background-color: @color1;
+    }
+}
+
+#battery.charging, #battery.plugged {
+    color: @color2;
+}
+
+#network {
+    color: @color6;
+}
+
+#network.disconnected {
+    color: @color1;
+}
+
+#pulseaudio {
+    color: @color4;
+}
+
+#pulseaudio.muted {
+    color: @color1;
+}
+
+#custom-pacman {
+    color: @color3;
+}
+
+#custom-notification {
+    color: @color5;
+    font-size: 13px;
+}
+
+#custom-pmenu {
+    color: @color1;
+    font-size: 13px;
+}
+
+#custom-stats {
+    color: @color2;
+    font-size: 13px;
+}
+
+#custom-filemanager {
+    color: @color4;
+    font-size: 13px;
+}
+
+#custom-settings {
+    color: @color6;
+    font-size: 13px;
+}
+
+/* Taskbar */
+#taskbar {
+    background-color: @background;
+    border-radius: 8px;
+    margin: 2px 0 2px 4px;
+    padding: 0 2px;
+}
+
+#taskbar button {
+    padding: 0 3px;
+    margin: 2px 1px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+#taskbar button:hover {
+    background: alpha(@color4, 0.2);
+}
+
+#taskbar button.active {
+    background: alpha(@color4, 0.4);
+}
+
+/* Groups */
+#group-utils, #group-extra, #group-tray {
+    background: @background;
+    border-radius: 8px;
+    margin: 0 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#group-utils:hover, #group-extra:hover, #group-tray:hover {
+    background: @background;
+}
+
+/* Tray */
+#tray {
+    padding: 2px 4px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#custom-trayicon {
+    padding: 0 5px;
+    color: @color7;
+    font-size: 13px;
+}
+
+/* Cava visualizer */
+#cava {
+    color: @color4;
+    padding: 0 8px;
+}
+
+/* Group drawer transitions */
+.drawer-transition-left-to-right {
+    transition: all 0.3s ease;
+}
+
+.drawer-transition-right-to-left {
+    transition: all 0.3s ease;
+}

@@ -1,0 +1,29 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+    "spacing": 4,
+    
+    "modules-left": [
+        "custom/appmenuicon",
+        "hyprland/workspaces",
+        "wlr/taskbar"
+    ],
+    
+    "modules-center": [
+        "clock"
+    ],
+    
+    "modules-right": [
+        "cava",
+        "group/utils",
+        "group/tray",
+        "group/extra"
+    ],
+    
+    // Module definitions are in modules.json
+    "include": ["~/.config/waybar/modules.json"]
+}

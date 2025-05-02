@@ -1,0 +1,26 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "height": 40,
+  "spacing": 0,
+  "modules-left": [
+    "custom/appmenuicon",
+    "hyprland/workspaces",
+    "wlr/taskbar"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "group/utils",
+    "custom/stats",
+    "group/tray",
+    "group/extra"
+  ],
+  
+  // Include modules from modules.json
+  "include": ["~/.config/waybar/modules.json"]
+}

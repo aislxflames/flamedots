@@ -18,6 +18,7 @@
 /* -----------------------------------------------------
  * General 
  * ----------------------------------------------------- */
+
 * {
   font-family: "Ubuntu Nerd Font";
   border: none;
@@ -40,53 +41,36 @@
  * Workspaces
  *------------------------------------------ */
 
-#workspaces {
-  background: @background;
+ #workspaces {
+  background-color: @background;
+  margin: 2px 0px 5px 0px;  
   margin: 6px 1px 3px 1px;
   padding: 0px 1px;
   border-radius: 15px;
-  border: 0px;
-  font-weight: bold;
-  font-style: normal;
-  opacity: 0.8;
-  font-size: 16px;
-  color: @textcolor1;
 }
 
-#workspaces button {
-  padding: 0px 5px;
-  margin: 4px 3px;
-  border-radius: 15px;
-  border: 0px;
-  color: @textcolor1;
+ #workspaces button{
   background-color: @color9;
-  transition: all 0.3s ease-in-out;
+  padding: 0px 4px;
+  margin: 4px 3px;
+  border-radius: 60px;
   opacity: 0.4;
-}
+  transition: all 0.3s ease-in-out;
+ }
 
-#workspaces button.active {
-  color: @textcolor1;
-  background: @color12;
-  border-radius: 15px;
-  min-width: 40px;
+ #workspaces button.active{
+  background-color: @color1;
+  min-width: 35px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
-}
-
-#workspaces button:hover {
-  color: @textcolor1;
-  background: @color14;
-  border-radius: 15px;
-  opacity: 0.7;
-}
+ }
 
 /* -----------------------------------------
  * Taskbar
  *------------------------------------------ */
 
 #taskbar {
-  background-color: #0f0f0f;
-  opacity: 0.9;
+  background-color: rgba(0,0,0,0.7);
   border-radius: 100px;
   padding: 0px 7px 0px 7px;
   margin: 7px 0px 4px 0px;
@@ -107,8 +91,8 @@
   border: 0px solid;
   font-size: 4px;
   background: rgba(0, 0, 0, 0.541);
-  margin: 5px 0px 5px 0px;
-  padding: 0px 10px 0px 10px;
+  margin: 7px 0px 7px 0px;
+  padding: 0 10px;
   border-radius: 12px;
   color: @textcolor2;
   font-weight: normal;
@@ -152,7 +136,7 @@
 #custom-notification,
 #custom-stats,
 #custom-shotcuts{
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
 }
 #custom-appmenuicon {
@@ -165,6 +149,22 @@
   opacity: 0.9;
 }
 
-/* -----------------------------------------
- * END OF THE FILE
+#custom-wallpaper,
+#custom-filemanager,
+#custom-settings{
+  background-color: rgb(0, 0, 0);
+  padding: 0px 10px 0px 10px;
+  margin: 7px 4px 7px 0px; 
+  border-radius: 80px;
+}
+
+#group-essentials{
+  border-radius: 5px;
+}
+
+#custom-trayicon{
+  padding: 5px;
+}
+/* ----------------------------------------
+ * end of the file
  *------------------------------------------ */

@@ -1,5 +1,2 @@
-@import "~/.cache/wal/colors-rofi-dark.rasi"
 
-//@theme "/usr/share/rofi/themes/fullscreen-preview.rasi"
-
-@theme "/usr/share/rofi/themes/material.rasi"
+@theme "~/.config/rofi/default.rasi"

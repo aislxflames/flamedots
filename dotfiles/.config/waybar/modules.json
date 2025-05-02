@@ -131,7 +131,7 @@
     "interval": 3600,
     "exec": "checkupdates | wc -l",
     "exec-if": "exit 0",
-    "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar",
+    "on-click": "kitty -e ~/flamedots/update.sh",
     "signal": 8
   },
   "custom/pmenu": {
@@ -196,11 +196,16 @@
 // CUSTOM GROUP
 "group/utils": {
   "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
   "modules": [
+    "network",
     "custom/pacman",
     "pulseaudio",
-    "battery",
-    "network"
+    "battery"
   ]
 },
 
@@ -210,5 +215,22 @@
     "custom/notification",
     "custom/pmenu"
   ]
+},
+
+"custom/trayicon":{
+  "format": ""
+},
+"group/tray": {
+  "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": true
+    },
+  "modules": [
+    "custom/trayicon",
+    "tray"
+  ]
 }
+
 }

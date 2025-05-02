@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Directory containing wallpapers
+WALL_DIR="$HOME/Pictures/Wallpapers"
+
+#Current directory
+CWD=$(pwd)
+
+cd "$WALL_DIR" || exit
+
+# Handle spaces in filenames
+IFS=$'\n'
+
+SELECTED_WALL=$(for a in *.jpg *.png; do echo -en "$a\0icon\x1f$a\n"; done | rofi -dmenu -theme ~/.local/share/rofi/themes/material-you/material-you.rasi -p "")
+
+# If not empty, pass to backend
+
+if [ -n "$SELECTED_WALL" ]; then
+  walset-backend "$SELECTED_WALL"
+fi
+
+cd "$CWD" || exit 1
