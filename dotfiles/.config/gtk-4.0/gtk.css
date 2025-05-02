@@ -1,0 +1,22 @@
+@import 'colors.css';
+
+window {
+  background-color: @window_bg_color;
+  color: @window_fg_color;
+}
+
+headerbar {
+  background-color: @headerbar_bg_color;
+  color: @headerbar_fg_color;
+}
+
+popover {
+  background-color: @popover_bg_color;
+  color: @popover_fg_color;
+}
+
+.sidebar {
+  background-color: @sidebar_bg_color;
+  color: @sidebar_fg_color;
+}
+
