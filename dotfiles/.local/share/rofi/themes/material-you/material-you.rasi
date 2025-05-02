@@ -8,7 +8,7 @@ configuration {
       sidebar-mode: false;
 }
 
-@theme "material-colors.rasi"
+@theme "~/.config/rofi/colors.rasi"
 
 * {
       bg: @surface;
@@ -59,6 +59,7 @@ listview {
     	columns: 1;
     	lines: 6;
     	cycle: false;
+      spacing: 4em;
     	dynamic: true;
       location: center;
       ancor: center;
