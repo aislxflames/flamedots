@@ -30,7 +30,9 @@ swaync > /dev/null 2>&1 &
 # Refresh waybar
 pkill waybar
 ~/.config/waybar/launch.sh > /dev/null 2>&1 &
-
 ~/.config/aflames/scripts/cava.sh &
+
+cp -rf "$IMAGE" "$HOME/.config/rofi/images/a.png"
+cp -rf "$IMAGE" "$HOME/.config/rofi/images/b.png"
 
 notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
