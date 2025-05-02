@@ -52,7 +52,7 @@
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 60,
-    "on-click": "~/.config/hypr/scripts/wifi.sh",
+    "on-click": "~/.config/aflames/scripts/wifi.sh",
     "on-click-right": "nm-connection-editor"
   },
   "wlr/taskbar": {
@@ -136,7 +136,8 @@
   },
   "custom/pmenu": {
     "format": " / ",
-    "on-click": "~/.config/rofi/scripts/powermenu_t6"
+    "on-click": "~/.config/rofi/powermenu-theme.sh",
+    "on-click-right": "~/.config/rofi/powermenu-switcher.sh"
   },
   "custom/notification": {
     "format": "",
@@ -159,14 +160,14 @@
 
   "custom/appmenu": {
     "format": "Apps",
-    "on-click": "~/.config/rofi/scripts/launcher_t6",
-    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "on-click": "~/.config/rofi/launcher-theme.sh",
+    "on-click-right": "~/.config/rofi/launcher-switcher.sh",
     "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
   },
   "custom/appmenuicon": {
     "format": "Apps",
-    "on-click": "~/.config/rofi/scripts/launcher_t6",
-    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    "on-click": "~/.config/rofi/launcher-theme.sh",
+    "on-click-right": "~/.config/rofi/launcher-switcher.sh",
     "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
   },
 
