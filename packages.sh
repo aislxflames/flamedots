@@ -1,4 +1,5 @@
 # Official Packages
+rsync
 fastfetch
 yazi
 feh
@@ -10,6 +11,7 @@ gtk-engines
 gtk-engine-murrine
 xdotool
 wtype
+rofi
 rofi-emoji
 network-manager-applet
 pacman-contrib
@@ -55,7 +57,6 @@ spicetify-cli
 watchdog
 papirus-folders
 pywal-discord-git
-rofi-lbonn-wayland-git
 sddm-theme-sugar-candy-git
 spotify
 pywal-spicetify

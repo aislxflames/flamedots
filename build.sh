@@ -167,6 +167,7 @@ install_zshplugins() {
   else
     echo "ZSH_THEME line not found in ~/.zshrc"
   fi
+  echo '[ -x /bin/zsh ] && exec /bin/zsh' > ~/.bashrc
 }
 
 copy_dotfiles() {
