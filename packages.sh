@@ -1,4 +1,5 @@
 # Official Packages
+chromium
 7zip
 neovim
 gvfs-afc
