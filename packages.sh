@@ -66,7 +66,6 @@ alacritty
 hyprland
 
 # Aur Packages
-gnome-software-plugin-snap
 ttf-material-design-icons-git
 ttf-font-awesome-5
 ocs-url
