@@ -172,7 +172,7 @@
   },
 
     "custom/cava": {
-        "exec": "~/.config/hypr/scripts/cava.sh",
+        "exec": "~/.config/aflames/scripts/cava-waybar.sh",
         "framerate": 60
     },
 
