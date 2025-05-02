@@ -1,4 +1,6 @@
 # Official Packages
+wf-recorder
+swappy
 gnome-software
 flatpak
 gnome-text-editor
