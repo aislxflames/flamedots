@@ -64,6 +64,7 @@ alacritty
 hyprland
 
 # Aur Packages
+ttf-material-design-icons-git
 ttf-font-awesome-5
 ocs-url
 spicetify-cli
