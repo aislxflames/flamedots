@@ -1,6 +1,17 @@
 set -e
-sudo pacman -Syu lolcat --noconfirm >/dev/null 2>&1 | echo "Updating the system..."
+sudo pacman -Syu lolcat fzf --noconfirm >/dev/null 2>&1 | echo "Updating the system..."
 clear
+
+function fzf_prompt() {
+    local prompt="$1"
+    local option1="$2"
+    local option2="$3"
+    
+    # Create the fzf prompt with only two options and centered
+    choice=$(printf "$option1\n$option2" | fzf --prompt="$prompt > " --height=5 --border=none --no-sort --reverse )
+
+    echo "$choice"
+}
 
 # Display script heading
 echo "
@@ -22,10 +33,12 @@ USER_HOME="/home/$(logname)"
 SOURCE_CONFIG="./dotfiles/"
 SOURCE_WALLPAPERS="./wallpapers"
 
-read -p "Should Start Installtion? (y/n): " response
-if [[ "$response" =~ ^[Yy]$ ]]; then
+choice=$(fzf_prompt "Do you want to start flamedots installation?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
   echo "Start Installing"
 else
+  clear
   exit
 fi
 
@@ -166,18 +179,19 @@ install_zshplugins() {
 
 copy_dotfiles() {
 
-  read -p "Do you want to copy dotfiles and wallpapers (y/n): " response # Capture user input into the response variable
-  if [[ "$response" =~ ^[Yy]$ ]]; then
     echo "Copying .config and Wallpapers to $USER_HOME..."
     rsync -avi "./dotfiles/" "$USER_HOME/"
     #rsync -avi "$SOURCE_WALLPAPERS" "$USER_HOME/"
     echo ".config and Wallpapers copied successfully!"
     sleep 1
-  else
-    echo "Skipping copying files"
-    sleep 1
-  fi
+  ~/.local/bin/walset-backend ~/Pictures/Wallpapers/DarkPikachu.png
 }
+
+reboot_system() {
+  echo "Rebooting the system"
+  reboot
+}
+
 
 # Install yay
 install_yay
@@ -193,7 +207,14 @@ echo "
  ▒ ░   ░   ░ ░ ░  ░  ░    ░        ░   ▒     ░ ░    ▒ ░   ░   ░ ░ ░ ░   ░
  ░           ░       ░                 ░  ░    ░  ░ ░           ░       ░
 " | lolcat
-install_packages
+choice=$(fzf_prompt "Do you want to install and update packages?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Installing packages..."
+    install_packages
+else
+  echo "Skipping installation"
+fi
 clear
 echo "
 ▓█████▄  ▒█████  ▄▄▄█████▓  █████▒██▓ ██▓    ▓█████   ██████ 
@@ -206,9 +227,17 @@ echo "
  ░ ░  ░ ░ ░ ░ ▒    ░       ░ ░    ▒ ░  ░ ░      ░   ░  ░  ░  
    ░        ░ ░                   ░      ░  ░   ░  ░      ░ 
 "| lolcat
-copy_dotfiles
+
+choice=$(fzf_prompt "Do you want to copy latest dotfiles?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Copying Dotfiles..."
+    copy_dotfiles
+else
+  echo "Skipping Dotfiles copy...."
+fi
 clear
-echo"
+echo "
 ▒███████▒  ██████  ██░ ██      ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███  
 ▒ ▒ ▒ ▄▀░▒██    ▒ ▓██░ ██▒   ▒██    ▒ ▓█   ▀▓  ██▒ ▓▒ ██  ▓██▒▓██░  ██▒
 ░ ▒ ▄▀▒░ ░ ▓██▄   ▒██▀▀██░   ░ ▓██▄   ▒███  ▒ ▓██░ ▒░▓██  ▒██░▓██░ ██▓▒
@@ -219,8 +248,15 @@ echo"
 ░ ░ ░ ░ ░░  ░  ░   ░  ░░ ░   ░  ░  ░     ░    ░       ░░░ ░ ░ ░░       
   ░ ░          ░   ░  ░  ░         ░     ░  ░           ░              
 ░
-"| lolcat
-install_zshplugins
+" | lolcat
+choice=$(fzf_prompt "Do you want to setup the latest zsh?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Zsh setup installing..."
+    install_zshplugins
+else
+  echo "Skipping Zsh setup...."
+fi
 clear
 echo "
   ▄████  ██▀███   █    ██  ▄▄▄▄        ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███  
@@ -233,11 +269,18 @@ echo "
 ░ ░   ░   ░░   ░  ░░░ ░ ░  ░    ░    ░  ░  ░     ░    ░       ░░░ ░ ░ ░░       
       ░    ░        ░      ░               ░     ░  ░           ░              
                                 ░
-"| lolcat
+" | lolcat
 
-install_grubthemes
+choice=$(fzf_prompt "Do you want to setup the latest grub files?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Doing Setup Of Grub and Grub Themes..."
+    install_grubthemes
+else
+  echo "Skipping the grub setup...."
+fi
 clear
-echo"
+echo "
   ██████ ▓█████▄ ▓█████▄  ███▄ ▄███▓     ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███  
 ▒██    ▒ ▒██▀ ██▌▒██▀ ██▌▓██▒▀█▀ ██▒   ▒██    ▒ ▓█   ▀▓  ██▒ ▓▒ ██  ▓██▒▓██░  ██▒
 ░ ▓██▄   ░██   █▌░██   █▌▓██    ▓██░   ░ ▓██▄   ▒███  ▒ ▓██░ ▒░▓██  ▒██░▓██░ ██▓▒
@@ -248,6 +291,38 @@ echo"
 ░  ░  ░   ░ ░  ░  ░ ░  ░ ░      ░      ░  ░  ░     ░    ░       ░░░ ░ ░ ░░       
       ░     ░       ░           ░            ░     ░  ░           ░              
           ░       ░ 
-"| lolcat
+" | lolcat
 
-install_sddmtheme
+choice=$(fzf_prompt "Do you want to setup the latest Sddm files?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Doing Setup Of Sdmm and Sddm Themes..."
+    install_sddmtheme
+else
+  echo "Skipping the sddm setup...."
+fi
+
+clear
+echo "
+ ██▀███  ▓█████  ▄▄▄▄    ▒█████   ▒█████  ▄▄▄█████▓
+▓██ ▒ ██▒▓█   ▀ ▓█████▄ ▒██▒  ██▒▒██▒  ██▒▓  ██▒ ▓▒
+▓██ ░▄█ ▒▒███   ▒██▒ ▄██▒██░  ██▒▒██░  ██▒▒ ▓██░ ▒░
+▒██▀▀█▄  ▒▓█  ▄ ▒██░█▀  ▒██   ██░▒██   ██░░ ▓██▓ ░ 
+░██▓ ▒██▒░▒████▒░▓█  ▀█▓░ ████▓▒░░ ████▓▒░  ▒██▒ ░ 
+░ ▒▓ ░▒▓░░░ ▒░ ░░▒▓███▀▒░ ▒░▒░▒░ ░ ▒░▒░▒░   ▒ ░░   
+  ░▒ ░ ▒░ ░ ░  ░▒░▒   ░   ░ ▒ ▒░   ░ ▒ ▒░     ░    
+  ░░   ░    ░    ░    ░ ░ ░ ░ ▒  ░ ░ ░ ▒    ░      
+   ░        ░  ░ ░          ░ ░      ░ ░           
+                      ░
+" | lolcat
+
+
+choice=$(fzf_prompt "Do you want to reboot the system?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Rebooting..."
+    reboot
+else
+  clear
+  echo "Skipping Reboot...."
+fi
