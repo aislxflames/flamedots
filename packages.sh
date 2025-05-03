@@ -44,7 +44,6 @@ slurp
 cliphist
 kitty
 swww
-breeze
 zsh-autosuggestions
 zsh-syntax-highlighting
 zsh-history-substring-search
@@ -75,9 +74,7 @@ spicetify-cli
 watchdog
 papirus-folders
 pywal-discord-git
-sddm-theme-sugar-candy-git
 spotify
 pywal-spicetify
 matugen-bin
-zsh-theme-powerlevel10k
 pokemon-colorscripts-git
