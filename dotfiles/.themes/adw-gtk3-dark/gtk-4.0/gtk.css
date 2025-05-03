@@ -1,0 +1,40 @@
+/* GTK NAMED COLORS ---------------- use responsibly! */
+@import "../../../.config/gtk-4.0/colors.css";
+button {
+  background-color: @accent_bg_color;
+  color: #ffffff; /* Set text color to white */
+  border-radius: 6px;
+  border: none;
+}
+
+:root {
+  --standalone-color-oklab: max(l, 0.85) a b;
+  --accent-color: oklab(
+    from var(--accent-bg-color) var(--standalone-color-oklab)
+  );
+  --destructive-color: oklab(
+    from var(--destructive-bg-color) var(--standalone-color-oklab)
+  );
+  --success-color: oklab(
+    from var(--success-bg-color) var(--standalone-color-oklab)
+  );
+  --warning-color: oklab(
+    from var(--warning-bg-color) var(--standalone-color-oklab)
+  );
+  --error-color: oklab(
+    from var(--error-bg-color) var(--standalone-color-oklab)
+  );
+  --active-toggle-bg-color: rgb(255 255 255 / 20%);
+  --active-toggle-fg-color: #ffffff;
+  --overview-bg-color: #28282c;
+  --overview-fg-color: #ffffff;
+  --text-color: #ffffff; /* Set default text color to white */
+}
+
+@import '../gtk-3.0/libadwaita.css';
+
+/* Apply white text color globally */
+* {
+  color: #ffffff !important;
+}
+

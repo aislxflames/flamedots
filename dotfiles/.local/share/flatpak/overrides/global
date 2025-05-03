@@ -1,0 +1,7 @@
+[Context]
+filesystems=~/.icons;~/.themes;~/.config
+
+[Environment]
+GTK_THEME=adw-gtk3-dark
+GTK_ICON=Tela-circle-dracula
+XCURSOR_THEME=Anya-Melfissa-v2
