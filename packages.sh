@@ -1,4 +1,5 @@
 # Official Packages
+gnome-tweaks
 ttf-liberation
 gsfonts
 wf-recorder
