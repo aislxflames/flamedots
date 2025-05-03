@@ -13,11 +13,11 @@
 
 ## 🌑 Features
 
-- 🪟 Beautiful Hyprland setup with custom animations
-- 🧠 Preconfigured Zsh with powerlevel10k and plugins
-- 🖌️ Dark GTK theme for a uniform look
-- 🎯 SDDM theming and login customization
-- 🛠️ Easy setup script for quick deployment
+- 🪟 Beautiful Hyprland setup with custom animations  
+- 🧠 Preconfigured Zsh with powerlevel10k and plugins  
+- 🖌️ Dark GTK theme for a uniform look  
+- 🎯 SDDM theming and login customization  
+- 🛠️ Easy setup script for quick deployment  
 
 ---
 
