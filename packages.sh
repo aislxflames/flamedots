@@ -1,4 +1,6 @@
 # Official Packages
+ttf-liberation
+gsfonts
 wf-recorder
 swappy
 gnome-software

@@ -60,17 +60,17 @@ if [[ "$choice" == "Yes" ]]; then
         fi
 
         current_update=$((current_update + 1))
-if [ "$total_updates" -gt 0 ]; then
-    percent=$(( 100 * current_update / total_updates ))
-else
-    percent=100
-fi
+        if [ "$total_updates" -gt 0 ]; then
+            percent=$(( 100 * current_update / total_updates ))
+        else
+            percent=100
+        fi
         
         # Use dialog to show the progress bar
     done
 else
     echo "❌ Skipping system update."
-    exit 1
+    sleep 1
 fi
 
 # ───────────────────────────────────────────────
@@ -93,7 +93,7 @@ echo "
                                                                 ░ 
 " | lolcat
 
-echo "🔧 System Update"
+echo "🔧 Flamedots Update"
 
 choice=$(fzf_prompt "Do you want to update dotfiles of flamedots?" "Yes" "No")
 
@@ -101,43 +101,35 @@ if [[ "$choice" == "Yes" ]]; then
   echo "Flamedots Update Starting...."
 else
   echo "Closing"
-  exit 1
+  exit 0
 fi
 
 if [ -d "$FLAMEDOTS_DIR" ]; then
-    echo "📁 flamedots directory exists. Fetching latest changes..."
-    git -C "$FLAMEDOTS_DIR" fetch
-
-    LOCAL_HASH=$(git -C "$FLAMEDOTS_DIR" rev-parse HEAD)
-    REMOTE_HASH=$(git -C "$FLAMEDOTS_DIR" rev-parse @{u})
-
-    if [ "$LOCAL_HASH" != "$REMOTE_HASH" ]; then
-        clear
-        echo -e "\033[1;31m"
-        echo "███████╗██╗      █████╗ ███╗   ███╗███████╗██████╗  ██████╗ ████████╗███████╗"
-        echo "██╔════╝██║     ██╔══██╗████╗ ████║██╔════╝██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝"
-        echo "███████╗██║     ███████║██╔████╔██║█████╗  ██████╔╝██║   ██║   ██║   █████╗  "
-        echo "╚════██║██║     ██╔══██║██║╚██╔╝██║██╔══╝  ██╔═══╝ ██║   ██║   ██║   ██╔══╝  "
-        echo "███████║███████╗██║  ██║██║ ╚═╝ ██║███████╗██║     ╚██████╔╝   ██║   ███████╗"
-        echo "╚══════╝╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝╚═╝      ╚═════╝    ╚═╝   ╚══════╝"
-        echo -e "\033[0m"
-
-        echo -e "\n🔥 \033[1;33mUpdate available for flamedots!\033[0m"
-        # Ask the user if they want to pull the latest changes using fzf (no box style)
-        pull_choice=$(fzf_prompt "Do you want to pull the latest changes for flamedots?" "Yes" "No")
-
-        if [[ "$pull_choice" == "Yes" ]]; then
-            echo "Pulling updates..."
-            git -C "$FLAMEDOTS_DIR" pull
+    echo "📁 flamedots directory exists. Updating..."
+    
+    # Check if there are uncommitted changes
+    if [ -n "$(git -C "$FLAMEDOTS_DIR" status --porcelain)" ]; then
+        echo "⚠️  Local changes detected in flamedots directory"
+        stash_choice=$(fzf_prompt "Stash local changes before updating?" "Yes" "No")
+        
+        if [[ "$stash_choice" == "Yes" ]]; then
+            echo "Stashing local changes..."
+            git -C "$FLAMEDOTS_DIR" stash
         else
-            echo "Skipping flamedots update."
+            echo "Proceeding with update (local changes may be overwritten)..."
         fi
-    else
-        echo "flamedots is already up-to-date."
     fi
+    
+    # Force update from remote
+    echo "🔄 Forcing update from remote repository..."
+    git -C "$FLAMEDOTS_DIR" fetch --all
+    git -C "$FLAMEDOTS_DIR" reset --hard origin/main
+    
+    echo "✅ flamedots successfully updated to latest version!"
 else
-    echo "flamedots not found. Cloning from GitHub..."
+    echo "📥 flamedots not found. Cloning from GitHub..."
     git clone "$REPO_URL" "$FLAMEDOTS_DIR"
+    echo "✅ flamedots successfully cloned!"
 fi
 
 # ───────────────────────────────────────────────
@@ -145,12 +137,22 @@ fi
 # ───────────────────────────────────────────────
 BUILD_SCRIPT="$FLAMEDOTS_DIR/build.sh"
 if [ -f "$BUILD_SCRIPT" ]; then
-    echo "Running build.sh..."
+    echo "🔨 Running build.sh..."
     chmod +x "$BUILD_SCRIPT"
     cd "$FLAMEDOTS_DIR"
-    "$BUILD_SCRIPT"
+    
+    # Ask if user wants to run build script
+    build_choice=$(fzf_prompt "Run the build script now?" "Yes" "No")
+    
+    if [[ "$build_choice" == "Yes" ]]; then
+        "$BUILD_SCRIPT"
+        echo "✅ Build completed successfully!"
+    else
+        echo "❌ Skipping build process."
+    fi
 else
-    echo "Error: build.sh not found in flamedots."
+    echo "❌ Error: build.sh not found in flamedots."
     exit 1
 fi
 
+echo "🎉 All operations completed!"
