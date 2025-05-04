@@ -1,77 +1,87 @@
-#!/bin/sh
+#!/bin/bash
 
-# Continuous Battery Monitoring Script with Charging Start/Stop Detection
+# Auto-detect battery and AC adapter names
+BAT_DEVICE=$(ls /sys/class/power_supply/ | grep -i BAT)
+AC_DEVICE=$(ls /sys/class/power_supply/ | grep -i AC)
 
-export XAUTHORITY=~/.Xauthority
-export DISPLAY=:0
-export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+BAT_PATH="/sys/class/power_supply/$BAT_DEVICE"
+AC_PATH="/sys/class/power_supply/$AC_DEVICE"
 
-# Battery thresholds
-WARNING_LEVEL=20
-CRITICAL_LEVEL=5
+ICON_PATH="$HOME/.local/share/icons/battery-icons"
+NOTIFY_ID=9998
+CATEGORY="Battery"
+TIMEOUT=3000
+HINT="--hint=string:x-canonical-private-synchronous:battery"
 
-# Variables to track the last state
-PREVIOUS_CHARGING_STATE=-1
-PREVIOUS_BATTERY_LEVEL=-1
+PREV_AC_ONLINE=""
+PREV_STATUS=""
+FIRST_RUN=true
 
-# Log file for debugging
-LOG_FILE="/tmp/battery_monitor.log"
+send_notify() {
+    local title="$1"
+    local message="$2"
+    local icon="$3"
+    notify-send -c "$CATEGORY" -r "$NOTIFY_ID" -t "$TIMEOUT" \
+        -i "$ICON_PATH/$icon" $HINT "$title" "$message"
+}
 
-# Check that environment variables are set for notifications
-echo "Checking environment variables..." > $LOG_FILE
-echo "DISPLAY=$DISPLAY" >> $LOG_FILE
-echo "DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS" >> $LOG_FILE
+check_status() {
+    AC_ONLINE=$(cat "$AC_PATH/online")
+    CAPACITY=$(cat "$BAT_PATH/capacity")
+    STATUS=$(cat "$BAT_PATH/status")
 
-# Start background monitoring loop
-while true; do
-    # Fetch battery information
-    BATTERY_INFO=$(acpi -b | grep "Battery 0")
-    BATTERY_LEVEL=$(echo "$BATTERY_INFO" | grep -P -o '[0-9]+(?=%)')
-    BATTERY_STATE=$(echo "$BATTERY_INFO" | grep -o "Charging\|Discharging\|Full")
-
-    # Log battery information to file
-    echo "$(date) - BATTERY_STATE: $BATTERY_STATE, BATTERY_LEVEL: $BATTERY_LEVEL" >> $LOG_FILE
-
-    # Determine charging state: 1 = charging, 0 = discharging
-    if [ "$BATTERY_STATE" = "Charging" ]; then
-        CHARGING_STATE=1
-    else
-        CHARGING_STATE=0
+    # Skip first run to avoid notifications
+    if $FIRST_RUN; then
+        PREV_AC_ONLINE="$AC_ONLINE"
+        PREV_STATUS="$STATUS"
+        FIRST_RUN=false
+        return
     fi
 
-    # Detect changes in charging state
-    if [ "$CHARGING_STATE" -ne "$PREVIOUS_CHARGING_STATE" ]; then
-        if [ "$CHARGING_STATE" -eq 1 ]; then
-            echo "$(date) - Battery started charging" >> $LOG_FILE
-            notify-send "Battery Charging" "Battery is now charging at ${BATTERY_LEVEL}%." -i "battery-charging" -r 9991
-        elif [ "$CHARGING_STATE" -eq 0 ] && [ "$PREVIOUS_CHARGING_STATE" -eq 1 ]; then
-            echo "$(date) - Battery stopped charging" >> $LOG_FILE
-            notify-send "Battery Stopped Charging" "Battery is no longer charging." -i "battery-discharging" -r 9991
+    # Plug/unplug event
+    if [[ "$AC_ONLINE" != "$PREV_AC_ONLINE" ]]; then
+        if [[ "$AC_ONLINE" == "1" ]]; then
+            send_notify "Charger Plugged" "AC adapter connected." "charger-plugged.svg"
+        else
+            send_notify "Charger Unplugged" "Running on battery." "charger-unplugged.svg"
         fi
+        PREV_AC_ONLINE="$AC_ONLINE"
     fi
 
-    # Notify when battery level is full (and still charging)
-    if [ "$BATTERY_LEVEL" -gt 99 ] && [ "$CHARGING_STATE" -eq 1 ]; then
-        echo "$(date) - Battery is fully charged" >> $LOG_FILE
-        notify-send "Battery Charged" "Battery is fully charged." -i "battery-full" -r 9991
+    # Charging status event
+    if [[ "$STATUS" != "$PREV_STATUS" ]]; then
+        case "$STATUS" in
+            "Charging")
+                send_notify "Charging Started" "Battery is charging at ${CAPACITY}%." "charging.svg"
+                ;;
+            "Discharging")
+                send_notify "Discharging" "Battery is now discharging (${CAPACITY}%)." "discharging.svg"
+                ;;
+            "Full")
+                send_notify "Battery Full" "Battery is fully charged (${CAPACITY}%)." "battery-full.svg"
+                ;;
+        esac
+        PREV_STATUS="$STATUS"
     fi
 
-    # Notify for low battery level
-    if [ "$BATTERY_LEVEL" -le "$WARNING_LEVEL" ] && [ "$CHARGING_STATE" -eq 0 ]; then
-        echo "$(date) - Battery is low" >> $LOG_FILE
-        notify-send "Low Battery" "${BATTERY_LEVEL}% of battery remaining." -u critical -i "battery-low" -r 9991
+    # Battery percentage-based icons
+    if [ "$CAPACITY" -le 15 ]; then
+        send_notify "Battery Low" "Battery is at ${CAPACITY}%. Please plug in your charger." "battery-low.svg"
+    elif [ "$CAPACITY" -le 20 ]; then
+        send_notify "Battery 20%" "Battery is at ${CAPACITY}%. Please charge soon." "battery-20.svg"
+    elif [ "$CAPACITY" -le 40 ]; then
+        send_notify "Battery 40%" "Battery is at ${CAPACITY}%. You can use it for a while." "battery-40.svg"
+    elif [ "$CAPACITY" -le 50 ]; then
+        send_notify "Battery 50%" "Battery is at ${CAPACITY}%. Halfway there!" "battery-50.svg"
+    elif [ "$CAPACITY" -le 60 ]; then
+        send_notify "Battery 60%" "Battery is at ${CAPACITY}%. Still good!" "battery-60.svg"
+    elif [ "$CAPACITY" -le 80 ]; then
+        send_notify "Battery 80%" "Battery is at ${CAPACITY}%. Almost full!" "battery-80.svg"
     fi
+}
 
-    # Notify for critically low battery
-    if [ "$BATTERY_LEVEL" -le "$CRITICAL_LEVEL" ] && [ "$CHARGING_STATE" -eq 0 ]; then
-        echo "$(date) - Battery is critically low" >> $LOG_FILE
-        notify-send "Battery Critical" "Battery level critically low (${BATTERY_LEVEL}%). The system may shut down soon." -u critical -i "battery-critical" -r 9991
-    fi
-
-    # Update previous states
-    PREVIOUS_CHARGING_STATE=$CHARGING_STATE
-    PREVIOUS_BATTERY_LEVEL=$BATTERY_LEVEL
-
-    # Wait for 10 seconds before checking again
-    sleep 1
+# Monitor for power events — skip the first event to avoid startup notification
+udevadm monitor --udev --subsystem-match=power_supply | while read -r _; do
+    check_status
 done
+

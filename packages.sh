@@ -1,4 +1,5 @@
 # Official Packages
+acpi
 gnome-tweaks
 ttf-liberation
 gsfonts

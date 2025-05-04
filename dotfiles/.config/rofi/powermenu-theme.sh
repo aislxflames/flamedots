@@ -1,3 +1,3 @@
 #!/bin/bash
 # Launch rofi using the selected launcher theme
-"~/.config/rofi/powermenu/Vertical/powermenu.sh"
+"$HOME/.config/rofi/powermenu/Vertical/powermenu.sh"
