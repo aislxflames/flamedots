@@ -141,7 +141,7 @@
     "interval": 3600,
     "exec": "checkupdates | wc -l",
     "exec-if": "exit 0",
-    "on-click": "kitty -e ~/flamedots/update.sh",
+    "on-click": "nohup kitty -e ~/flamedots/update.sh",
     "signal": 8
   },
   "custom/pmenu": {

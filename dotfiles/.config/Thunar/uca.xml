@@ -18,10 +18,21 @@
 	<submenu></submenu>
 	<unique-id>1746181879940676-1</unique-id>
 	<command>code .</command>
-	<description>open vscode here</description>
+	<description></description>
 	<range>*</range>
 	<patterns>*</patterns>
 	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>krusader_root</icon>
+	<name>Open As Root</name>
+	<submenu></submenu>
+	<unique-id>1746359267347694-1</unique-id>
+	<command>pkexec thunar</command>
+	<description></description>
+	<range>*</range>
+	<patterns>*</patterns>
 	<directories/>
 </action>
 </actions>
