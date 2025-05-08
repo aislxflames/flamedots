@@ -33,4 +33,5 @@ fi
 git commit -m "$commit_msg"
 
 # Push to main
-git push -u origin main
+git push origin flamedotsv2
+

@@ -132,7 +132,7 @@
     "scroll-step": 1
   },
   "clock": {
-    "format": "{:%H:%M %a}",
+    "format": "{:%I:%M %a}",
     "on-click": "gnome-clocks",
     "tooltip": false
   },
