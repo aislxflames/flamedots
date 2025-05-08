@@ -33,5 +33,4 @@ fi
 git commit -m "$commit_msg"
 
 # Push to main
-git push
-
+git push -u origin main
