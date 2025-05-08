@@ -1,22 +1,33 @@
 #!/bin/bash
 
-# Directory containing wallpapers
-WALL_DIR="$HOME/Pictures/Wallpapers"
+# Detect theme mode from theme.sh
+THEME_FILE="$HOME/.config/flames/scripts/theme.sh"
+MODE="dark" # default
 
-#Current directory
+if grep -qi "light" "$THEME_FILE"; then
+  MODE="light"
+fi
+
+# Set wallpaper directory based on mode
+WALL_DIR="$HOME/.config/flames/wallpaper/$MODE"
+
+# Save current working directory
 CWD=$(pwd)
 
-cd "$WALL_DIR" || exit
+# Change to wallpaper directory
+cd "$WALL_DIR" || exit 1
 
 # Handle spaces in filenames
 IFS=$'\n'
 
-SELECTED_WALL=$(for a in *.jpg *.png; do echo -en "$a\0icon\x1f$a\n"; done | rofi -dmenu -theme ~/.local/share/rofi/themes/material-you/material-you.rasi -p "")
+# Show wallpaper selector
+SELECTED_WALL=$(for a in *.jpg *.png; do echo -en "$a\0icon\x1f$a\n"; done | rofi -dmenu -theme ~/.config/flames/rofi-themes/wallpaper-switcher.rasi -p "")
 
-# If not empty, pass to backend
-
+# If a wallpaper was selected, apply it
 if [ -n "$SELECTED_WALL" ]; then
   walset-backend "$SELECTED_WALL"
 fi
 
+# Return to original directory
 cd "$CWD" || exit 1
+

@@ -1,4 +1,7 @@
 # Official Packages
+jq
+imagemagick
+hyprlock
 acpi
 gnome-tweaks
 ttf-liberation

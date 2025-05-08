@@ -8,6 +8,16 @@ fi
 
 IMAGE="$1"
 
+# Detect theme mode from theme.sh
+THEME_FILE="$HOME/.config/flames/scripts/theme.sh"
+MODE="dark" # default
+
+if grep -qi "light" "$THEME_FILE"; then
+  MODE="light"
+fi
+
+
+
 # Send notification to the user
 notify-send "Changing Theme" "Applying new wallpaper and updating colors, please wait until confirmation..."
 
@@ -21,7 +31,7 @@ wal -i "$IMAGE" -n -s -t -e
 pywal-spicetify Dribbblish
 
 # Use Matugen to generate Material You colors
-matugen image "$IMAGE"
+matugen image "$IMAGE" -m "$MODE"
 
 # Refresh swaync
 pkill swaync
