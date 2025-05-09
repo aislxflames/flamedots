@@ -1,0 +1,25 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 30,
+    "margin-top": 6,
+    "margin-right": 10,
+    "margin-left": 10,
+    "spacing": 5,
+
+    "modules-left": [
+        "custom/appmenuicon",
+        "hyprland/workspaces",
+        "custom/cava"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "group/utils",
+        "group/tray",
+        "group/extra"
+    ],
+
+    "include": ["~/.config/waybar/modules.json"]
+}

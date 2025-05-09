@@ -1,1 +1,1 @@
-compact
+dynamic

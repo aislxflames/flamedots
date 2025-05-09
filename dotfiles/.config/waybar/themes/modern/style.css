@@ -13,7 +13,7 @@
  * Import Pywal colors 
  * ----------------------------------------------------- */
 /* @import 'style-dark.css'; */
-@import "../../../../.cache/wal/colors-waybar.css";
+@import "../../colors.css";
 
 /* -----------------------------------------------------
  * General 
@@ -25,7 +25,7 @@
   font-size: 13px;
   border-radius: 0px;
   background-color: rgba(255, 215, 196, 0);
-  color: white;
+  color: @inverse_surface;
   padding: 0px;
   font-weight: bold;
 }
@@ -50,7 +50,7 @@
 }
 
  #workspaces button{
-  background-color: @color9;
+  background-color: @primary_container;
   padding: 0px 4px;
   margin: 4px 3px;
   border-radius: 60px;
@@ -59,7 +59,7 @@
  }
 
  #workspaces button.active{
-  background-color: @color1;
+  background-color: @source_color;
   min-width: 35px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
@@ -70,7 +70,7 @@
  *------------------------------------------ */
 
 #taskbar {
-  background-color: rgba(0,0,0,0.7);
+  background-color: @background;
   border-radius: 100px;
   padding: 0px 7px 0px 7px;
   margin: 7px 0px 4px 0px;
@@ -90,11 +90,10 @@
 #window {
   border: 0px solid;
   font-size: 4px;
-  background: rgba(0, 0, 0, 0.541);
+  background: @background;
   margin: 7px 0px 7px 0px;
   padding: 0 10px;
   border-radius: 12px;
-  color: @textcolor2;
   font-weight: normal;
   opacity: 0.8;
 }
@@ -107,7 +106,7 @@
 #clock {
   padding: 0px 10px 0px 10px;
   border-radius: 400px;
-  background-color: @color11;
+  background-color: @source_color;
   margin: 7px 0px 7px 0px;
   font-size: 12px;
   font-weight: bold;
@@ -121,7 +120,6 @@
 #network{
   background-color: @background;
   font-size: 12px;
-  color: @textcolor2;
   border-radius: 500px;
   padding: 2px 15px 0px 10px;
   margin: 10px 0px 7px 5px;
@@ -141,7 +139,7 @@
 }
 #custom-appmenuicon {
   font-weight: bold;
-  background-color: @color11;
+  background-color: @source_color;
   border-radius: 40px;
   padding: 0px 10px 0px 10px;
   margin: 7px 0px 7px 10px;
@@ -152,7 +150,7 @@
 #custom-wallpaper,
 #custom-filemanager,
 #custom-settings{
-  background-color: @color9;
+  background-color: @source_color;
   opacity: 1;
   padding: 0px 10px 0px 10px;
   margin: 7px 4px 7px 0px; 

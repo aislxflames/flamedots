@@ -1,5 +1,5 @@
 /* Import pywal colors */
-@import "../../../../.cache/wal/colors-waybar.css";
+@import "../../colors.css";
 
 #taskbar {
     background-color: @background;
@@ -42,7 +42,7 @@ window#waybar.hidden {
 /* Main bar styling */
 #waybar {
     background: rgba(0, 0, 0, 0);
-    color: @foreground;
+    color: @inverse_surface;
 }
 
 /* Module containers */
@@ -87,7 +87,7 @@ window#waybar.hidden {
 
 #workspaces button {
     background: transparent;
-    color: @color7;
+    color: @secondary;
     border-radius: 4px;
     padding: 0 3px;
     margin: 2px 1px;
@@ -96,18 +96,18 @@ window#waybar.hidden {
 }
 
 #workspaces button:hover {
-    background: alpha(@color4, 0.4);
-    box-shadow: inset 0 -2px @color4;
+    background: alpha(@source_color, 0.4);
+    box-shadow: inset 0 -2px @source_color;
 }
 
 #workspaces button.active {
-    background: @color4;
+    background: @source_color;
     color: @background;
     border-radius: 4px;
 }
 
 #workspaces button.urgent {
-    background: @color1;
+    background: @primary;
     color: @background;
 }
 
@@ -150,7 +150,7 @@ window#waybar.hidden {
 #custom-stats:hover,
 #custom-filemanager:hover,
 #custom-settings:hover {
-    background: alpha(@color3, 0.2);
+    background: alpha(@surface_color, 0.2);
 }
 
 /* Specific module styling */
@@ -159,82 +159,82 @@ window#waybar.hidden {
     border-radius: 8px;
     margin: 0 3px;
     padding: 0 8px;
-    color: @color4;
+    color: @source_color;
     font-size: 14px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 #clock {
     font-weight: bold;
-    color: @color5;
+    color: @source_color;
 }
 
 #battery {
-    color: @color2;
+    color: @surface_tint;
 }
 
 #battery.warning {
-    color: @color3;
+    color: @error;
 }
 
 #battery.critical {
-    color: @color1;
+    color: @primary;
     animation: blink 1s infinite;
 }
 
 @keyframes blink {
     to {
         color: @background;
-        background-color: @color1;
+        background-color: @primary;
     }
 }
 
 #battery.charging, #battery.plugged {
-    color: @color2;
+    color: @primary;
 }
 
 #network {
-    color: @color6;
+    color: @primary;
 }
 
 #network.disconnected {
-    color: @color1;
+    color: @primary;
 }
 
 #pulseaudio {
-    color: @color4;
+    color: @source_color;
 }
 
 #pulseaudio.muted {
-    color: @color1;
+    color: @primary;
 }
 
 #custom-pacman {
-    color: @color3;
+    color: @source_color;
 }
 
 #custom-notification {
-    color: @color5;
+    color: @primary;
     font-size: 13px;
 }
 
 #custom-pmenu {
-    color: @color1;
+    color: @primary;
     font-size: 13px;
 }
 
 #custom-stats {
-    color: @color2;
+    color: @surface_color;
     font-size: 13px;
 }
 
 #custom-filemanager {
-    color: @color4;
+    color: @source_color;
     font-size: 13px;
 }
 
 #custom-settings {
-    color: @color6;
+    color: @primary;
     font-size: 13px;
 }
 
@@ -255,11 +255,11 @@ window#waybar.hidden {
 }
 
 #taskbar button:hover {
-    background: alpha(@color4, 0.2);
+    background: alpha(@source_color, 0.2);
 }
 
 #taskbar button.active {
-    background: alpha(@color4, 0.4);
+    background: alpha(@source_color, 0.4);
 }
 
 /* Groups */
@@ -289,13 +289,13 @@ window#waybar.hidden {
 
 #custom-trayicon {
     padding: 0 5px;
-    color: @color7;
+    color: @primary;
     font-size: 13px;
 }
 
 /* Cava visualizer */
 #cava {
-    color: @color4;
+    color: @source_color;
     padding: 0 8px;
 }
 

@@ -25,10 +25,11 @@ notify-send "Changing Theme" "Applying new wallpaper and updating colors, please
 swww img "$IMAGE" --transition-type="center" --transition-step=1 --transition-fps="60"
 
 # Generate pywal colors
-wal -i "$IMAGE" -n -s -t -e
-
-# Refresh Spotify
-pywal-spicetify Dribbblish
+if [[ "$MODE" == "light" ]]; then
+    wal -i "$IMAGE" -l
+else
+    wal -i "$IMAGE"
+fi
 
 # Use Matugen to generate Material You colors
 matugen image "$IMAGE" -m "$MODE"
@@ -40,9 +41,11 @@ swaync > /dev/null 2>&1 &
 # Refresh waybar
 pkill waybar
 ~/.config/waybar/launch.sh > /dev/null 2>&1 &
-~/.config/aflames/scripts/cava.sh &
+~/.config/flames/scripts/cava.sh &
 
 cp -rf "$IMAGE" "$HOME/.config/rofi/images/a.png"
 cp -rf "$IMAGE" "$HOME/.config/rofi/images/b.png"
+cp -rf "$IMAGE" "$HOME/.config/flames/wallpaper/current.png"
+convert "$IMAGE" -blur 0x8 "$HOME/.config/flames/wallpaper/current-blur.png"
 
 notify-send "Theme Applied" "Wallpaper and theme updated successfully!"
