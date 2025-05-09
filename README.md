@@ -1,4 +1,4 @@
-<h1 align="center">🔥 FlamEdots - Elegant Dotfiles for Hyprland</h1>
+<h1 align="center">🔥 The Flamedots - Elegant Dotfiles for Hyprland</h1>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/aislxflames/flamedots/main/screenshots/desktop.png" width="800" alt="FlamEdots Screenshot"/>
@@ -29,4 +29,9 @@
 ```bash
 git clone https://github.com/aislxflames/flamedots.git
 cd flamedots
-
+```
+### 1. Install the dotfiles
+```bash
+chmod +x build.sh
+./build.sh
+```
