@@ -1,19 +1,37 @@
 #!/bin/bash
 
 # Define common commit messages
-messages=(
-  "Initial commit"
-  "Update configuration"
-  "Fix bugs"
-  "Add new features"
-  "Improve performance"
-  "Update documentation"
-  "Refactor code"
-  "Style: format or lint"
-  "Cleanup unused files"
-  "Update dependencies"
-  "Custom message"
+messages+=(
+  "✨ Initial setup of Hyprland config"
+  "🔥 Optimize performance and fix bugs"
+  "📝 Update docs and improve README"
+  "🎨 Refactor config styling"
+  "🔧 Tweak keybindings and layout"
+  "🚀 Enhance workflow performance"
+  "🔒 Improve security configurations"
+  "🎶 Add audio controls for Hyprland"
+  "🌈 Update color schemes and themes"
+  "🧹 Clean up deprecated config options"
+  "⚡ Speed up startup process"
+  "🛠️ Fix broken symlinks and paths"
+  "🎉 Add support for new Hyprland features"
+  "🔄 Sync dotfiles with upstream"
+  "📦 Update dependencies and packages"
+  "💅 Polish the UI for better UX"
+  "🖥️ Add support for multi-monitor setups"
+  "🔧 Bugfix: Correct window behavior"
+  "💡 Enhance configuration usability"
+  "💬 Add comments for clarity"
+  "⚙️ Adjust system settings for stability"
+  "🛠️ Fix minor issues with layout"
+  "💻 Add more custom scripts for Hyprland"
+  "🎯 Precision tweaks for screen scaling"
+  "🌟 Update to latest Hyprland version"
+  "🚧 Temporary commit for ongoing work"
+  "💥 Major update for performance overhaul"
+  "🪛 Custom Message"
 )
+
 
 # Git add
 git add .
