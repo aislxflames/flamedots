@@ -1,4 +1,5 @@
 # Official Packages
+sddm
 jq
 imagemagick
 hyprlock
