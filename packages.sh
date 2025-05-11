@@ -74,6 +74,7 @@ alacritty
 hyprland
 
 # Aur Packages
+python-pywal16
 ttf-font-awesome-5
 ocs-url
 watchdog
