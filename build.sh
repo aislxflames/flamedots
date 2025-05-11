@@ -186,7 +186,6 @@ copy_dotfiles() {
     #rsync -avi "$SOURCE_WALLPAPERS" "$USER_HOME/"
     echo ".config and Wallpapers copied successfully!"
     sleep 1
-    (  ~/.local/bin/walset-backend ~/Pictures/Wallpapers/DarkPikachu.png)
 }
 
 reboot_system() {
