@@ -45,6 +45,7 @@ fi
 
 # Yay install function
 install_yay() {
+  sudo chown -R $(logname):$(logname) /home/$(logname)
   sudo chown -R $(logname):$(logname) /opt
   if [ -d /opt/yay ]; then
     echo "Directory /opt yay is already done. Skipping step..."
@@ -52,7 +53,7 @@ install_yay() {
     echo "Cloning yay..."
     git clone https://aur.archlinux.org/yay.git /opt/yay
     sudo chown -R $(logname):$(logname) /opt/yay
-    (cd /opt/yay && makepkg -si --noconfirm &>/dev/null)
+    sudo bash -c 'cd /opt/yay && makepkg -si'
   fi
 
 }
