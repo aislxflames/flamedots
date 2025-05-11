@@ -74,14 +74,8 @@ alacritty
 hyprland
 
 # Aur Packages
-ttf-material-design-icons-git
 ttf-font-awesome-5
 ocs-url
-spicetify-cli
 watchdog
-papirus-folders
-pywal-discord-git
-spotify
-pywal-spicetify
 matugen-bin
 pokemon-colorscripts-git

@@ -62,7 +62,7 @@
     "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}\n up: {bandwidthUpBits} down: {bandwidthDownBits}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 60,
-    "on-click": "~/.config/aflames/scripts/wifi.sh",
+    "on-click": "~/.config/flames/scripts/wifi.sh",
     "on-click-right": "nm-connection-editor"
   },
   "wlr/taskbar": {
@@ -182,7 +182,7 @@
   },
 
     "custom/cava": {
-        "exec": "~/.config/aflames/scripts/cava-waybar.sh",
+        "exec": "~/.config/flames/scripts/cava-waybar.sh",
         "framerate": 60
     },
 

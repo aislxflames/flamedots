@@ -1,11 +1,6 @@
 /* GTK NAMED COLORS ---------------- use responsibly! */
 @import "../../../.config/gtk-4.0/colors.css";
-button {
-  background-color: @accent_bg_color;
-  color: #ffffff; /* Set text color to white */
-  border-radius: 6px;
-  border: none;
-}
+
 
 :root {
   --standalone-color-oklab: max(l, 0.85) a b;

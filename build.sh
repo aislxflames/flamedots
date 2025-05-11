@@ -188,6 +188,9 @@ copy_dotfiles() {
 }
 
 reboot_system() {
+  systemctl enable sddm
+  systemctl enable networkmanager
+  systemctl enable blueman
   echo "Rebooting the system"
   reboot
 }
