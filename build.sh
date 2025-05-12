@@ -174,7 +174,7 @@ install_zshplugins() {
   else
     echo "ZSH_THEME line not found in ~/.zshrc"
   fi
-  echo '[ -x /bin/zsh ] && exec /bin/zsh' > ~/.bashrc
+  sudo chsh -s $(which zsh)
   cp -rf $SOURCE_CONFIG/.zshrc $USER_HOME/.zshrc
   cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
 }
