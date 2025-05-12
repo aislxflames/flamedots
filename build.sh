@@ -174,7 +174,7 @@ install_zshplugins() {
   else
     echo "ZSH_THEME line not found in ~/.zshrc"
   fi
-  sudo chsh -s $(which zsh)
+  chsh -s $(which zsh)
   cp -rf $SOURCE_CONFIG/.zshrc $USER_HOME/.zshrc
   cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
 }
@@ -186,6 +186,7 @@ copy_dotfiles() {
     #rsync -avi "$SOURCE_WALLPAPERS" "$USER_HOME/"
     echo ".config and Wallpapers copied successfully!"
     sleep 1
+    sudo cp -r rootfiles/environment /etc/environment
 }
 
 reboot_system() {
