@@ -4,18 +4,23 @@ inode/directory=thunar.desktop
 image/png=lximage-qt.desktop
 application/x-desktop=kitty-nvim.desktop
 x-scheme-handler/terminal=kitty.desktop
-text/plain=org.gnome.TextEditor.desktop
+text/plain=code-url-handler.desktop
 inode/symlink=org.gnome.TextEditor.desktop
 x-scheme-handler/fdm=freedownloadmanager_fdm_up.desktop
 x-scheme-handler/magnet=freedownloadmanager_magnet_up.desktop
 application/x-bittorrent=freedownloadmanager_torrent.desktop
+x-scheme-handler/xmcl=fmcl.desktop
 
 [Added Associations]
 text/markdown=nvim.desktop;
-image/png=lximage-qt.desktop;
+image/png=gimp.desktop;lximage-qt.desktop;
 image/jpeg=lximage-qt.desktop;
-text/plain=org.gnome.TextEditor.desktop;
+text/plain=org.gnome.TextEditor.desktop;code-url-handler.desktop;
 application/x-shellscript=org.gnome.TextEditor.desktop;
 inode/symlink=org.gnome.TextEditor.desktop;
 inode/directory=thunar.desktop;
-
+application/x-glade=org.gnome.TextEditor.desktop;
+image/gif=lximage-qt.desktop;
+text/css=org.gnome.TextEditor.desktop;
+application/toml=org.gnome.TextEditor.desktop;
+text/x-qml=org.gnome.TextEditor.desktop;

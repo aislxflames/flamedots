@@ -1,3 +1,0 @@
-<* for name, value in colors *>
-{{value.default.hex}}
-<* endfor *>

@@ -63,6 +63,7 @@
   min-width: 35px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
+  color: white;
  }
 
 /* -----------------------------------------
@@ -111,6 +112,7 @@
   font-size: 12px;
   font-weight: bold;
   border: 2.3px solid #fff;
+  color: white;
 }
 #clock {
   font-size: 13.5px;
@@ -145,6 +147,7 @@
   margin: 7px 0px 7px 10px;
   border: 2.3px solid #fff;
   opacity: 0.9;
+  color: white;
 }
 
 #custom-wallpaper,

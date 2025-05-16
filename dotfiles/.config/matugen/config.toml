@@ -36,3 +36,7 @@ output_path = '~/.config/waybar/colors.css'
 [templates.cava]
 input_path = '~/.config/matugen/templates/colors'
 output_path = '~/.config/cava/colors'
+
+[templates.nwg-dock]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.config/nwg-dock-hyprland/colors.css'

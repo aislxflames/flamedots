@@ -1,6 +1,4 @@
-killall swaync
-swaync
-
 killall swww-daemon
-swww-daemon
-waypaper --restore
+swww-daemon &
+walset-backend $HOME/.config/flames/wallpaper/current.png
+
