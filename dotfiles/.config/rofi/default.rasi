@@ -20,7 +20,8 @@ window {
     location: center;
     anchor: center;
     fullscreen: false;
-    height: 90%;
+    height: 60%;
+    width: 40%;
     x-offset: 0px;
     y-offset: 0px;
 

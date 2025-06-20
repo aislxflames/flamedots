@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Smart tmux launcher: picks from zoxide or tmux sessions
+
+open_tmux_session() {
+  local dir="$1"
+  local session_name
+  session_name=$(basename "$dir" | tr -cd '[:alnum:]_-')
+
+  if tmux has-session -t="$session_name" 2>/dev/null; then
+    tmux attach -t "$session_name"
+  else
+    tmux new-session -s "$session_name" -c "$dir"
+  fi
+}
+
+if [ -n "$1" ]; then
+  dir=$(realpath "$1")
+  if [ -d "$dir" ]; then
+    open_tmux_session "$dir"
+  else
+    echo "❌ Directory does not exist: $dir"
+    exit 1
+  fi
+else
+  # Combine sessions and dirs, tab-separated for easy parsing
+  mapfile -t selection < <(
+    {
+      tmux list-sessions -F "#S [tmux]" 2>/dev/null
+      zoxide query -l | awk '{print $0 " [zoxide]"}'
+    } | fzf --prompt="Choose session or dir > "
+  )
+
+  [ -z "${selection[0]}" ] && exit 0
+  selected="${selection[0]}"
+
+  if [[ "$selected" == *"[tmux]" ]]; then
+    session_name="${selected%% *}"
+    tmux attach -t "$session_name"
+  elif [[ "$selected" == *"[zoxide]" ]]; then
+    dir="${selected% [zoxide]}"
+    open_tmux_session "$dir"
+  fi
+fi
+

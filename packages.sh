@@ -1,4 +1,6 @@
 # Official Packages
+file-roller
+nemo
 pavucontrol
 qt5-graphicaleffects
 qt5-quickcontrols2
