@@ -30,7 +30,7 @@
 git clone https://github.com/aislxflames/flamedots.git ~/flamedots
 cd ~/flamedots
 ```
-### 1. Install the dotfiles
+### 2. Install the dotfiles
 ```bash
 chmod +x build.sh
 ./build.sh
