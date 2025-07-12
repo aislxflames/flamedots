@@ -1,7 +1,10 @@
 <h1 align="center">🔥 The Flamedots - Elegant Dotfiles for Hyprland</h1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/aislxflames/flamedots/main/screenshots/desktop.png" width="800" alt="FlamEdots Screenshot"/>
+  <img src="images/flamedotshots-2025-05-09_15:38:43.png" width="800" alt="FlamEdots Screenshot"/>
+  <img src="images/flamedotshots-2025-05-09_15:36:20.png" width="800" alt="FlamEdots Screenshot"/>
+  <img src="images/flamedotshots-2025-05-09_15:35:08.png" width="800" alt="FlamEdots Screenshot"/>
+
 </p>
 
 <p align="center">
