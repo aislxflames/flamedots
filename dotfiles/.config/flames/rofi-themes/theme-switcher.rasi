@@ -24,7 +24,7 @@ window {
       location: center;
       ancor: center;
       border-radius: 7px;
-      width: 50%;
+      width: 80%;
       background-color: @bg;
       text-color: @fg;
 }
@@ -32,8 +32,8 @@ window {
 prompt {
       background-color: @button;
       enabled: true;
-      padding: 0.5% 32px 0% -0.5%;
-      text-color: @on-secondary-fixed;
+      padding: 0.5% 10px 0% 10px;
+      text-color: @on-surface;
 }
 
 entry {
@@ -46,13 +46,13 @@ entry {
 }
 
 inputbar {
-	    children: [ prompt ];
+	    children: [ prompt, entry ];
     	background-color: @button;
     	expand: false;
     	border-radius: 6px;
     	margin: 0%;
     	padding: 10px;
-    	text-color: @fg;
+    	text-color: @inverse-surface;
 }
 
 listview {
@@ -67,7 +67,7 @@ listview {
 }
 
 mainbox {
-    	children: [listview ];
+    	children: [ inputbar, listview ];
     	spacing: 2%;
     	padding: 2% 1% 2% 1%;
 }
@@ -75,11 +75,10 @@ mainbox {
 element {
     	orientation: vertical;
     	padding: 2% 0% 2% 0%;
-      border: 0px 5%;
 }
 
 element-icon {
-    	size: 150px;
+    	size: 200px;
       horizontal: 10px;
 }
 
@@ -96,9 +95,11 @@ element-text, element-icon {
 	text-color: inherit;
 }
 
-element selected {
-    	background-color: @primary;
-      border-radius: 2em;
-    	text-color: @bg;
+element-text selected {
+    	background-color: @on-primary;
+    	border-radius: 6px;
+      padding: 20px;
+      margin: 0;
+    	text-color: @fg;
 }
 

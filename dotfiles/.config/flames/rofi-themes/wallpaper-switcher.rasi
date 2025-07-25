@@ -32,8 +32,8 @@ window {
 prompt {
       background-color: @button;
       enabled: true;
-      padding: 0.5% 32px 0% -0.5%;
-      text-color: @on-secondary-fixed;
+      padding: 0.5% 10px 0% 10px;
+      text-color: @on-surface;
 }
 
 entry {
