@@ -182,7 +182,6 @@ install_zshplugins() {
 copy_dotfiles() {
 
     echo "Copying .config and Wallpapers to $USER_HOME..."
-    sudo rm -rf ~/.config/flames
     rsync -avi "./dotfiles/" "$USER_HOME/"
     #rsync -avi "$SOURCE_WALLPAPERS" "$USER_HOME/"
     echo ".config and Wallpapers copied successfully!"
