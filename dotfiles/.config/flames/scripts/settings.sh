@@ -42,10 +42,11 @@ banner() {
 main_menu() {
     banner
     while true; do
-        choice=$(echo -e "🧩 Waybar Settings\n🛳️ Dock Settings\n🖥️ System Settings\n🚪 Exit" | $SELECTOR)
+        choice=$(echo -e "🧩 Waybar Settings\n🛳️ Dock Settings\n🖼️ Theme / Wallpaper\n🖥️ System Settings\n🚪 Exit" | $SELECTOR)
         case "$choice" in
             "🧩 Waybar Settings") waybar_menu ;;
             "🛳️ Dock Settings") dock_menu ;;
+            "🖼️ Theme / Wallpaper") ~/.config/flames/scripts/wallpaper-downloader.sh;;
             "🖥️ System Settings") system_settings_menu ;;
             "🚪 Exit") exit ;;
         esac
@@ -92,8 +93,8 @@ toggle_autohide() {
         return
     fi
 
-    local original_line="nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh"
-    local autohide_line="nwg-dock-hyprland -i 28 -x -d -c ~/.config/rofi/launcher-theme.sh"
+    local original_line="nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh &"
+    local autohide_line="nwg-dock-hyprland -i 28 -x -d -c ~/.config/rofi/launcher-theme.sh &"
 
     if grep -Fxq "$autohide_line" "$file"; then
         sed -i "s|$autohide_line|$original_line|" "$file"
