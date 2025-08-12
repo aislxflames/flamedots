@@ -32,6 +32,9 @@ send_notification() {
 		ICON="high"
 	fi
 
+if [ "$VOLUME" -gt 100 ]; then
+  VOLUME=100
+fi
 	notify-send -c "Volume" -r 9993 -h int:value:"$VOLUME" -i "$HOME/.local/share/icons/volume-icon/volume-$ICON.svg" "Volume: $VOLUME%" "$TEXT" -t 2000 --hint=string:x-canonical-private-synchronous:volume
 }
 

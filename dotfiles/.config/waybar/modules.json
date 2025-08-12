@@ -15,7 +15,7 @@
       "default": ""
     },
     "persistent-workspaces": {
-      "*": 5
+      "*": 0
     }
   },
   "tray": {
@@ -161,13 +161,11 @@
     "format": "",
     "on-click": "kitty -e ~/.config/flameos/settings.sh"
   },
-
   "custom/filemanager": {
     "format": "",
     "on-click": "thunar",
     "tooltip-format": "Open file manager"
   },
-
   "custom/appmenu": {
     "format": "Apps",
     "on-click": "~/.config/rofi/launcher-theme.sh",
@@ -180,50 +178,34 @@
     "on-click-right": "~/.config/rofi/launcher-switcher.sh",
     "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
   },
-
-    "custom/cava": {
-        "exec": "~/.config/flames/scripts/cava-waybar.sh",
-        "framerate": 60
-    },
-
-// CUSTOM GROUP
-"group/utils": {
-  "orientation": "horizontal",
+  "custom/cava": {
+    "exec": "~/.config/flames/scripts/cava-waybar.sh",
+    "framerate": 60
+  },
+  // CUSTOM GROUP
+  "group/utils": {
+    "orientation": "horizontal",
     "drawer": {
       "transition-duration": 300,
       "children-class": "not-memory",
       "transition-left-to-right": false
     },
-  "modules": [
-    "network",
-    "custom/pacman",
-    "pulseaudio",
-    "battery"
-  ]
-},
-
-"group/extra": {
-  "orientation": "horizontal",
-  "modules": [
-    "custom/notification",
-    "custom/pmenu"
-  ]
-},
-
-"custom/trayicon":{
-  "format": ""
-},
-"group/tray": {
-  "orientation": "inherit",
+    "modules": ["network", "custom/pacman", "pulseaudio", "battery"]
+  },
+  "group/extra": {
+    "orientation": "horizontal",
+    "modules": ["custom/notification", "custom/pmenu"]
+  },
+  "custom/trayicon": {
+    "format": ""
+  },
+  "group/tray": {
+    "orientation": "inherit",
     "drawer": {
       "transition-duration": 300,
       "children-class": "not-memory",
       "transition-left-to-right": true
     },
-  "modules": [
-    "custom/trayicon",
-    "tray"
-  ]
-}
-
+    "modules": ["custom/trayicon", "tray"]
+  }
 }

@@ -1,22 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
 
-#!/bin/bash
-
-# Title for the Rofi window
 TITLE="Flamedots Screenshot Manager"
 
+CHOICE=$(printf "Fullscreen\nSpecific Part\nExtract Text" | rofi -dmenu -p "$TITLE")
 
-# Use Rofi to choose between fullscreen or specific part
-CHOICE=$(echo -e "Fullscreen\nSpecific Part" | rofi -dmenu -p "$TITLE")
+case "$CHOICE" in
+  "Fullscreen")
+    sleep 0.2
+    notify-send "Screenshot" "Fullscreen taken"
+    grim - | swappy -f -
+    ;;
 
-# Take screenshot based on the user's choice
-if [[ "$CHOICE" == "Fullscreen" ]]; then
-    sleep 0.5
-    notify-send "Screenshot of the screen taken" -t 1000 | grim - | swappy -f -
-elif [[ "$CHOICE" == "Specific Part" ]]; then
-  sleep 0.5
-  notify-send "Screenshot of the region taken" -t 1000 | grim -g "$(slurp)" - | swappy -f -
-else
-    echo "Invalid choice"
-fi
+  "Specific Part")
+    sleep 0.2
+    notify-send "Screenshot" "Select region"
+    grim -g "$(slurp)" - | swappy -f -
+    ;;
 
+  "Extract Text")
+    sleep 0.2
+    notify-send "OCR" "Select area to extract text"
+    GEOM="$(slurp)" || { notify-send "OCR" "Selection cancelled"; exit 0; }
+
+    # Pipe screenshot → OCR → clipboard (no temp files)
+    if grim -g "$GEOM" - | tesseract stdin stdout -l eng --dpi 200 | wl-copy; then
+      notify-send "OCR Complete" "Text copied to clipboard"
+    else
+      notify-send "OCR Failed" "Check tesseract installation"
+    fi
+    ;;
+
+  *)
+    notify-send "Cancelled" "No valid choice"
+    ;;
+esac
 

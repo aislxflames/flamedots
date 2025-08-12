@@ -3,10 +3,11 @@ set -e
 
 # Constants
 readonly WALLPAPER_BASE="$HOME/.config/flames/wallpaper"
-readonly HISTORY_FILE="$HOME/.config/flames/.wallpaper_history"
+readonly HISTORY_REPO_FILE="$HOME/.config/flames/.wallpaper_repo_history"
+readonly HISTORY_FOLDER_FILE="$HOME/.config/flames/.wallpaper_folder_history"
 readonly PROTECTED_THEMES=("dark-default" "light-default")
 
-# Check if theme is protected
+# Functions
 is_protected_theme() {
   for protected in "${PROTECTED_THEMES[@]}"; do
     [[ "$1" == "$protected" ]] && return 0
@@ -14,25 +15,26 @@ is_protected_theme() {
   return 1
 }
 
-# Save to history
 save_history() {
-  mkdir -p "$(dirname "$HISTORY_FILE")"
-  touch "$HISTORY_FILE"
-  grep -vFx "$1" "$HISTORY_FILE" > "$HISTORY_FILE.tmp" || true
-  echo "$1" >> "$HISTORY_FILE.tmp"
-  mv "$HISTORY_FILE.tmp" "$HISTORY_FILE"
+  local file="$1"
+  local value="$2"
+  mkdir -p "$(dirname "$file")"
+  touch "$file"
+  grep -vFx "$value" "$file" > "$file.tmp" || true
+  echo "$value" >> "$file.tmp"
+  mv "$file.tmp" "$file"
 }
 
-# Get history list
 get_history() {
-  [[ -f "$HISTORY_FILE" ]] && tac "$HISTORY_FILE" || true
+  local file="$1"
+  [[ -f "$file" ]] && tac "$file" || true
 }
 
-# Theme Selection
-chosen_theme=$(printf "⛳ Wallpaper Theme\n🗑️ Delete Theme Folder\n✏️ Rename Theme Folder\n🖼️ Rename/Delete Wallpaper" | \
+# Main Menu
+chosen_action=$(printf "⛳ Wallpaper Theme\n🗑️ Delete Theme Folder\n✏️ Rename Theme Folder\n🖼️ Rename/Delete Wallpaper\n📂 Add New Repo/Directory Only" | \
   fzf --prompt="⚙️ Action: " --layout=reverse --border --height=40%)
 
-case "$chosen_theme" in
+case "$chosen_action" in
   "⛳ Wallpaper Theme")
     ;;
 
@@ -78,14 +80,34 @@ case "$chosen_theme" in
     exit 0
     ;;
 
+  "📂 Add New Repo/Directory Only")
+    repo=$( (printf "➕ Add New\n"; get_history "$HISTORY_REPO_FILE"; echo) | fzf --prompt="🔗 GitHub repo: " --height=40% --layout=reverse)
+    if [[ "$repo" == "➕ Add New" ]]; then
+      read -rp "🔗 Enter new GitHub repo (e.g., user/repo): " new_repo
+      [[ -z "$new_repo" ]] && echo "❌ Repo required." && exit 1
+      repo="$new_repo"
+    fi
+    save_history "$HISTORY_REPO_FILE" "$repo"
+
+    folder_name=$( (printf "➕ Add New\n"; get_history "$HISTORY_FOLDER_FILE"; echo) | fzf --prompt="📁 Folder name: " --height=40% --layout=reverse)
+    if [[ "$folder_name" == "➕ Add New" ]]; then
+      read -rp "📁 Enter new folder name: " new_folder
+      [[ -z "$new_folder" ]] && echo "❌ Folder name required." && exit 1
+      folder_name="$new_folder"
+    fi
+    save_history "$HISTORY_FOLDER_FILE" "$folder_name"
+
+    echo "✅ Added repo and folder to history. You can now use them in future runs."
+    exit 0
+    ;;
+
   *)
     echo "❌ Cancelled."
     exit 0
     ;;
 esac
 
-# Wallpaper Download Section
-# 🖌 Theme Selection
+# 🎨 Theme Selection
 chosen_theme=$(printf "dark\nlight\ncustom" | fzf --prompt="🎨 Theme: " --header="Choose a theme" --border --layout=reverse --height=40%)
 [[ -z "$chosen_theme" ]] && echo "❌ No theme selected." && exit 1
 if [[ "$chosen_theme" == "custom" ]]; then
@@ -94,14 +116,23 @@ if [[ "$chosen_theme" == "custom" ]]; then
   chosen_theme="$custom_theme"
 fi
 
-# 📥 User Inputs
-repo=$( (get_history; echo) | fzf --prompt="🔗 GitHub repo (e.g., username/repo): " --height=40% --layout=reverse)
-[[ -z "$repo" ]] && echo "❌ Repo required." && exit 1
-save_history "$repo"
+# 📥 Repo Input with Add New
+repo=$( (printf "➕ Add New\n"; get_history "$HISTORY_REPO_FILE"; echo) | fzf --prompt="🔗 GitHub repo: " --height=40% --layout=reverse)
+if [[ "$repo" == "➕ Add New" ]]; then
+  read -rp "🔗 Enter new GitHub repo (e.g., user/repo): " new_repo
+  [[ -z "$new_repo" ]] && echo "❌ Repo required." && exit 1
+  repo="$new_repo"
+fi
+save_history "$HISTORY_REPO_FILE" "$repo"
 
-folder_name=$( (get_history; echo) | fzf --prompt="📁 Folder name: " --height=40% --layout=reverse)
-[[ -z "$folder_name" ]] && exit 1
-save_history "$folder_name"
+# 📁 Folder Input with Add New
+folder_name=$( (printf "➕ Add New\n"; get_history "$HISTORY_FOLDER_FILE"; echo) | fzf --prompt="📁 Folder name: " --height=40% --layout=reverse)
+if [[ "$folder_name" == "➕ Add New" ]]; then
+  read -rp "📁 Enter new folder name: " new_folder
+  [[ -z "$new_folder" ]] && echo "❌ Folder name required." && exit 1
+  folder_name="$new_folder"
+fi
+save_history "$HISTORY_FOLDER_FILE" "$folder_name"
 
 read -rp "🔢 How many wallpapers to list (default: 10): " num_limit
 num_limit=${num_limit:-10}
@@ -119,12 +150,12 @@ echo "📡 Fetching image list from https://github.com/$repo ..."
 mapfile -t image_paths < <(
   curl -s "https://api.github.com/repos/${repo}/git/trees/HEAD?recursive=1" |
     jq -r '.tree[].path' |
-    grep -iE '\\.(png|jpe?g|webp)$' |
+    grep -iE '\.(png|jpe?g|webp)$' |
     head -n "$num_limit"
 )
 [[ ${#image_paths[@]} -eq 0 ]] && echo "❌ No images found." && exit 1
 
-# 🖼️ Preview download logic
+# 🖼️ Preview logic
 if [[ "$show_preview" == "yes" ]]; then
   echo "📥 Downloading previews..."
   for img in "${image_paths[@]}"; do
@@ -136,11 +167,10 @@ else
   preview_cmd="echo {}"
 fi
 
-# 📦 Ask Download Mode
+# 🎯 Download Mode
 choice=$(printf "📥 Download all\n🎯 Pick manually" | fzf --prompt="🧩 Mode: " --height=30% --border --layout=reverse)
 [[ -z "$choice" ]] && echo "❌ No option selected." && exit 1
 
-# 📥 Download All
 if [[ "$choice" == "📥 Download all" ]]; then
   echo "⬇️ Downloading all wallpapers..."
   for path in "${image_paths[@]}"; do
@@ -149,12 +179,10 @@ if [[ "$choice" == "📥 Download all" ]]; then
     echo "⬇️ $filename"
     curl -sL "$url" -o "$out_dir/$filename" || echo "❌ Failed: $url"
   done
-
-# 🎯 Manual Select & Immediate Download
 else
-  remaining=(${image_paths[@]})
+  remaining=("${image_paths[@]}")
   while true; do
-    display_list=( )
+    display_list=()
     for img in "${remaining[@]}"; do
       display_list+=("$(basename "$img")")
     done
@@ -165,7 +193,6 @@ else
       --layout=reverse --border --height=90%)
     [[ -z "$selected_display" ]] && break
 
-    selected_path=""
     for img in "${remaining[@]}"; do
       if [[ "$(basename "$img")" == "$selected_display" ]]; then
         selected_path="$img"
@@ -178,16 +205,25 @@ else
     echo "⬇️ Downloading: $filename"
     curl -sL "$url" -o "$out_dir/$filename" || echo "❌ Failed to download: $url"
 
-    # Remove selected from remaining
-    temp=( )
-    for item in "${remaining[@]}"; do
-      [[ "$item" != "$selected_path" ]] && temp+=("$item")
-    done
-    remaining=("${temp[@]}")
+    if [-e "$out_dir/$filename" ]; then
+      echo "✅ Downloaded: $filename"
+    else
+      echo "❌ Failed to download: $filename"
+    fi
+
+    if [-e "$out_dir/current.png" ]; then
+      echo "⚠️ current.png already exists, skipping."
+    else
+      cp "$out_dir/$filename" "$out_dir/current.png"
+      echo "✅ Set current.png to: $filename"
+    fi
+
+
+    remaining=($(printf "%s\n" "${remaining[@]}" | grep -vF "$selected_path"))
   done
 fi
 
-# 🎯 Set current.png
+# Set current.png
 mapfile -t downloaded < <(find "$out_dir" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.webp" \))
 if [[ ${#downloaded[@]} -gt 0 ]]; then
   random="${downloaded[RANDOM % ${#downloaded[@]}]}"

@@ -41,30 +41,29 @@
  * Workspaces
  *------------------------------------------ */
 
- #workspaces {
+#workspaces {
   background-color: @background;
-  margin: 2px 0px 5px 0px;  
-  margin: 6px 1px 3px 1px;
+  margin: 2px 0px 5px 0px;
   padding: 0px 1px;
   border-radius: 15px;
 }
 
- #workspaces button{
+#workspaces button {
   background-color: @primary_container;
   padding: 0px 4px;
   margin: 4px 3px;
   border-radius: 60px;
   opacity: 0.4;
   transition: all 0.3s ease-in-out;
- }
+}
 
- #workspaces button.active{
+#workspaces button.active {
   background-color: @source_color;
-  min-width: 35px;
+  min-width: 26px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
   color: white;
- }
+}
 
 /* -----------------------------------------
  * Taskbar
@@ -103,7 +102,6 @@
  * Utilities
  *------------------------------------------ */
 
-
 #clock {
   padding: 0px 10px 0px 10px;
   border-radius: 400px;
@@ -114,12 +112,13 @@
   border: 2.3px solid #fff;
   color: white;
 }
+
 #clock {
   font-size: 13.5px;
   margin: 7px 10px 7px 0px;
 }
 
-#network{
+#network {
   background-color: @background;
   font-size: 12px;
   border-radius: 500px;
@@ -135,10 +134,11 @@
 #custom-pmenu,
 #custom-notification,
 #custom-stats,
-#custom-shotcuts{
+#custom-shotcuts {
   font-size: 15px;
   font-weight: bold;
 }
+
 #custom-appmenuicon {
   font-weight: bold;
   background-color: @source_color;
@@ -152,21 +152,22 @@
 
 #custom-wallpaper,
 #custom-filemanager,
-#custom-settings{
+#custom-settings {
   background-color: @source_color;
   opacity: 1;
   padding: 0px 10px 0px 10px;
-  margin: 7px 4px 7px 0px; 
+  margin: 7px 4px 7px 0px;
   border-radius: 80px;
 }
 
-#group-essentials{
+#group-essentials {
   border-radius: 5px;
 }
 
-#custom-trayicon{
+#custom-trayicon {
   padding: 5px;
 }
+
 /* ----------------------------------------
  * end of the file
  *------------------------------------------ */
