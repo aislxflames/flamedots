@@ -1,4 +1,5 @@
 # Official Packages
+ttf-firacode-nerd
 file-roller
 nemo
 pavucontrol
