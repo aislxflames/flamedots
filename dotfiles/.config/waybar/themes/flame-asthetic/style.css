@@ -11,25 +11,25 @@ window#waybar {
   background-color: @primary-surface;
 }
 
-.modules-left{
+.modules-left {
   margin: 9px 6px;
 }
 
-.modules-center{
+.modules-center {
   margin: 6px 6px;
 }
 
-.modules-right{
+.modules-right {
   margin: 9px 6px;
 }
 
- /* Workspaces Style */
+/* Workspaces Style */
 
 #workspaces {
   background-color: @background;
   padding: 0px 1px;
   border-radius: 15px;
-  font-size: 0.93em;
+  font-size: 0.9em;
   font-weight: bold;
 }
 
@@ -38,6 +38,7 @@ window#waybar {
   margin: 4px 3px;
   min-width: 18px;
   border-radius: 60px;
+  font-size: 0.9em;
   opacity: 0.4;
   transition: all 0.3s ease-in-out;
 }
@@ -50,7 +51,7 @@ window#waybar {
   color: white;
 }
 
- /* App Icon Style */
+/* App Icon Style */
 
 #custom-appicon {
   font-size: 1em;
@@ -61,7 +62,7 @@ window#waybar {
   border: 0.16em solid @inverse_serface;
 }
 
- /* Clock Style */
+/* Clock Style */
 
 #clock {
   background-color: @on_primary;
@@ -73,7 +74,7 @@ window#waybar {
   margin: 0 6px;
 }
 
- /* Custom Icon Style */
+/* Custom Icon Style */
 
 #custom-pmenu,
 #custom-notification,
@@ -83,12 +84,11 @@ window#waybar {
 #custom-browser,
 #custom-chatgpt,
 #power-profiles-daemon,
-#bluetooth{  
+#bluetooth {
   font-size: 1.15em;
   font-weight: bold;
   margin: 0px 2px;
 }
-
 
 #taskbar {
   background-color: @inverse_on_surface;
@@ -108,8 +108,8 @@ window#waybar {
 #pulseaudio,
 #network,
 #custom-pacman,
-#battery{
-  background-color: @background; 
+#battery {
+  background-color: @background;
   font-weight: 500;
   font-size: 0.92em;
   border-radius: 1em;

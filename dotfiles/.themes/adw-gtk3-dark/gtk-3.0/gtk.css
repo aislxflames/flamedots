@@ -2997,3 +2997,24 @@ geary-conversation-viewer#conversation_viewer searchbar > revealer > box { backg
 .budgie-panel.vertical #tasklist-button { min-height: 32px; }
 
 toolbar.toolbar box:not(.linked) > button { font-weight: normal; }
+
+/* Compact buttons everywhere */
+button {
+  min-height: 0;
+  min-width: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+  font-size: 11px;
+}
+
+/* Headerbar / titlebar buttons */
+headerbar button,
+.titlebar button {
+  min-height: 0;
+  min-width: 0;
+  padding: 0 4px; /* no vertical padding, only horizontal */
+  font-size: 11px;
+}
+
