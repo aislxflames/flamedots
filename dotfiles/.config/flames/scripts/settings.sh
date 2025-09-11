@@ -164,8 +164,8 @@ toggle_autohide() {
         return 1
     fi
 
-    local original_line="nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh &"
-    local autohide_line="nwg-dock-hyprland -i 28 -x -d -c ~/.config/rofi/launcher-theme.sh &"
+    local original_line="nwg-dock-hyprland -i 28 -x -c $HOME/.config/rofi/launcher-theme.sh"
+    local autohide_line="nwg-dock-hyprland -i 28 -x -d -c $HOME/.config/rofi/launcher-theme.sh"
 
     if grep -Fxq "$autohide_line" "$file"; then
         # Currently has autohide, remove it
@@ -472,7 +472,7 @@ apply_hyprconf_file() {
     local folder="$1"
     local filename="$2"
     local file_path="$HYPRCONF_DIR/$folder/$filename"
-    local main_config="/home/aislx/.config/hypr/hyprland.conf"
+    local main_config="$HOME/.config/hypr/hyprland.conf"
     
     if [[ ! -f "$file_path" ]]; then
         notify-send "Error" "Configuration file not found: $filename" -i "dialog-error"
@@ -725,7 +725,7 @@ EOF
         cat > "$DOCK_LAUNCH" << 'EOF'
 #!/bin/bash
 killall nwg-dock-hyprland 2>/dev/null
-nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh &
+nwg-dock-hyprland -i 28 -x -c $HOME/.config/rofi/launcher-theme.sh &
 EOF
         chmod +x "$DOCK_LAUNCH"
     fi
