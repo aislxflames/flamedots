@@ -113,9 +113,7 @@ advanced_menu() {
     done
 }
 
-waybar_themes() {
-    bash "$WAYBAR_CONF_DIR/switcher.sh" >/dev/null 2>&1
-}
+
 
 waybar_menu() {
     while true; do
@@ -125,18 +123,30 @@ waybar_menu() {
         case "$choice" in
             "🔄 Toggle Waybar"*)
                 if [[ -f "$WAYBAR_FLAG" ]]; then
+                    # Enable waybar
                     [[ -f "$WAYBAR_LAUNCH_DISABLED" ]] && mv "$WAYBAR_LAUNCH_DISABLED" "$WAYBAR_LAUNCH"
-                    nohup bash "$WAYBAR_LAUNCH" >/dev/null 2>&1 & disown
-                    rm "$WAYBAR_FLAG"
-                    notify-send "Waybar" "Enabled" -i "dialog-information"
+                    if [[ -f "$WAYBAR_LAUNCH" ]]; then
+                        nohup bash "$WAYBAR_LAUNCH" >/dev/null 2>&1 & disown
+                        rm "$WAYBAR_FLAG" 2>/dev/null
+                        notify-send "Waybar" "Enabled successfully" -i "dialog-information"
+                    else
+                        notify-send "Error" "Waybar launch script not found" -i "dialog-error"
+                    fi
                 else
+                    # Disable waybar
                     killall waybar >/dev/null 2>&1
                     [[ -f "$WAYBAR_LAUNCH" ]] && mv "$WAYBAR_LAUNCH" "$WAYBAR_LAUNCH_DISABLED"
                     touch "$WAYBAR_FLAG"
-                    notify-send "Waybar" "Disabled" -i "dialog-warning"
+                    notify-send "Waybar" "Disabled successfully" -i "dialog-warning"
                 fi
                 ;;
-            "🎨 Change Theme") waybar_themes ;;
+            "🎨 Change Theme") 
+                if [[ -f "$WAYBAR_CONF_DIR/switcher.sh" ]]; then
+                    bash "$WAYBAR_CONF_DIR/switcher.sh" >/dev/null 2>&1
+                else
+                    notify-send "Error" "Waybar theme switcher not found" -i "dialog-error"
+                fi
+                ;;
             "📊 Waybar Settings") waybar_advanced_settings ;;
             "⬅️ Back") return ;;
         esac
@@ -150,25 +160,31 @@ toggle_autohide() {
     elif [[ -f "$DOCK_LAUNCH_DISABLED" ]]; then
         file="$DOCK_LAUNCH_DISABLED"
     else
-        echo "No launch script found for Dock." >/dev/null 2>&1
-        return
+        echo "No launch script found for Dock." >&2
+        return 1
     fi
 
     local original_line="nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh &"
     local autohide_line="nwg-dock-hyprland -i 28 -x -d -c ~/.config/rofi/launcher-theme.sh &"
 
     if grep -Fxq "$autohide_line" "$file"; then
+        # Currently has autohide, remove it
         sed -i "s|$autohide_line|$original_line|" "$file"
     elif grep -Fxq "$original_line" "$file"; then
+        # Currently no autohide, add it
         sed -i "s|$original_line|$autohide_line|" "$file"
     else
-        echo "No matching nwg-dock-hyprland line found in $file." >/dev/null 2>&1
+        echo "No matching nwg-dock-hyprland line found in $file." >&2
+        return 1
     fi
 
+    # Restart dock if it's currently running
     killall nwg-dock-hyprland >/dev/null 2>&1
     if [[ -f "$DOCK_LAUNCH" ]]; then
         nohup bash "$DOCK_LAUNCH" >/dev/null 2>&1 & disown
     fi
+    
+    return 0
 }
 
 dock_menu() {
@@ -179,18 +195,30 @@ dock_menu() {
         case "$choice" in
             "🔄 Toggle Dock"*)
                 if [[ -f "$DOCK_FLAG" ]]; then
+                    # Enable dock
                     [[ -f "$DOCK_LAUNCH_DISABLED" ]] && mv "$DOCK_LAUNCH_DISABLED" "$DOCK_LAUNCH"
-                    nohup bash "$DOCK_LAUNCH" >/dev/null 2>&1 & disown
-                    rm "$DOCK_FLAG"
-                    notify-send "Dock" "Enabled" -i "dialog-information"
+                    if [[ -f "$DOCK_LAUNCH" ]]; then
+                        nohup bash "$DOCK_LAUNCH" >/dev/null 2>&1 & disown
+                        rm "$DOCK_FLAG" 2>/dev/null
+                        notify-send "Dock" "Enabled successfully" -i "dialog-information"
+                    else
+                        notify-send "Error" "Dock launch script not found" -i "dialog-error"
+                    fi
                 else
+                    # Disable dock
                     killall nwg-dock-hyprland >/dev/null 2>&1
                     [[ -f "$DOCK_LAUNCH" ]] && mv "$DOCK_LAUNCH" "$DOCK_LAUNCH_DISABLED"
                     touch "$DOCK_FLAG"
-                    notify-send "Dock" "Disabled" -i "dialog-warning"
+                    notify-send "Dock" "Disabled successfully" -i "dialog-warning"
                 fi
                 ;;
-            "📌 Toggle Autohide") toggle_autohide ;;
+            "📌 Toggle Autohide") 
+                if toggle_autohide; then
+                    notify-send "Dock" "Autohide toggled successfully" -i "dialog-information"
+                else
+                    notify-send "Error" "Failed to toggle autohide" -i "dialog-error"
+                fi
+                ;;
             "🎨 Dock Themes") dock_themes ;;
             "⬅️ Back") return ;;
         esac
@@ -208,12 +236,38 @@ input_settings() {
 }
 
 hyprland_config_menu() {
-    choice=$(echo -e "📝 Edit Hyprland Config\n🔧 Workspace Settings\n🪟 Window Rules\n⬅️ Back" | $SELECTOR --header="Hyprland configuration:")
+    local folders=()
+    
+    # Check if conf directory exists
+    if [[ ! -d "$HYPRCONF_DIR" ]]; then
+        notify-send "Error" "Hyprland config directory not found: $HYPRCONF_DIR" -i "dialog-error"
+        return 1
+    fi
+    
+    while IFS= read -r -d $'\0' dir; do
+        foldername="$(basename "$dir")"
+        folders+=("📁 $foldername")
+    done < <(find "$HYPRCONF_DIR" -mindepth 1 -maxdepth 1 -type d -print0 2>/dev/null)
+
+    folders+=("❓ Help - What are these configs?")
+    folders+=("⬅️ Back")
+    
+    local choice=$(printf "%s\n" "${folders[@]}" | $SELECTOR --header="Hyprland Configuration:")
+    
     case "$choice" in
-        "📝 Edit Hyprland Config") customize_hyprconf_menu ;;
-        "🔧 Workspace Settings") workspace_settings ;;
-        "🪟 Window Rules") window_rules ;;
-        "⬅️ Back") return ;;
+        "❓ Help - What are these configs?")
+            show_hyprland_help
+            hyprland_config_menu
+            ;;
+        "⬅️ Back"|"") 
+            return 
+            ;;
+        *)
+            if [[ "$choice" == "📁 "* ]]; then
+                foldername="${choice#📁 }"
+                customize_hyprconf_folder_menu "$foldername"
+            fi
+            ;;
     esac
 }
 
@@ -238,9 +292,8 @@ network_settings() {
 }
 
 edit_configs_menu() {
-    choice=$(echo -e "📝 Hypr Configs\n⚙️ Waybar Config\n🚢 Dock Config\n🎨 Theme Files\n⬅️ Back" | $SELECTOR --header="Edit configuration files:")
+    choice=$(echo -e "⚙️ Waybar Config\n🚢 Dock Config\n🎨 Theme Files\n⬅️ Back" | $SELECTOR --header="Edit configuration files:")
     case "$choice" in
-        "📝 Hypr Configs") customize_hyprconf_menu ;;
         "⚙️ Waybar Config") edit_waybar_config ;;
         "🚢 Dock Config") edit_dock_config ;;
         "🎨 Theme Files") edit_theme_files ;;
@@ -286,40 +339,60 @@ system_info() { neofetch; read -p "Press Enter to continue..."; }
 wallpaper_selector() { ~/.local/bin/walset; }
 theme_selector() { ~/.config/flames/scripts/theme-switcher.sh; }
 
-customize_hyprconf_menu() {
-    local folders=()
-    while IFS= read -r -d $'\0' dir; do
-        foldername="$(basename "$dir")"
-        folders+=("📁 $foldername")
-    done < <(find "$HYPRCONF_DIR" -mindepth 1 -maxdepth 1 -type d -print0)
 
-    folders+=("⬅️  Back")
-    local choice=$(printf "%s\n" "${folders[@]}" | $SELECTOR --header="Select configuration folder:")
-    if [[ "$choice" == "⬅️  Back" ]] || [[ -z "$choice" ]]; then
-        return
-    fi
-
-    foldername="${choice#* }"
-    customize_hyprconf_folder_menu "$foldername"
-}
 
 customize_hyprconf_folder_menu() {
     local folder="$1"
     local folder_path="$HYPRCONF_DIR/$folder"
+    
+    if [[ ! -d "$folder_path" ]]; then
+        notify-send "Error" "Configuration folder not found: $folder" -i "dialog-error"
+        return 1
+    fi
+    
     local files=()
     while IFS= read -r -d $'\0' file; do
         filename="$(basename "$file")"
-        files+=("📄 $filename")
-    done < <(find "$folder_path" -mindepth 1 -maxdepth 1 -type f -name "*.conf" -print0)
+        if [[ "$filename" == custom-* ]]; then
+            files+=("📝 $filename (Custom)")
+        else
+            files+=("📄 $filename")
+        fi
+    done < <(find "$folder_path" -mindepth 1 -maxdepth 1 -type f -name "*.conf" -print0 2>/dev/null)
 
-    files+=("⬅️ Back")
-    local choice=$(printf "%s\n" "${files[@]}" | $SELECTOR --header="Configuration files in $folder:")
-    if [[ "$choice" == "⬅️ Back" ]] || [[ -z "$choice" ]]; then
+    if [[ ${#files[@]} -eq 0 ]]; then
+        notify-send "Info" "No configuration files found in $folder" -i "dialog-information"
         return
     fi
 
-    filename="${choice#* }"
-    customize_hyprconf_file_menu "$folder" "$filename"
+    files+=("➕ Create New Custom Config")
+    files+=("❓ Help - What is $folder?")
+    files+=("⬅️ Back")
+    
+    local choice=$(printf "%s\n" "${files[@]}" | $SELECTOR --header="Configuration files in $folder:")
+    
+    case "$choice" in
+        "➕ Create New Custom Config")
+            create_custom_config "$folder"
+            customize_hyprconf_folder_menu "$folder"
+            ;;
+        "❓ Help - What is $folder?")
+            show_folder_help "$folder"
+            customize_hyprconf_folder_menu "$folder"
+            ;;
+        "⬅️ Back"|"")
+            return
+            ;;
+        *)
+            if [[ "$choice" == "📄 "* ]]; then
+                filename="${choice#📄 }"
+            elif [[ "$choice" == "📝 "* ]]; then
+                filename="${choice#📝 }"
+                filename="${filename% (Custom)}"
+            fi
+            customize_hyprconf_file_menu "$folder" "$filename"
+            ;;
+    esac
 }
 
 customize_hyprconf_file_menu() {
@@ -327,24 +400,24 @@ customize_hyprconf_file_menu() {
     local filename="$2"
     while true; do
         if [[ "$filename" == custom-additional-* || "$filename" == custom-* ]]; then
-            local options="⚡ Execute\n✏️ Edit\n🗑️ Delete\n⬅️ Back"
+            local options="⚡ Apply Config\n✏️ Edit\n🗑️ Delete\n⬅️ Back"
         else
-            local options="⚡ Execute\n✏️ Edit\n⬅️ Back"
+            local options="⚡ Apply Config\n✏️ Edit\n⬅️ Back"
         fi
         local choice=$(echo -e "$options" | $SELECTOR --header="Actions for $filename:")
         case "$choice" in
-            "⚡ Execute") execute_hyprconf_file "$folder" "$filename" ;;
+            "⚡ Apply Config") 
+                apply_hyprconf_file "$folder" "$filename"
+                ;;
             "✏️ Edit")
                 if [[ "$filename" == custom-additional-* || "$filename" == custom-* ]]; then
                     select_editor_and_open "$HYPRCONF_DIR/$folder/$filename"
-                    customize_hyprconf_folder_menu "$folder"
                 else
                     edit_hyprconf_file_menu "$folder" "$filename"
                 fi
                 ;;
             "🗑️ Delete")
                 delete_hyprconf_file "$folder" "$filename"
-                customize_hyprconf_folder_menu "$folder"
                 return
                 ;;
             "⬅️ Back"|"") return ;;
@@ -382,7 +455,6 @@ edit_hyprconf_file_menu() {
             ;;
         "⬅️ Back"|"") return ;;
     esac
-    customize_hyprconf_folder_menu "$folder"
 }
 
 select_editor_and_open() {
@@ -395,4 +467,270 @@ select_editor_and_open() {
     esac
 }
 
+# Apply Hyprland configuration file
+apply_hyprconf_file() {
+    local folder="$1"
+    local filename="$2"
+    local file_path="$HYPRCONF_DIR/$folder/$filename"
+    local main_config="/home/aislx/.config/hypr/hyprland.conf"
+    
+    if [[ ! -f "$file_path" ]]; then
+        notify-send "Error" "Configuration file not found: $filename" -i "dialog-error"
+        return 1
+    fi
+    
+    # Add source line to main config if not already present
+    local source_line="source = $file_path"
+    if ! grep -Fxq "$source_line" "$main_config"; then
+        echo "$source_line" >> "$main_config"
+        notify-send "Success" "Added $filename to Hyprland config" -i "dialog-information"
+    fi
+    
+    # Reload Hyprland to apply changes
+    if hyprctl reload >/dev/null 2>&1; then
+        notify-send "Success" "Applied $filename configuration" -i "dialog-information"
+    else
+        notify-send "Error" "Failed to reload Hyprland" -i "dialog-error"
+    fi
+}
+
+# Delete custom Hyprland configuration file
+delete_hyprconf_file() {
+    local folder="$1"
+    local filename="$2"
+    local file_path="$HYPRCONF_DIR/$folder/$filename"
+    
+    # Only allow deletion of custom files
+    if [[ "$filename" != custom-* ]]; then
+        notify-send "Error" "Cannot delete system configuration files" -i "dialog-error"
+        return 1
+    fi
+    
+    local confirm=$(echo -e "Yes\nNo" | $SELECTOR --header="Delete $filename? This cannot be undone!")
+    if [[ "$confirm" == "Yes" ]]; then
+        if rm "$file_path" 2>/dev/null; then
+            notify-send "Success" "Deleted $filename" -i "dialog-information"
+        else
+            notify-send "Error" "Failed to delete $filename" -i "dialog-error"
+        fi
+    fi
+}
+
+# Check if required commands exist
+check_dependencies() {
+    local missing_deps=()
+    
+    command -v fzf >/dev/null || missing_deps+=("fzf")
+    command -v hyprctl >/dev/null || missing_deps+=("hyprland")
+    command -v notify-send >/dev/null || missing_deps+=("libnotify")
+    
+    if [[ ${#missing_deps[@]} -gt 0 ]]; then
+        echo "❌ Missing dependencies: ${missing_deps[*]}"
+        echo "Please install them first:"
+        for dep in "${missing_deps[@]}"; do
+            case "$dep" in
+                "fzf") echo "  sudo pacman -S fzf" ;;
+                "hyprland") echo "  sudo pacman -S hyprland" ;;
+                "libnotify") echo "  sudo pacman -S libnotify" ;;
+            esac
+        done
+        exit 1
+    fi
+}
+
+# Create required directories if they don't exist
+setup_directories() {
+    local dirs=(
+        "$WAYBAR_CONF_DIR"
+        "$DOCK_CONF_DIR" 
+        "$HYPRCONF_DIR"
+    )
+    
+    for dir in "${dirs[@]}"; do
+        [[ ! -d "$dir" ]] && mkdir -p "$dir"
+    done
+}
+
+# Show help information about Hyprland configuration
+show_hyprland_help() {
+    clear
+    echo -e "\033[1;36m"
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║                 🔧 HYPRLAND CONFIG HELP                      ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo -e "\033[0m"
+    echo -e "\033[1;33mWhat are these configuration folders?\033[0m\n"
+    echo "📁 animations    - Control window animations and effects"
+    echo "📁 borders       - Window border styles and colors"
+    echo "📁 decorations   - Window decorations (shadows, blur, etc.)"
+    echo "📁 inputs        - Mouse and keyboard settings"
+    echo "📁 keybinds      - Keyboard shortcuts and hotkeys"
+    echo "📁 layouts       - Window tiling layouts"
+    echo "📁 monitors      - Display and monitor configuration"
+    echo "📁 programs      - Program-specific settings"
+    echo "📁 windowrules   - Rules for specific windows"
+    echo "📁 workspaces    - Virtual desktop settings"
+    echo ""
+    echo -e "\033[1;32m💡 Tips for beginners:\033[0m"
+    echo "• Start with 'keybinds' to customize shortcuts"
+    echo "• Use 'monitors' to set up your displays"
+    echo "• Try 'decorations' for visual effects"
+    echo "• Always create custom configs instead of editing originals"
+    echo ""
+    read -p "Press Enter to continue..."
+}
+
+# Show help for specific configuration folder
+show_folder_help() {
+    local folder="$1"
+    clear
+    echo -e "\033[1;36m"
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║                    📁 $folder HELP                           ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo -e "\033[0m"
+    
+    case "$folder" in
+        "keybinds")
+            echo "🔧 Keybinds Configuration"
+            echo "• Set up keyboard shortcuts for launching apps"
+            echo "• Configure window management hotkeys"
+            echo "• Example: bind = SUPER, T, exec, kitty"
+            ;;
+        "monitors")
+            echo "🖥️ Monitor Configuration"
+            echo "• Set resolution, refresh rate, and position"
+            echo "• Configure multiple monitor setups"
+            echo "• Example: monitor=DP-1,1920x1080@60,0x0,1"
+            ;;
+        "decorations")
+            echo "🎨 Decorations Configuration"
+            echo "• Window shadows, blur effects, and rounding"
+            echo "• Transparency and visual effects"
+            echo "• Example: rounding = 10"
+            ;;
+        "animations")
+            echo "✨ Animations Configuration"
+            echo "• Window open/close animations"
+            echo "• Workspace switching effects"
+            echo "• Animation speed and curves"
+            ;;
+        *)
+            echo "📋 $folder Configuration"
+            echo "• Contains settings specific to $folder"
+            echo "• Create custom configs to override defaults"
+            echo "• Use 'Apply Config' to test changes"
+            ;;
+    esac
+    
+    echo ""
+    echo -e "\033[1;32m💡 Remember:\033[0m"
+    echo "• Always backup before making changes"
+    echo "• Test configs before applying permanently"
+    echo "• Use custom configs to avoid losing changes"
+    echo ""
+    read -p "Press Enter to continue..."
+}
+
+# Create a new custom configuration file
+create_custom_config() {
+    local folder="$1"
+    local folder_path="$HYPRCONF_DIR/$folder"
+    
+    echo "Creating new custom configuration for $folder..."
+    read -p "Enter name for your custom config (without .conf): " config_name
+    
+    if [[ -z "$config_name" ]]; then
+        notify-send "Error" "Config name cannot be empty" -i "dialog-error"
+        return 1
+    fi
+    
+    # Ensure it starts with custom- and ends with .conf
+    [[ "$config_name" != custom-* ]] && config_name="custom-$config_name"
+    [[ "$config_name" != *.conf ]] && config_name="$config_name.conf"
+    
+    local custom_file="$folder_path/$config_name"
+    
+    if [[ -f "$custom_file" ]]; then
+        notify-send "Error" "Config file already exists: $config_name" -i "dialog-error"
+        return 1
+    fi
+    
+    # Create template based on folder type
+    case "$folder" in
+        "keybinds")
+            cat > "$custom_file" << 'EOF'
+# Custom Keybinds Configuration
+# Example keybinds - modify as needed
+
+# Launch applications
+bind = SUPER, T, exec, kitty
+bind = SUPER, E, exec, nautilus
+bind = SUPER, B, exec, firefox
+
+# Window management
+bind = SUPER, Q, killactive
+bind = SUPER, F, fullscreen
+bind = SUPER, V, togglefloating
+EOF
+            ;;
+        "monitors")
+            cat > "$custom_file" << 'EOF'
+# Custom Monitor Configuration
+# Replace with your actual monitor names and resolutions
+
+# Primary monitor
+monitor = DP-1, 1920x1080@60, 0x0, 1
+
+# Secondary monitor (uncomment and modify if needed)
+# monitor = HDMI-A-1, 1920x1080@60, 1920x0, 1
+EOF
+            ;;
+        *)
+            cat > "$custom_file" << EOF
+# Custom $folder Configuration
+# Add your custom settings here
+
+# Example setting (remove this line)
+# setting = value
+EOF
+            ;;
+    esac
+    
+    notify-send "Success" "Created custom config: $config_name" -i "dialog-information"
+    
+    # Ask if user wants to edit it now
+    local edit_choice=$(echo -e "Yes\nNo" | $SELECTOR --header="Edit the new config file now?")
+    if [[ "$edit_choice" == "Yes" ]]; then
+        select_editor_and_open "$custom_file"
+    fi
+}
+
+# Initialize the script
+init_script() {
+    check_dependencies
+    setup_directories
+    
+    # Create default launch scripts if they don't exist
+    if [[ ! -f "$WAYBAR_LAUNCH" && ! -f "$WAYBAR_LAUNCH_DISABLED" ]]; then
+        cat > "$WAYBAR_LAUNCH" << 'EOF'
+#!/bin/bash
+killall waybar 2>/dev/null
+waybar &
+EOF
+        chmod +x "$WAYBAR_LAUNCH"
+    fi
+    
+    if [[ ! -f "$DOCK_LAUNCH" && ! -f "$DOCK_LAUNCH_DISABLED" ]]; then
+        cat > "$DOCK_LAUNCH" << 'EOF'
+#!/bin/bash
+killall nwg-dock-hyprland 2>/dev/null
+nwg-dock-hyprland -i 28 -x -c ~/.config/rofi/launcher-theme.sh &
+EOF
+        chmod +x "$DOCK_LAUNCH"
+    fi
+}
+
+# Run initialization and start main menu
+init_script
 main_menu
