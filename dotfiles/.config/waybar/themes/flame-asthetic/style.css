@@ -29,7 +29,7 @@ window#waybar {
   background-color: @background;
   padding: 0px 1px;
   border-radius: 15px;
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: bold;
 }
 
