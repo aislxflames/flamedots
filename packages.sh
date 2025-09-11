@@ -1,4 +1,7 @@
 # Official Packages
+unzip
+zip
+nwg-dock-hyprland
 ttf-firacode-nerd
 file-roller
 nemo
