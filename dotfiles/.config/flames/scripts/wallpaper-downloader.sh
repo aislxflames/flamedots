@@ -30,6 +30,26 @@ get_history() {
   [[ -f "$file" ]] && tac "$file" || true
 }
 
+# ✨ Function to shorten filenames (<15 chars, safe for terminal)
+shorten_filename() {
+  local original="$1"
+  local base="${original%.*}"
+  local ext="${original##*.}"
+
+  # Remove spaces/special chars
+  base=$(echo "$base" | tr -cd '[:alnum:]-_')
+
+  # If already short enough
+  if [[ ${#base} -le 12 ]]; then
+    echo "$base.$ext"
+    return
+  fi
+
+  # Otherwise shorten with random suffix
+  local short="${base:0:8}-$((RANDOM % 999))"
+  echo "$short.$ext"
+}
+
 # Main Menu
 chosen_action=$(printf "⛳ Wallpaper Theme\n🗑️ Delete Theme Folder\n✏️ Rename Theme Folder\n🖼️ Rename/Delete Wallpaper\n📂 Add New Repo/Directory Only" | \
   fzf --prompt="⚙️ Action: " --layout=reverse --border --height=40%)
@@ -175,9 +195,10 @@ if [[ "$choice" == "📥 Download all" ]]; then
   echo "⬇️ Downloading all wallpapers..."
   for path in "${image_paths[@]}"; do
     filename="$(basename "$path")"
+    shortname="$(shorten_filename "$filename")"
     url="https://raw.githubusercontent.com/$repo/HEAD/$path"
-    echo "⬇️ $filename"
-    curl -sL "$url" -o "$out_dir/$filename" || echo "❌ Failed: $url"
+    echo "⬇️ $shortname"
+    curl -sL "$url" -o "$out_dir/$shortname" || echo "❌ Failed: $url"
   done
 else
   remaining=("${image_paths[@]}")
@@ -201,29 +222,29 @@ else
     done
 
     filename="$selected_display"
+    shortname="$(shorten_filename "$filename")"
     url="https://raw.githubusercontent.com/$repo/HEAD/$selected_path"
-    echo "⬇️ Downloading: $filename"
-    curl -sL "$url" -o "$out_dir/$filename" || echo "❌ Failed to download: $url"
+    echo "⬇️ Downloading: $shortname"
+    curl -sL "$url" -o "$out_dir/$shortname" || echo "❌ Failed to download: $url"
 
-    if [-e "$out_dir/$filename" ]; then
-      echo "✅ Downloaded: $filename"
+    if [[ -e "$out_dir/$shortname" ]]; then
+      echo "✅ Downloaded: $shortname"
     else
-      echo "❌ Failed to download: $filename"
+      echo "❌ Failed to download: $shortname"
     fi
 
-    if [-e "$out_dir/current.png" ]; then
+    if [[ -e "$out_dir/current.png" ]]; then
       echo "⚠️ current.png already exists, skipping."
     else
-      cp "$out_dir/$filename" "$out_dir/current.png"
-      echo "✅ Set current.png to: $filename"
+      cp "$out_dir/$shortname" "$out_dir/current.png"
+      echo "✅ Set current.png to: $shortname"
     fi
-
 
     remaining=($(printf "%s\n" "${remaining[@]}" | grep -vF "$selected_path"))
   done
 fi
 
-# Set current.png
+# Set current.png if missing
 mapfile -t downloaded < <(find "$out_dir" -maxdepth 1 -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.webp" \))
 if [[ ${#downloaded[@]} -gt 0 ]]; then
   random="${downloaded[RANDOM % ${#downloaded[@]}]}"
