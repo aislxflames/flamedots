@@ -2,6 +2,7 @@
 # Auto-install dependencies if missing
 # --------------------------
 dependencies=(exa fzf zoxide git)
+source= ~/.flmrc
 
 # Detect package manager
 if command -v pacman >/dev/null 2>&1; then
