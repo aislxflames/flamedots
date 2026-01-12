@@ -29,8 +29,6 @@ echo "
                   Author: Aislx FlamEs
 " | lolcat
 
-sudo pacman -Rns python-pywal16
-
 USER_HOME="/home/$(logname)"
 SOURCE_CONFIG="./dotfiles/"
 SOURCE_WALLPAPERS="./wallpapers"
