@@ -85,6 +85,9 @@ hypridle
 python-pywal
 exa
 zoxide
+cpio
+cmake
+meson
 
 # Aur Packages
 ttf-font-awesome-5
