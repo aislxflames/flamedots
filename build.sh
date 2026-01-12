@@ -97,7 +97,7 @@ install_packages() {
 # Install grub theme
 install_grubthemes() {
   sudo mkdir -p /boot/grub/themes/
-  sudo cp -rf rootfiles/grub/Castorice /boot/grub/themes/Castorice
+  sudo cp -rf rootfiles/grub/Castorice /boot/grub/themes/
   sudo sed -i '/^GRUB_THEME=/d' /etc/default/grub && echo 'GRUB_THEME="/boot/grub/themes/Castorice/theme.txt"' | sudo tee -a /etc/default/grub
   sudo grub-mkconfig -o /boot/grub/grub.cfg
 }
