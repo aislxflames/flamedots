@@ -83,6 +83,8 @@ alacritty
 hyprland
 hypridle
 python-pywal
+exa
+zoxide
 
 # Aur Packages
 ttf-font-awesome-5
