@@ -2,7 +2,7 @@
 # Auto-install dependencies if missing
 # --------------------------
 dependencies=(exa fzf zoxide git)
-source= ~/.flmrc
+# source= ~/.flmrc
 
 # Detect package manager
 if command -v pacman >/dev/null 2>&1; then
@@ -41,7 +41,7 @@ export TERM="xterm-256color"
 alias ii='yay -S --noconfirm'
 alias i='yay'
 alias t='tmux-session'
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 # --------------------------
 # Better ls with exa

@@ -1,0 +1,162 @@
+@import url("../../.cache/wal/colors-hyprshell.css");
+
+:root {
+  --glass-bg: alpha(@background, 0.3);
+  --glass-bg-hover: alpha(@background, 0.5);
+  --glass-bg-active: alpha(@background, 0.6);
+
+  --accent-color: @color1;
+  --accent-glow: 0 0 30px alpha(@color1, 0.6);
+
+  --text-primary: @foreground;
+  --text-secondary: alpha(@foreground, 0.7);
+  --text-muted: alpha(@foreground, 0.5);
+
+  --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --shadow-heavy: 0 20px 100px rgba(0, 0, 0, 0.8);
+
+  --border-radius: 16px;
+  --border-radius-small: 8px;
+  --transition: all 0.3s ease;
+}
+
+* {
+  border: none;
+  outline: none;
+}
+
+.window {
+  background: var(--glass-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-heavy);
+  transition: var(--transition);
+}
+
+.window.active {
+  background: var(--glass-bg-active);
+  box-shadow: var(--shadow-heavy), var(--accent-glow), inset 0 0 0 2px var(--accent-color);
+}
+
+.window:hover {
+  background: var(--glass-bg-hover);
+}
+
+.monitor {
+  background: linear-gradient(135deg, alpha(@background, 0.2), alpha(@foreground, 0.05));
+}
+
+.workspace {
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-small);
+  margin: 4px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+}
+
+.workspace.active {
+  background: var(--accent-color);
+  box-shadow: var(--accent-glow);
+}
+
+.workspace:hover {
+  background: var(--glass-bg-hover);
+}
+
+.client {
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-small);
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition);
+}
+
+.client.active {
+  background: var(--glass-bg-active);
+  box-shadow: var(--shadow-heavy), inset 0 0 0 2px var(--accent-color);
+}
+
+.client:hover {
+  background: var(--glass-bg-hover);
+}
+
+.client-image {
+  border-radius: var(--border-radius-small);
+}
+
+.launcher {
+  background: @background;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-heavy), 0 0 0 1px alpha(@color1, 0.3);
+  padding: 24px;
+}
+
+.launcher-input {
+  background: alpha(@color3, 0.15);
+  border-radius: var(--border-radius-small);
+  padding: 16px 20px;
+  color: var(--text-primary);
+  font-size: 16px;
+  transition: var(--transition);
+  box-shadow: var(--shadow-light);
+}
+
+.launcher-input:focus {
+  background: alpha(@color3, 0.2);
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+
+.launcher-results {
+  background: alpha(@color0, 0.3);
+  border-radius: var(--border-radius-small);
+  margin-top: 12px;
+  box-shadow: var(--shadow-medium);
+}
+
+.launcher-item {
+  background: transparent;
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.launcher-item:hover {
+  background: alpha(@color2, 0.2);
+  color: var(--text-primary);
+}
+
+.launcher-item:active {
+  background: var(--glass-bg-active);
+}
+
+.launcher-exec {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.launcher-key {
+  background: alpha(@color4, 0.15);
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.launcher-plugins {
+  background: alpha(@color0, 0.2);
+  border-radius: var(--border-radius-small);
+  margin-top: 8px;
+}
+
+.launcher-plugin {
+  background: transparent;
+  padding: 8px 12px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  font-size: 14px;
+}
+
+.launcher-plugin:hover {
+  background: alpha(@color5, 0.2);
+  color: var(--text-secondary);
+}

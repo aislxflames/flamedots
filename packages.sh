@@ -41,8 +41,6 @@ gnome-clocks
 tela-circle-icon-theme-dracula
 python-watchdog
 adw-gtk-theme
-gtk-engines
-gtk-engine-murrine
 xdotool
 wtype
 rofi
@@ -83,6 +81,7 @@ nwg-look
 discord
 alacritty
 hyprland
+hypridle
 
 # Aur Packages
 python-pywal16
@@ -91,3 +90,4 @@ ocs-url
 watchdog
 matugen-bin
 pokemon-colorscripts-git
+hyprshell-bin
