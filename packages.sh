@@ -82,9 +82,9 @@ discord
 alacritty
 hyprland
 hypridle
+python-pywal
 
 # Aur Packages
-python-pywal16
 ttf-font-awesome-5
 ocs-url
 watchdog
