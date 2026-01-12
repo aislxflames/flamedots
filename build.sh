@@ -198,6 +198,35 @@ reboot_system() {
 }
 
 
+hypr_plugins() {
+  if pgrep -x "Hyprland" > /dev/null; then
+    hyprpm update 2>/dev/null || echo "Warning: hyprpm update failed"
+    hyprpm add https://github.com/hyprwm/hyprland-plugins 2>/dev/null || echo "Warning: Failed to add hyprland-plugins"
+    hyprpm enable hyprexpo 2>/dev/null || echo "Warning: Failed to enable hyprexpo"
+    hyprpm enable hyprscrolling 2>/dev/null || echo "Warning: Failed to enable hyprscrolling"
+    hyprpm add https://github.com/virtcode/hypr-dynamic-cursors 2>/dev/null || echo "Warning: Failed to add dynamic-cursors"
+    hyprpm enable dynamic-cursors 2>/dev/null || echo "Warning: Failed to enable dynamic-cursors"
+    echo "Hypr Plugins installation attempted"
+  else
+    echo "Hyprland not running. Creating plugin installation script for later use."
+    mkdir -p ~/.config/hypr
+    cat > ~/.config/hypr/install-plugins.sh << 'EOF'
+#!/bin/bash
+hyprpm update
+hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm enable hyprexpo
+hyprpm enable hyprscrolling
+hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
+hyprpm enable dynamic-cursors
+echo "Hypr plugins installed successfully"
+EOF
+    chmod +x ~/.config/hypr/install-plugins.sh
+    echo "Plugin installation script created at ~/.config/hypr/install-plugins.sh"
+    echo "Run this script after starting Hyprland to install plugins."
+  fi
+}
+
+
 # Install yay
 install_yay
 clear
@@ -221,6 +250,29 @@ else
   echo "Skipping installation"
 fi
 clear
+
+
+echo "
+ ██▓███   ██▓     █    ██   ▄████  ██▓ ███▄    █   ██████ 
+▓██░  ██▒▓██▒     ██  ▓██▒ ██▒ ▀█▒▓██▒ ██ ▀█   █ ▒██    ▒ 
+▓██░ ██▓▒▒██░    ▓██  ▒██░▒██░▄▄▄░▒██▒▓██  ▀█ ██▒░ ▓██▄   
+▒██▄█▓▒ ▒▒██░    ▓▓█  ░██░░▓█  ██▓░██░▓██▒  ▐▌██▒  ▒   ██▒
+▒██▒ ░  ░░██████▒▒▒█████▓ ░▒▓███▀▒░██░▒██░   ▓██░▒██████▒▒
+▒▓▒░ ░  ░░ ▒░▓  ░░▒▓▒ ▒ ▒  ░▒   ▒ ░▓  ░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░
+░▒ ░     ░ ░ ▒  ░░░▒░ ░ ░   ░   ░  ▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░
+░░         ░ ░    ░░░ ░ ░ ░ ░   ░  ▒ ░   ░   ░ ░ ░  ░  ░  
+             ░  ░   ░           ░  ░           ░       ░ 
+" | lolcat
+choice=$(fzf_prompt "Do you want to install hypr plugins?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "🪦 Installing hypr plugins..."
+    hypr_plugins
+else
+  echo "Skipping installation."
+fi
+clear
+
 echo "
 ▓█████▄  ▒█████  ▄▄▄█████▓  █████▒██▓ ██▓    ▓█████   ██████
 ▒██▀ ██▌▒██▒  ██▒▓  ██▒ ▓▒▓██   ▒▓██▒▓██▒    ▓█   ▀ ▒██    ▒
