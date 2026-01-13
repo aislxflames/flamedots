@@ -187,6 +187,8 @@ copy_dotfiles() {
     echo ".config and Wallpapers copied successfully!"
     sleep 1
     sudo cp -r rootfiles/environment /etc/environment
+    sudo cp -r rootfiles/bin/asira-launch-webapp /usr/bin/
+    sudo chmod +x /usr/bin/asira-launch-webapp
 }
 
 reboot_system() {

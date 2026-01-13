@@ -66,7 +66,7 @@ cat > "$desktop_file" << EOF
 Version=1.0
 Name=$app_name
 Comment=$app_name
-Exec=~/.config/flames/scripts/asira-launch-webapp $app_url
+Exec=asira-launch-webapp $app_url
 Terminal=false
 Type=Application
 Icon=$icon_path
