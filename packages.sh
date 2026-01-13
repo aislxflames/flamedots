@@ -88,6 +88,7 @@ zoxide
 cpio
 cmake
 meson
+uwsm
 
 # Aur Packages
 ttf-font-awesome-5
