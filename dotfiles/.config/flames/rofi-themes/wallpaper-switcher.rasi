@@ -12,7 +12,7 @@ configuration {
 
 * {
       bg: @surface;
-      fg: @on-surface;
+      fg: @inverse-surface;
       accent: @primary;
       button: @surface-container;
 
@@ -25,24 +25,24 @@ window {
       ancor: center;
       border-radius: 7px;
       width: 80%;
-      background-color: @bg;
       text-color: @fg;
+    background-color: transparent;  
 }
 
 prompt {
-      background-color: @button;
       enabled: true;
       padding: 0.5% 10px 0% 10px;
       text-color: @on-surface;
+      background-color: transparent;
 }
 
 entry {
     	placeholder: "Search";
-	    background-color: @button;
     	placeholder-color: @outline;
     	expand: true;
     	padding: 0.15% 0% 0% 0%;
     	text-color: @fg;
+      background-color: transparent;
 }
 
 inputbar {
@@ -55,6 +55,8 @@ inputbar {
     	text-color: @fg;
 }
 
+
+
 listview {
     	columns: 1;
     	lines: 6;
@@ -64,17 +66,20 @@ listview {
       location: center;
       ancor: center;
     	layout: horizontal;
+      background-color: transparent;
 }
 
 mainbox {
     	children: [ inputbar, listview ];
     	spacing: 2%;
     	padding: 2% 1% 2% 1%;
+      background-color: transparent;
 }
 
 element {
     	orientation: vertical;
     	padding: 2% 0% 2% 0%;
+      background-color: transparent;
 }
 
 element-icon {
@@ -100,6 +105,15 @@ element-text selected {
     	border-radius: 6px;
       padding: 20px;
       margin: 0;
-    	text-color: @bg;
+    	text-color: @surface-bright;
 }
 
+
+element, element-text, element-icon {
+    background-color: transparent;  
+    text-color: @fg;               }
+
+
+element {
+    background-color: transparent;  
+}
