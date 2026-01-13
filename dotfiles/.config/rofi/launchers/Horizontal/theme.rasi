@@ -20,8 +20,8 @@ configuration {
     font:                        "JetBrains Mono Nerd Font 10";
     background:                  @surface-container;
     background-alt:              @surface-container-low;
-    foreground:                  @on-surface;
-    selected:                    @primary;
+    foreground:                  @inverse-surface;
+    selected:                    @on-primary;
     active:                      #00CCF5;
     urgent:                      #8D0083;
 }
@@ -179,7 +179,7 @@ element-icon {
 }
 element-text {
     background-color:            transparent;
-    text-color:                  inherit;
+    text-color:                  @foreground;
     cursor:                      inherit;
     vertical-align:              0.5;
     horizontal-align:            0.0;
