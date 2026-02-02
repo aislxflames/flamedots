@@ -1,0 +1,19 @@
+{
+  "layer": "top",
+  "modules-left": [
+    "custom/appicon"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "custom/pacman",
+    "pulseaudio",
+    "network",
+    "battery",
+    "clock",
+    "group/ess"
+  ],
+  
+  "include": ["~/.config/waybar/modules.json"]
+}

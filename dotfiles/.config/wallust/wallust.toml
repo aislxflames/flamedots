@@ -1,0 +1,75 @@
+
+
+# How the image is parse, in order to get the colors:
+# full - resized - wal - thumb -  fastresize - kmeans
+backend = "wal"
+
+# lab - labmixed - lch - lchmixed
+color_space = "lchmixed"
+
+# Use the most prominent colors in a way that makes sense, a scheme color palette:
+# dark - dark16 - darkcomp - darkcomp16
+# light - light16 - lightcomp - lightcomp16
+# harddark - harddark16 - harddarkcomp - harddarkcomp16
+# softdark - softdark16 - softdarkcomp - softdarkcomp16
+# softlight - softlight16 - softlightcomp - softlightcomp16
+palette = "dark"
+
+# Ensures a "readable contrast" (OPTIONAL, disabled by default)
+# Should only be enabled when you notice an unreadable contrast frequently happening
+# with your images. The reference color for the contrast is the background color.
+check_contrast = true
+
+# Color saturation, between [1% and 100%] (OPTIONAL, disabled by default)
+# usually something higher than 50 increases the saturation and below
+# decreases it (on a scheme with strong and vivid colors)
+
+# Alpha value for templating, by default 100 (no other use whatsoever)
+alpha = 100
+saturation = 20 
+
+[templates]
+# NOTE: prefer '' over "" for paths, avoids escaping.
+# template: A RELATIVE path that points to `~/.config/wallust/template` (depends on platform)
+# target: ABSOLUTE path in which to place a file with generated templated values.
+# ¡ If either one is a directory, then both SHOULD be one. !
+# zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
+
+# DEFAULT COLOR
+default = {template = 'default', target = '~/.cache/wallust/colors'}
+darkonly = {template = 'darkonly', target = '~/.cache/wallust/colors_dark'}
+
+# GTK THEME
+gtk = { template = 'gtk', target = '~/.config/gtk-3.0/colors.css' }
+gtk4 = { template = 'gtk', target = '~/.config/gtk-4.0/colors.css' }
+
+# KITTY THEME
+kitty = {template = 'kitty', target = '~/.config/kitty/colors.css'}
+
+# QT5 THEME
+qt5 = {template = 'qt6', target = '~/.config/qt5ct/colors/wallust.conf'}
+# QT6 THEME
+qt6 =  {template = 'qt6', target = '~/.config/qt6ct/colors/wallust.conf'}
+
+# NEOVIM THEME
+neopywal = {template = 'neopywal', target = '~/.cache/wallust/colors_neopywal.vim'}
+neopywal_wal = {template = 'neopywal', target = '~/.cache/wal/colors-wal.vim'}
+
+# ROFI THEME
+rofi1 = {template = 'rofi1', target = '~/.config/rofi/colors/flamedots.rasi'}
+rofi2 = {template = 'rofi2', target = '~/.config/rofi/colors.rasi'}
+
+# HYPRLAND THEME
+hyprland = {template = 'hyprland', target = '~/.config/hypr/conf/colors.conf'}
+
+# WAYBAR THEME
+waybar = {template = 'waybar', target = '~/.config/waybar/colors.css'}
+
+# SWAYNC THEME
+swaync = {template = 'swaync', target = '~/.config/swaync/colors.css'}
+
+# HYPERSHELL THEME
+hyprshell = {template = 'hyprshell', target = '~/.config/hyprshell/colors.css'}
+
+# TMUX THEME
+tmux = {template = 'tmux', target = '~/.cache/wal/colors.sh'}

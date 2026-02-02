@@ -1,0 +1,4 @@
+$active1 = rgba({{color2 | strip}}ee) 
+$active2 = rgba({{color4 | strip}}ee) 
+$inactive = rgba({{background | strip}}ee) 
+

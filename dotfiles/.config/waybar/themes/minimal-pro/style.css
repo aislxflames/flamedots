@@ -1,0 +1,114 @@
+@import "../../colors.css";
+
+/* Minimal Professional Waybar Theme */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: @on_surface;
+}
+
+#workspaces {
+  background-color: @surface_container;
+  border-radius: 12px;
+  margin: 4px;
+  padding: 2px;
+}
+
+#workspaces button {
+  background-color: transparent;
+  color: @on_surface_variant;
+  border-radius: 8px;
+  padding: 2px 8px;
+  margin: 1px;
+}
+
+#workspaces button.active {
+  background-color: @primary;
+  color: @on_primary;
+}
+
+#workspaces button:hover {
+  background-color: @surface_container_high;
+  color: @on_surface;
+}
+
+#custom-appicon {
+  background-color: @primary;
+  color: @on_primary;
+  border-radius: 12px;
+  padding: 4px 8px;
+  margin: 4px;
+  font-size: 16px;
+}
+
+#window {
+  background-color: @surface_container;
+  border-radius: 12px;
+  padding: 2px 12px;
+  margin: 4px;
+  color: @on_surface_variant;
+}
+
+#clock {
+  background-color: @surface_container_high;
+  border-radius: 12px;
+  padding: 4px 16px;
+  margin: 4px;
+  font-weight: bold;
+  color: @on_surface;
+}
+
+#pulseaudio,
+#network,
+#battery,
+#custom-pacman {
+  background-color: @surface_container;
+  border-radius: 12px;
+  padding: 2px 8px;
+  margin: 2px;
+  color: @on_surface;
+}
+
+#battery.warning {
+  color: @tertiary;
+}
+
+#battery.critical {
+  background-color: @error_container;
+  color: @on_error_container;
+  animation: blink 1s linear infinite alternate;
+}
+
+@keyframes blink {
+  to {
+    background-color: @error;
+    color: @on_error;
+  }
+}
+
+#custom-pacman {
+  color: @secondary;
+}
+
+#tray {
+  background-color: @surface_container;
+  border-radius: 12px;
+  padding: 2px 6px;
+  margin: 2px;
+}
+
+#custom-trayicon {
+  background-color: @surface_container;
+  border-radius: 12px;
+  padding: 2px 6px;
+  margin: 2px;
+  color: @on_surface_variant;
+}

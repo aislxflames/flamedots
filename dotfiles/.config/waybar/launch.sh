@@ -7,5 +7,8 @@ theme=$(cat ~/.config/waybar/theme.sh)
 FILEPATH="$HOME/.config/waybar/themes/$theme"
 
 # Run Waybar with the specified config and style
-killall waybar
-waybar -c "$FILEPATH/config" -s "$FILEPATH/style.css" & disown
+if pgrep -x "waybar" > /dev/null; then
+    killall waybar
+else
+    waybar -c "$FILEPATH/config" -s "$FILEPATH/style.css" & disown
+fi

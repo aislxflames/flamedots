@@ -11,10 +11,8 @@ recent_items=$(head -1 "$RECENT_FILE" 2>/dev/null | sed 's/^/󰋚  (Recent) /')
 
 options="$recent_items
 󰀻  Apps
-󰑴  Learn
-󰘦  Trigger
 󰏘  Style
-󰒓  Setup
+󰆍  Terminal
 󰏖  Install
 󰆴  Remove
 󰚰  Update
@@ -45,21 +43,13 @@ case $chosen in
                 add_to_recent "󰀻  Apps"
                 ./src/ui/apps.sh
                 ;;
-            "󰑴  Learn")
-                add_to_recent "󰑴  Learn"
-                ./src/ui/learn.sh
-                ;;
-            "󰘦  Trigger")
-                add_to_recent "󰘦  Trigger"
-                ./src/ui/trigger.sh
+            "󰆍  Terminal")
+                add_to_recent "󰆍  Terminal"
+                ./src/ui/terminal.sh
                 ;;
             "󰏘  Style")
                 add_to_recent "󰏘  Style"
                 ./src/ui/style.sh "$TERMINAL"
-                ;;
-            "󰒓  Setup")
-                add_to_recent "󰒓  Setup"
-                ./src/ui/setup.sh
                 ;;
             "󰏖  Install")
                 add_to_recent "󰏖  Install"
@@ -83,21 +73,13 @@ case $chosen in
         add_to_recent "󰀻  Apps"
         ./src/ui/apps.sh
         ;;
-    "󰑴  Learn")
-        add_to_recent "󰑴  Learn"
-        ./src/ui/learn.sh
-        ;;
-    "󰘦  Trigger")
-        add_to_recent "󰘦  Trigger"
-        ./src/ui/trigger.sh
+    "󰆍  Terminal")
+        add_to_recent "󰆍  Terminal"
+        ./src/ui/terminal.sh
         ;;
     "󰏘  Style")
         add_to_recent "󰏘  Style"
         ./src/ui/style.sh "$TERMINAL"
-        ;;
-    "󰒓  Setup")
-        add_to_recent "󰒓  Setup"
-        ./src/ui/setup.sh
         ;;
     "󰏖  Install")
         add_to_recent "󰏖  Install"

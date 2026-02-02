@@ -1,4 +1,2 @@
-killall swww-daemon
 swww-daemon &
-walset-backend $HOME/.config/flames/wallpaper/current.png
-
+$HOME/.local/bin/wallch-backend $HOME/.config/flames/current.png

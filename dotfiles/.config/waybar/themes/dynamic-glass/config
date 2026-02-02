@@ -1,0 +1,16 @@
+{
+  "layer": "top",
+  "modules-left": [
+    "custom/appicon",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "group/utils",
+    "clock",
+    "group/ess"
+  ],
+  
+  "include": ["~/.config/waybar/modules.json"]
+}

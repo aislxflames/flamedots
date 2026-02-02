@@ -1,14 +1,14 @@
-@import "../../colors.css";
+@import url("../../colors.css");
 
 * {
   margin: 0;
   padding: 0;
-  color: @inverse_surface;
+  color: @foreground;
   font-family: FiraCode Nerd Font Propo;
 }
 
 window#waybar {
-  background-color: @primary-surface;
+  background-color: transparent;
 }
 
 .modules-left {
@@ -34,7 +34,7 @@ window#waybar {
 }
 
 #workspaces button {
-  background-color: @primary_container;
+  background-color: @color0;
   margin: 4px 3px;
   min-width: 18px;
   border-radius: 60px;
@@ -44,7 +44,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-  background-color: @source_color;
+  background-color: @color1;
   min-width: 34px;
   transition: all 0.3s ease-in-out;
   opacity: 1;
@@ -55,18 +55,18 @@ window#waybar {
 
 #custom-appicon {
   font-size: 1em;
-  background-color: @on_primary;
+  background-color: @background;
   padding: 0 0.3em 0px 0.3em;
   min-width: 22px;
   border-radius: 0.8em;
-  border: 0.16em solid @inverse_serface;
+  border: 0.16em solid @color3;
 }
 
 /* Clock Style */
 
 #clock {
-  background-color: @on_primary;
-  border: 0.16em solid @inverse_serface;
+  background-color: @background;
+  border: 0.16em solid @color3;
   border-radius: 0.8em;
   font-weight: bold;
   font-size: 0.9em;
@@ -91,7 +91,7 @@ window#waybar {
 }
 
 #taskbar {
-  background-color: @inverse_on_surface;
+  background-color: @background;
   margin: 0 10px;
   padding: 0 10px;
   border-radius: 1em;

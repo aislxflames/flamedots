@@ -1,22 +1,22 @@
 #!/bin/bash
 
 # Path to the wal colors file
-COLORS_FILE="$HOME/.cache/wal/colors"
+COLORS_FILE="$HOME/.cache/wallust/colors"
 
 # Path to the CAVA config file
 CAVA_CONFIG="$HOME/.config/cava/config"
 
 # Function to update CAVA with the new colors
 update_cava_colors() {
-  # Extract colors from the colors file
-  color1=$(sed -n '1p' "$COLORS_FILE")
-  color2=$(sed -n '2p' "$COLORS_FILE")
-  color3=$(sed -n '3p' "$COLORS_FILE")
-  color4=$(sed -n '4p' "$COLORS_FILE")
-  color5=$(sed -n '5p' "$COLORS_FILE")
-  color6=$(sed -n '6p' "$COLORS_FILE")
-  color7=$(sed -n '7p' "$COLORS_FILE")
-  color8=$(sed -n '8p' "$COLORS_FILE")
+  # Extract only dark colors (skip light ones)
+  color1=$(sed -n '1p' "$COLORS_FILE")   # darkest
+  color2=$(sed -n '13p' "$COLORS_FILE")  # dark
+  color3=$(sed -n '5p' "$COLORS_FILE")   # mid-dark
+  color4=$(sed -n '14p' "$COLORS_FILE")  # mid
+  color5=$(sed -n '6p' "$COLORS_FILE")   # mid-light
+  color6=$(sed -n '15p' "$COLORS_FILE")  # lighter
+  color7=$(sed -n '8p' "$COLORS_FILE")   # light
+  color8=$(sed -n '10p' "$COLORS_FILE")  # lightest (no white)
 
   # Update the CAVA config with the new colors
   sed -i "s/gradient_color_1 = .*/gradient_color_1 = '$color1'/" "$CAVA_CONFIG"
@@ -29,7 +29,7 @@ update_cava_colors() {
   sed -i "s/gradient_color_8 = .*/gradient_color_8 = '$color8'/" "$CAVA_CONFIG"
 
   # Kill all running instances of cava
-  pkill cava
+  pkill -SIGUSR2 cava
 
   # Find all TTYs where cava was running and restart cava in those terminals
   for tty in $(ps aux | grep '[c]ava' | awk '{print $7}' | sort -u); do
@@ -52,4 +52,4 @@ update_cava_colors() {
 # Monitor the colors file for changes
 #inotifywait -m -e close_write "$COLORS_FILE" | while read path action file; do
   update_cava_colors
-done
+#done

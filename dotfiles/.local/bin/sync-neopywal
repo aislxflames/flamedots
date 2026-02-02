@@ -1,0 +1,6 @@
+#!/bin/bash
+# Sync wallust colors with neopywal
+
+mkdir -p ~/.cache/wal
+ln -sf ~/.cache/wallust/colors_neopywal.vim ~/.cache/wal/colors-wal.vim
+echo "Neopywal colors synced!"

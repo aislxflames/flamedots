@@ -8,6 +8,7 @@ open_tmux_session() {
   session_name=$(basename "$dir" | tr -cd '[:alnum:]_-')
 
   if tmux has-session -t="$session_name" 2>/dev/null; then
+    tmux send-keys -t "$session_name" "cd '$dir'" Enter
     tmux attach -t "$session_name"
   else
     tmux new-session -s "$session_name" -c "$dir"
@@ -38,7 +39,7 @@ else
     session_name="${selected%% *}"
     tmux attach -t "$session_name"
   elif [[ "$selected" == *"[zoxide]" ]]; then
-    dir="${selected% [zoxide]}"
+    dir="${selected% \[zoxide\]}"
     open_tmux_session "$dir"
   fi
 fi

@@ -1,0 +1,73 @@
+@import "../../colors.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: FiraCode Nerd Font Propo;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: @on_surface;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  margin: 2px;
+}
+
+#workspaces {
+  background-color: @surface_container;
+  border-radius: 15px;
+  padding: 2px;
+}
+
+#workspaces button {
+  background-color: transparent;
+  color: @on_surface_variant;
+  border-radius: 12px;
+  padding: 0 8px;
+  margin: 1px;
+  min-width: 16px;
+  font-size: 0.9em;
+}
+
+#workspaces button.active {
+  background-color: @primary;
+  color: @on_primary;
+}
+
+#custom-appicon {
+  background-color: @primary;
+  color: @on_primary;
+  border-radius: 12px;
+  padding: 0 8px;
+  font-size: 1em;
+}
+
+#clock {
+  background-color: @surface_container_high;
+  color: @on_surface;
+  border-radius: 15px;
+  padding: 0 12px;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+#pulseaudio,
+#network,
+#battery,
+#custom-pacman {
+  background-color: @surface_container;
+  color: @on_surface;
+  border-radius: 12px;
+  padding: 0 6px;
+  margin: 1px;
+  font-size: 0.85em;
+  font-weight: bold;
+}
+#custom-pmenu,
+#custom-notification {
+  font-size: 1.1em;
+}
