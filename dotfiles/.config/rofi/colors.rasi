@@ -1,0 +1,29 @@
+* {
+  color0: #0D0000;
+  color1: #B03B37;
+  color2: #876557;
+  color3: #CF3C2F;
+  color4: #9A624C;
+  color5: #A65681;
+  color6: #CB8F6C;
+  color7: #DCC7BB;
+  color8: #9A8B83;
+  color9: #B03B37;
+  color10: #876557;
+  color11: #CF3C2F;
+  color12: #9A624C;
+  color13: #A65681;
+  color14: #CB8F6C;
+  color15: #DCC7BB;
+  background: #0B0000;
+  foreground: #EDDED5;
+  cursor: #A9958C;
+  
+  /* Material Design variables */
+  surface: #0B000080;
+  surface-dim: #0D000090;
+  inverse-surface: #EDDED5;
+  primary: #B03B3790;
+  inverse-primary: #CB8F6C;
+}
+

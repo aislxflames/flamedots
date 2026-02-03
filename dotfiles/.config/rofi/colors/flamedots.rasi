@@ -1,0 +1,12 @@
+/**FLAME COLOR SCHEME
+**/
+
+* {
+    bg-image: url("/home/aislx/Wallpapers/wallpaper-2.jpg",height);
+    background:     #0B000080;
+    background-alt: #0D000060;
+    foreground:     #EDDED5;
+    selected:       #B03B3760;
+    active:         #876557cc;
+    urgent:         #B03B37;
+}

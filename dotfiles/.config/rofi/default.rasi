@@ -1,0 +1,90 @@
+@import "colors.rasi"
+
+* {
+    background-colour:           @surface;
+    foreground-colour:           @foreground;
+    border-colour:               @primary;
+    selected-normal-background:  @primary;
+    selected-normal-foreground:  @foreground;
+}
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    width:                       400px;
+    border:                      0px solid;
+    border-radius:               8px;
+    border-color:                @border-colour;
+    background-color:            @background-colour;
+    cursor:                      "default";
+}
+
+mainbox {
+    spacing:                     10px;
+    padding:                     30px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    children:                    [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing:                     10px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+    children:                    [ "entry" ];
+}
+
+entry {
+    background-color:            @color0;
+    text-color:                  @foreground-colour;
+    padding:                     12px;
+    border-radius:               6px;
+    cursor:                      text;
+    placeholder:                 "search...";
+    placeholder-color:           @color8;
+}
+
+listview {
+    columns:                     1;
+    lines:                       8;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    spacing:                     5px;
+    padding:                     0px;
+    border:                      0px solid;
+    border-radius:               0px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+}
+
+element {
+    spacing:                     8px;
+    padding:                     8px;
+    border:                      0px solid;
+    border-radius:               4px;
+    border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @foreground-colour;
+    cursor:                      pointer;
+}
+
+element selected.normal {
+    background-color:            @selected-normal-background;
+    text-color:                  @selected-normal-foreground;
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    cursor:                      inherit;
+}
