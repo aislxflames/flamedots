@@ -1,13 +1,13 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
-pokemon-colorscripts -r
+# Initialize Starship prompt
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init zsh)"
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+# Export wallch command
+export wallch="$HOME/.local/bin/wallch"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -16,8 +16,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+# source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
@@ -102,6 +102,25 @@ plugins=(
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+# typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
+# AsiraOS PNG logo for Powerlevel10k
+# function show_asiraos_png() {
+#   if [[ "$TERM" == "xterm-kitty" ]]; then
+#     kitty +kitten icat --align left --place 20x10@0x0 /home/aislx/.config/fastfetch/logo/asiraos.png
+#   elif command -v img2sixel >/dev/null 2>&1; then
+#     img2sixel -w 80 -h 40 /home/aislx/.config/fastfetch/logo/asiraos.png
+#   else
+#     echo "🅰️"
+#   fi
+# }
+
+# Override OS icon with PNG
+# typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='$(show_asiraos_png)'
+# typeset -g POWERLEVEL9K_OS_ICON=''
+
+
+# Keep terminal width constant for text truncation
+export COLUMNS

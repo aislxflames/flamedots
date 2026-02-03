@@ -1,4 +1,4 @@
-# --------------------------
+pokemon-colorscripts -r --no-title
 # Auto-install dependencies if missing
 # --------------------------
 dependencies=(exa fzf zoxide git)
