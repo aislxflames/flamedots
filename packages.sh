@@ -82,7 +82,6 @@ discord
 alacritty
 hyprland
 hypridle
-python-pywal
 exa
 zoxide
 cpio
@@ -92,8 +91,8 @@ uwsm
 
 # Aur Packages
 ttf-font-awesome-5
+wallust-git
 ocs-url
 watchdog
-matugen-bin
 pokemon-colorscripts-git
 hyprshell-bin
