@@ -177,7 +177,7 @@ install_zshplugins() {
   fi
   chsh -s $(which zsh)
   cp -rf $SOURCE_CONFIG/.zshrc $USER_HOME/.zshrc
-  cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
+  # cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
 }
 
 copy_dotfiles() {
