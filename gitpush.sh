@@ -51,5 +51,5 @@ fi
 git commit -m "$commit_msg"
 
 # Push to main
-git push origin flamedotsv2
+git push origin flamedotsv3
 
