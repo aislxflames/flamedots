@@ -142,15 +142,16 @@ install_zshplugins() {
   fi
 
   # Check if ~/powerlevel10k exists and remove it if it does
-  if [ ! -d "$USER_HOME/powerlevel10k" ]; then
-    echo "Cloning powerlevel10k repository..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $USER_HOME/.oh-my-zsh/custom/themes/powerlevel10k
-  else
-    echo "$USER_HOME/powerlevel10k already exists, skipping clone."
-  fi
+  # if [ ! -d "$USER_HOME/powerlevel10k" ]; then
+  #   echo "Cloning powerlevel10k repository..."
+  #   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $USER_HOME/.oh-my-zsh/custom/themes/powerlevel10k
+  # else
+  #   echo "$USER_HOME/powerlevel10k already exists, skipping clone."
+  # fi
+
   sed -i 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
   LINES_TO_ADD=(
-    'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme'
+    # 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme'
     'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
     'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
     'source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh'

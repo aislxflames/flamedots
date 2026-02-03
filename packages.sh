@@ -1,4 +1,5 @@
 # Official Packages
+starship
 unzip
 zip
 nwg-dock-hyprland
