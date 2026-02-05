@@ -72,7 +72,7 @@ main() {
     IFS=$'\n'
     
     # Show wallpaper selector using actual images as icons
-    CHOICE=$(find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -printf "%f\n" | while read -r img; do
+    CHOICE=$(find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) -printf "%f\n" | sort -V | while read -r img; do
         echo -en "$img\0icon\x1f$img\n"
     done | rofi -dmenu -theme "$ROFI_THEME" -p "Select Wallpaper:")
     

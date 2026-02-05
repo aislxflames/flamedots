@@ -15,10 +15,14 @@ swww img "$WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-pos "$
 
 # Set wallpaper with Wallust
 wallust run "$WALLPAPER"
+sleep 0.2
 tmux source-file ~/.tmux.conf &
-~/.config/flames/scripts/cava.sh &
+~/.config/flames/scripts/cava.sh
 killall waybar
 ~/.config/waybar/launch.sh &
 killall swaync
 swaync &
+killall swayosd-server 
+swayosd-server &
+pywalfox update
 cp -r $WALLPAPER ~/.config/flames/current.png &
