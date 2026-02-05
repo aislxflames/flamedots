@@ -2,7 +2,7 @@
 
 # How the image is parse, in order to get the colors:
 # full - resized - wal - thumb -  fastresize - kmeans
-backend = "wal"
+backend = "kmeans"
 
 # lab - labmixed - lch - lchmixed
 color_space = "lchmixed"
@@ -13,20 +13,21 @@ color_space = "lchmixed"
 # harddark - harddark16 - harddarkcomp - harddarkcomp16
 # softdark - softdark16 - softdarkcomp - softdarkcomp16
 # softlight - softlight16 - softlightcomp - softlightcomp16
-palette = "dark"
+palette = "saliencedarkdistributed16"
 
 # Ensures a "readable contrast" (OPTIONAL, disabled by default)
 # Should only be enabled when you notice an unreadable contrast frequently happening
 # with your images. The reference color for the contrast is the background color.
 check_contrast = true
-
+threshold = 11
+fallback-generator = "complementary"
 # Color saturation, between [1% and 100%] (OPTIONAL, disabled by default)
 # usually something higher than 50 increases the saturation and below
 # decreases it (on a scheme with strong and vivid colors)
 
 # Alpha value for templating, by default 100 (no other use whatsoever)
-alpha = 100
-saturation = 20 
+# alpha = 100
+saturation = 30
 
 [templates]
 # NOTE: prefer '' over "" for paths, avoids escaping.
@@ -73,3 +74,9 @@ hyprshell = {template = 'hyprshell', target = '~/.config/hyprshell/colors.css'}
 
 # TMUX THEME
 tmux = {template = 'tmux', target = '~/.cache/wal/colors.sh'}
+
+# DISCORD THEME
+discord = {template = 'discord', target = '~/.config/Vencord/themes/asira-discord.css'}
+
+# WAL THEME
+wal-colors-json = {template = 'wal-colors-json', target = '~/.cache/wal/colors.json'}

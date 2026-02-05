@@ -8,7 +8,7 @@ THEME_FILE="$HOME/.config/flames/current-theme"
 if [[ -f "$THEME_FILE" ]]; then
     CURRENT_THEME=$(cat "$THEME_FILE")
 else
-    CURRENT_THEME="type-7/style-1"
+    CURRENT_THEME="type-3/style-4"
 fi
 
 # Launch rofi with current theme

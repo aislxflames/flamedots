@@ -1,7 +1,12 @@
 {
-  "background": "{{background}}",
-  "foreground": "{{foreground}}",
-  "cursor": "{{cursor}}",
+  "wallpaper": "{{wallpaper}}",
+  "alpha": "{{alpha}}",
+
+  "special": {
+    "background": "{{background}}",
+    "foreground": "{{foreground}}",
+    "cursor": "{{cursor}}"
+  },
 
   "colors": {
     "color0": "{{color0}}",

@@ -1,4 +1,6 @@
 format = """
+$username\
+$hostname\
 $directory\
 $git_branch\
 $git_status\
@@ -15,6 +17,7 @@ $aws\
 $docker_context\
 $jobs\
 $cmd_duration\
+$time\
 $line_break\
 $character"""
 
@@ -103,4 +106,21 @@ style = 'fg:gray'
 format = '[$duration]($style)'
 
 [palettes.nord]
+
+[username]
+style_user = 'fg:blue bold'
+style_root = 'fg:red bold'
+format = '[$user]($style)'
+show_always = true
+
+[hostname]
+ssh_only = false
+style = 'fg:purple bold'
+format = '[@$hostname ]($style)'
+
+[time]
+disabled = false
+style = 'fg:gray'
+format = '[$time]($style)'
+time_format = '%H:%M'
 
