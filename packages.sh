@@ -1,4 +1,6 @@
 # Official Packages
+nautilus
+satty
 starship
 unzip
 zip
