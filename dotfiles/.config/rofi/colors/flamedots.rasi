@@ -2,11 +2,11 @@
 **/
 
 * {
-    bg-image: url("/home/aislx/Wallpapers/wallpaper-2.jpg",height);
-    background:     #0B000080;
-    background-alt: #0D000060;
-    foreground:     #EDDED5;
-    selected:       #B03B3760;
-    active:         #876557cc;
-    urgent:         #B03B37;
+    bg-image: url("/home/aislx/Wallpapers/wallpaper13.png",height);
+    background:     #07030580;
+    background-alt: #0A0408;
+    foreground:     #F0B7DB;
+    selected:       #562D3590;
+    active:         #5D2F36cc;
+    urgent:         #602F38;
 }

@@ -42,7 +42,7 @@ inputbar {
 }
 
 entry {
-    background-color:            @color0;
+    background-color:            @surface;
     text-color:                  @foreground-colour;
     padding:                     12px;
     border-radius:               6px;

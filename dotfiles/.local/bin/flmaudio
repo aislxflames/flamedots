@@ -1,0 +1,6 @@
+yt-dlp -x --audio-format mp3 \
+--audio-quality 0 \
+--embed-thumbnail \
+--add-metadata \
+-o "~/Music/%(playlist_title)s/%(playlist_index)s - %(title)s.%(ext)s" \
+$1

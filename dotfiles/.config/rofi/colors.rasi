@@ -1,29 +1,29 @@
 * {
-  color0: #0D0000;
-  color1: #B03B37;
-  color2: #876557;
-  color3: #CF3C2F;
-  color4: #9A624C;
-  color5: #A65681;
-  color6: #CB8F6C;
-  color7: #DCC7BB;
-  color8: #9A8B83;
-  color9: #B03B37;
-  color10: #876557;
-  color11: #CF3C2F;
-  color12: #9A624C;
-  color13: #A65681;
-  color14: #CB8F6C;
-  color15: #DCC7BB;
-  background: #0B0000;
-  foreground: #EDDED5;
-  cursor: #A9958C;
+  color0: #0A0408;
+  color1: #562D35;
+  color2: #5D2F36;
+  color3: #572D30;
+  color4: #383560;
+  color5: #33406D;
+  color6: #93507C;
+  color7: #E0A7CB;
+  color8: #9C6A8A;
+  color9: #602F38;
+  color10: #68323A;
+  color11: #612E33;
+  color12: #3D396C;
+  color13: #36477E;
+  color14: #AD558D;
+  color15: #E7CBDC;
+  background: #070305;
+  foreground: #F0B7DB;
+  cursor: #856F9A;
   
   /* Material Design variables */
-  surface: #0B000080;
-  surface-dim: #0D000090;
-  inverse-surface: #EDDED5;
-  primary: #B03B3790;
-  inverse-primary: #CB8F6C;
+  surface: #07030580;
+  surface-dim: #0A040890;
+  inverse-surface: #F0B7DB;
+  primary: #562D3590;
+  inverse-primary: #93507C;
 }
 

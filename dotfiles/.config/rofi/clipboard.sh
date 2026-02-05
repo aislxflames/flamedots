@@ -1,7 +1,7 @@
 #!/bin/bash
 
-selection=$(printf "󱎘 Clear History\n$(cliphist list)" | rofi -dmenu -p "Clipboard")
 
+selection=$(printf "󱎘 Clear History\n$(cliphist list)" | rofi -dmenu -p "Clipboard")
 if [[ "$selection" == "󱎘 Clear History" ]]; then
     cliphist wipe
     rm -f ~/.cache/cliphist/db
@@ -9,3 +9,5 @@ if [[ "$selection" == "󱎘 Clear History" ]]; then
 elif [[ -n "$selection" ]]; then
     echo "$selection" | cliphist decode | wl-copy
 fi
+
+

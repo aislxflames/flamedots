@@ -229,6 +229,16 @@ EOF
   fi
 }
 
+initial_setup() {
+  if echo -e "Yes\nNo" | fzf --prompt="Setup Discord? > " | grep -q Yes; then
+    ~/flamedots/scripts/discord-setup.sh
+  fi
+
+  if echo -e "Yes\nNo" | fzf --prompt="Setup MPD? > " | grep -q Yes; then
+    ~/flamedots/scripts/mpd-setup.sh
+  fi
+}
+
 
 # Install yay
 install_yay
@@ -292,11 +302,39 @@ choice=$(fzf_prompt "Do you want to copy latest dotfiles?" "Yes" "No")
 
 if [[ "$choice" == "Yes" ]]; then
     echo "📦 Copying Dotfiles..."
+    rm -rf ~/.config/waybar
+    rm -rf ~/.config/rofi
+    rm -rf ~/.config/nwg-dock-hyprland
     copy_dotfiles
 else
   echo "Skipping Dotfiles copy...."
 fi
 clear
+
+echo "
+
+▓█████ ▒██   ██▒▄▄▄█████▓ ██▀███   ▄▄▄      
+▓█   ▀ ▒▒ █ █ ▒░▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄    
+▒███   ░░  █   ░▒ ▓██░ ▒░▓██ ░▄█ ▒▒██  ▀█▄  
+▒▓█  ▄  ░ █ █ ▒ ░ ▓██▓ ░ ▒██▀▀█▄  ░██▄▄▄▄██ 
+░▒████▒▒██▒ ▒██▒  ▒██▒ ░ ░██▓ ▒██▒ ▓█   ▓██▒
+░░ ▒░ ░▒▒ ░ ░▓ ░  ▒ ░░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░
+ ░ ░  ░░░   ░▒ ░    ░      ░▒ ░ ▒░  ▒   ▒▒ ░
+   ░    ░    ░    ░        ░░   ░   ░   ▒   
+   ░  ░ ░    ░              ░           ░  ░
+
+
+" | lolcat
+choice=$(fzf_prompt "Do you want to setup extra features?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Extra packages initilizing..."
+    initial_setup 
+else
+  echo "Skipping Extra setup...."
+fi
+clear
+
 echo "
 ▒███████▒  ██████  ██░ ██      ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███
 ▒ ▒ ▒ ▄▀░▒██    ▒ ▓██░ ██▒   ▒██    ▒ ▓█   ▀▓  ██▒ ▓▒ ██  ▓██▒▓██░  ██▒
