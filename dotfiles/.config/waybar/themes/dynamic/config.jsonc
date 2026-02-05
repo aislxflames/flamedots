@@ -1,0 +1,42 @@
+{
+  "layer": "top",
+  "margin-top": 5,
+  "margin-left": 200,
+  "margin-right": 200,
+  "modules-left": [
+    "custom/appicon",
+    "hyprland/window",
+    "custom/cava"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "group/ess",
+    "custom/update",
+    "clock",
+    "custom/power"
+  ],
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format-icons": {
+      "urgent": "",
+      "focused": "",
+      "active": "",
+      "default": ""
+    }
+  },
+  "group/ess": {
+    "orientation": "horizontal",
+    "modules": [
+      "tray",
+      "pulseaudio",
+      "battery"
+    ]
+  },
+  "include": [
+    "~/.config/waybar/modules.jsonc"
+  ]
+}
