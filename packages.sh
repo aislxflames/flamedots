@@ -1,4 +1,7 @@
 # Official Packages
+mpd-mpris
+swayosd
+cpio
 nautilus
 satty
 starship
@@ -92,7 +95,6 @@ rmpc
 
 
 # Aur Packages
-ttf-font-awesome-5
 wallust-git
 ocs-url
 watchdog
