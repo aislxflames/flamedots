@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Wallpaper Changer with Image Preview
+# Usage: wallch [wallpaper_directory]
+
+WALLPAPER_DIR="${1:-$HOME/Wallpapers}"
+PREVIEW_DIR="$HOME/.cache/wallch-previews"
+ROFI_THEME="$HOME/.config/flames/wallch-theme.rasi"
+
+# Create preview directory
+mkdir -p "$PREVIEW_DIR"
+
+# Create rofi theme for wallpaper selection
+
+# Generate preview thumbnails
+generate_previews() {
+    echo "Generating previews..."
+    for ext in jpg jpeg png webp; do
+        for img in "$WALLPAPER_DIR"/*.$ext; do
+            [[ -f "$img" ]] || continue
+        
+        filename=$(basename "$img")
+        preview="$PREVIEW_DIR/${filename%.*}.png"
+        
+        # Generate thumbnail if it doesn't exist
+        if [[ ! -f "$preview" ]]; then
+            convert "$img" -resize 300x200^ -gravity center -extent 300x200 "$preview" 2>/dev/null
+        fi
+        done
+    done
+}
+
+# Create desktop entries for rofi
+create_desktop_entries() {
+    rm -rf "$PREVIEW_DIR/desktop"
+    mkdir -p "$PREVIEW_DIR/desktop"
+    
+    for ext in jpg jpeg png webp; do
+        for img in "$WALLPAPER_DIR"/*.$ext; do
+            [[ -f "$img" ]] || continue
+        
+        filename=$(basename "$img")
+        name="${filename%.*}"
+        preview="$PREVIEW_DIR/${name}.png"
+        
+        cat > "$PREVIEW_DIR/desktop/${name}.desktop" << EOF
+[Desktop Entry]
+Name=$name
+Icon=$preview
+Type=Application
+EOF
+        done
+    done
+}
+
+# Main function
+main() {
+    if [[ ! -d "$WALLPAPER_DIR" ]]; then
+        echo "Error: Wallpaper directory '$WALLPAPER_DIR' not found"
+        exit 1
+    fi
+    
+    
+    # Show rofi menu with wallpaper previews
+    # Save current working directory
+    CWD=$(pwd)
+    
+    # Change to wallpaper directory
+    cd "$WALLPAPER_DIR" || exit 1
+    
+    # Handle spaces in filenames
+    IFS=$'\n'
+    
+    # Show wallpaper selector using actual images as icons
+    CHOICE=$(find . -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.gif" \) -printf "%f\n" | sort -V | while read -r img; do
+        echo -en "$img\0icon\x1f$img\n"
+    done | rofi -dmenu -theme "$ROFI_THEME" -p "Select Wallpaper:")
+    
+    # Return to original directory
+    cd "$CWD" || exit 1
+    
+    # Exit if no choice made
+    [[ -z "$CHOICE" ]] && exit 0
+    
+    # Apply the selected wallpaper directly
+    ~/.local/bin/wallch-backend "$WALLPAPER_DIR/$CHOICE"
+    
+    echo "Error: Selected wallpaper not found"
+}
+
+main "$@"

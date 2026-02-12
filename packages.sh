@@ -1,10 +1,14 @@
 # Official Packages
+mpd-mpris
+swayosd
+cpio
+nautilus
+satty
+starship
 unzip
 zip
-nwg-dock-hyprland
 ttf-firacode-nerd
 file-roller
-nemo
 pavucontrol
 qt5-graphicaleffects
 qt5-quickcontrols2
@@ -47,7 +51,6 @@ rofi
 rofi-emoji
 network-manager-applet
 pacman-contrib
-thunar
 ttf-font-awesome
 brightnessctl
 blueman
@@ -60,6 +63,7 @@ slurp
 cliphist
 kitty
 swww
+zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
 zsh-history-substring-search
@@ -74,7 +78,6 @@ ttf-jetbrains-mono-nerd
 ttf-jetbrains-mono
 noto-fonts
 noto-fonts-emoji
-zsh
 swaync
 waybar
 nwg-look
@@ -82,18 +85,18 @@ discord
 alacritty
 hyprland
 hypridle
-python-pywal
 exa
 zoxide
-cpio
-cmake
-meson
-uwsm
+
+youtube-dl
+mpd
+mpc
+rmpc
+
 
 # Aur Packages
-ttf-font-awesome-5
+wallust-git
 ocs-url
 watchdog
-matugen-bin
 pokemon-colorscripts-git
 hyprshell-bin

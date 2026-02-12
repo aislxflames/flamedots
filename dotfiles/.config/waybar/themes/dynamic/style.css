@@ -1,0 +1,88 @@
+@import url("../../colors.css");
+
+* {
+  margin: 0;
+  padding: 0;
+  color: @foreground;
+  font-size: 12px;
+  font-family: FiraCode Nerd Font Propo;
+  font-weight: 700;
+}
+
+/* spacing */
+.modules-left,
+.modules-center,
+.modules-right {
+  margin: 5px 0;
+}
+
+/* main bar */
+window#waybar {
+  background: @background;
+  padding: 14px 10px;
+  border-radius: 10px;
+}
+
+/* generic module containers */
+#custom-appicon,
+#window,
+#custom-power,
+#clock {
+  background-color: @color1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin: 0 5px;
+}
+
+/* workspaces */
+#workspaces {
+  background-color: @color0;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+#workspaces button {
+  color: @foreground;
+  margin: 0 6px;
+  opacity: 0.35;
+}
+
+#workspaces button.active {
+  color: @color4;
+  opacity: 1;
+}
+
+/* system status group */
+#ess {
+  background-color: @color0;
+  border-radius: 6px;
+  margin: 0 8px;
+  padding: 3px 6px;
+}
+
+/* tray */
+#tray {
+  background-color: @color1;
+  border-radius: 6px;
+  margin: 3px;
+  padding: 2px 8px;
+}
+
+/* indicators */
+#pulseaudio,
+#battery {
+  margin: 0 6px;
+  font-weight: 500;
+}
+
+/* hover polish */
+#workspaces button:hover,
+#custom-power:hover,
+#clock:hover {
+  background-color: alpha(@color4, 0.15);
+  border-radius: 4px;
+}
+
+#custom-update {
+  font-size: 15px;
+}

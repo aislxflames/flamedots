@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# -----------------------------
+# Full-terminal Kitty MPD Thumbnail Viewer
+# -----------------------------
+clear
+echo -ne "\e[?25l"
+
+TMP_THUMB="/tmp/mpd_thumb.jpg"
+DEFAULT_THUMB="$HOME/.config/mpd/default_cover.jpg"  # fallback image
+MUSIC_ROOT="$HOME/Music"                             # your MP3 root folder
+
+LAST_SONG=""
+
+while true; do
+    # Get current song
+    SONG_FILE=$(mpc --format '%file%' | head -n1)
+    [[ -z "$SONG_FILE" ]] && sleep 1 && continue
+
+    SONG_FULL="$MUSIC_ROOT/$SONG_FILE"
+    [[ "$SONG_FULL" == "$LAST_SONG" ]] && sleep 1 && continue
+    LAST_SONG="$SONG_FULL"
+
+    # Extract embedded album art
+    ffmpeg -hide_banner -loglevel error -y -i "$SONG_FULL" -an -vcodec copy -update 1 "$TMP_THUMB"
+
+    # Fallback if extraction failed
+    if [[ ! -f "$TMP_THUMB" ]] || [[ ! -s "$TMP_THUMB" ]]; then
+        COVER_FILE="$(dirname "$SONG_FULL")/cover.jpg"
+        if [[ -f "$COVER_FILE" ]]; then
+            cp "$COVER_FILE" "$TMP_THUMB"
+        elif [[ -f "$DEFAULT_THUMB" ]]; then
+            cp "$DEFAULT_THUMB" "$TMP_THUMB"
+        else
+            # Generate placeholder with song name
+            convert -size 800x600 xc:black -gravity center \
+                -fill white -pointsize 30 -annotate +0+0 "$(basename "$SONG_FILE")" "$TMP_THUMB"
+        fi
+    fi
+
+    # Clear previous image in Kitty
+    printf '\033_Ga=T,f=100,i=0\033\\'
+
+    # Show image filling full terminal
+kitty +kitten icat \
+    --clear \
+    --align=center \
+    --place "${COLUMNS}x${LINES}@0x0" \
+    "$TMP_THUMB"
+
+    sleep 1
+done
+

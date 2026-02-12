@@ -142,15 +142,16 @@ install_zshplugins() {
   fi
 
   # Check if ~/powerlevel10k exists and remove it if it does
-  if [ ! -d "$USER_HOME/powerlevel10k" ]; then
-    echo "Cloning powerlevel10k repository..."
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $USER_HOME/.oh-my-zsh/custom/themes/powerlevel10k
-  else
-    echo "$USER_HOME/powerlevel10k already exists, skipping clone."
-  fi
+  # if [ ! -d "$USER_HOME/powerlevel10k" ]; then
+  #   echo "Cloning powerlevel10k repository..."
+  #   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $USER_HOME/.oh-my-zsh/custom/themes/powerlevel10k
+  # else
+  #   echo "$USER_HOME/powerlevel10k already exists, skipping clone."
+  # fi
+
   sed -i 's|ZSH_THEME="robbyrussell"|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
   LINES_TO_ADD=(
-    'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme'
+    # 'source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme'
     'source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
     'source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
     'source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh'
@@ -176,7 +177,7 @@ install_zshplugins() {
   fi
   chsh -s $(which zsh)
   cp -rf $SOURCE_CONFIG/.zshrc $USER_HOME/.zshrc
-  cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
+  # cp -rf $SOURCE_CONFIG/.p10k.zsh $USER_HOME/.p10k.zsh
 }
 
 copy_dotfiles() {
@@ -225,6 +226,16 @@ EOF
     chmod +x ~/.config/hypr/install-plugins.sh
     echo "Plugin installation script created at ~/.config/hypr/install-plugins.sh"
     echo "Run this script after starting Hyprland to install plugins."
+  fi
+}
+
+initial_setup() {
+  if echo -e "Yes\nNo" | fzf --prompt="Setup Discord? > " | grep -q Yes; then
+    ~/flamedots/scripts/discord-setup.sh
+  fi
+
+  if echo -e "Yes\nNo" | fzf --prompt="Setup MPD? > " | grep -q Yes; then
+    ~/flamedots/scripts/mpd-setup.sh
   fi
 }
 
@@ -291,11 +302,39 @@ choice=$(fzf_prompt "Do you want to copy latest dotfiles?" "Yes" "No")
 
 if [[ "$choice" == "Yes" ]]; then
     echo "📦 Copying Dotfiles..."
+    rm -rf ~/.config/waybar
+    rm -rf ~/.config/rofi
+    rm -rf ~/.config/nwg-dock-hyprland
     copy_dotfiles
 else
   echo "Skipping Dotfiles copy...."
 fi
 clear
+
+echo "
+
+▓█████ ▒██   ██▒▄▄▄█████▓ ██▀███   ▄▄▄      
+▓█   ▀ ▒▒ █ █ ▒░▓  ██▒ ▓▒▓██ ▒ ██▒▒████▄    
+▒███   ░░  █   ░▒ ▓██░ ▒░▓██ ░▄█ ▒▒██  ▀█▄  
+▒▓█  ▄  ░ █ █ ▒ ░ ▓██▓ ░ ▒██▀▀█▄  ░██▄▄▄▄██ 
+░▒████▒▒██▒ ▒██▒  ▒██▒ ░ ░██▓ ▒██▒ ▓█   ▓██▒
+░░ ▒░ ░▒▒ ░ ░▓ ░  ▒ ░░   ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░
+ ░ ░  ░░░   ░▒ ░    ░      ░▒ ░ ▒░  ▒   ▒▒ ░
+   ░    ░    ░    ░        ░░   ░   ░   ▒   
+   ░  ░ ░    ░              ░           ░  ░
+
+
+" | lolcat
+choice=$(fzf_prompt "Do you want to setup extra features?" "Yes" "No")
+
+if [[ "$choice" == "Yes" ]]; then
+    echo "📦 Extra packages initilizing..."
+    initial_setup 
+else
+  echo "Skipping Extra setup...."
+fi
+clear
+
 echo "
 ▒███████▒  ██████  ██░ ██      ██████ ▓█████▄▄▄█████▓ █    ██  ██▓███
 ▒ ▒ ▒ ▄▀░▒██    ▒ ▓██░ ██▒   ▒██    ▒ ▓█   ▀▓  ██▒ ▓▒ ██  ▓██▒▓██░  ██▒

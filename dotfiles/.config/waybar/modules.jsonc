@@ -1,0 +1,227 @@
+{
+  "custom/appicon": {
+    "format": ""
+  },
+  "custom/apps": {
+    "format": "Apps",
+    "on-click": "~/.config/flames/scripts/applauncher.sh"
+  },
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "~/.config/flames/scripts/powermenu.sh"
+  },
+  // Workspaces
+  "hyprland/workspaces": {
+    "format": ""
+  },
+  // Taskbar Module
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "rotate": 0,
+    "icon-size": 18,
+    "icon-theme": "Tela-circle-dracula",
+    "spacing": 16,
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "kitty"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "max-length": 10
+  },
+  // AUDIO MODULE
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        ""
+      ]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  // Network Module 
+  "network": {
+    "interface": "wlp2s0",
+    "format": "{ifname}",
+    "format-wifi": "󰤨 {essid}",
+    "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+    "format-disconnected": "", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 13
+  },
+  "hyprland/window": {
+    "format": " {}",
+    "max-length": 24,
+    "rewrite": {
+      "^$": "Empty Window",
+    },
+  },
+  // Battery Module
+  "battery": {
+    "interval": 1,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "max-length": 25
+  },
+  // Tray Module
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+  //Clock Module
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "on-click": "swaync-client -t",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  // Custom Update Module
+
+
+    "custom/update": {
+    "format": "",
+    "interval": 3600,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "nohup kitty -e ~/flamedots/update.sh",
+    "signal": 8
+  },
+  "custom/updates": {
+    "format": " {}",
+    "interval": 3600,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "nohup kitty -e ~/flamedots/update.sh",
+    "signal": 8
+  },
+  // Audio visualizer (CAVA)
+  "custom/cava": {
+    "exec": "~/.config/waybar/scripts/cava.sh",
+    "framerate": 60
+  },
+  // System Stats
+  "disk": {
+    "interval": 10,
+    "format": " {percentage_used}%",
+    "max-length": 10
+  },
+  "cpu": {
+    "interval": 10,
+    "format": "C {usage}%",
+    "max-length": 10
+  },
+  "memory": {
+    "interval": 10,
+    "format": "M {percentage}%",
+    "max-length": 10
+  },
+  // GROUPS 
+  //saperator 
+  "custom/sap": {
+    "format": "/"
+  },
+  "custom/staticon": {
+    "format": " ",
+    "alt": "System stats display."
+  },
+  //System stats group
+  "group/stats": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": true,
+    },
+    "modules": [
+      "custom/staticon",
+      "disk",
+      "custom/sap",
+      "cpu",
+      "custom/sap",
+      "memory"
+    ]
+  },
+  // Music Palyer Deamon Module
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 2,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  }
+}

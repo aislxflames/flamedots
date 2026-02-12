@@ -88,16 +88,16 @@ if [ -d "$FLAMEDOTS_DIR" ]; then
         fi
     fi
 
-    echo "🔄 Switching to 'flamedotsv2' branch and forcing update from remote..."
-    git -C "$FLAMEDOTS_DIR" fetch origin flamedotsv2
-    git -C "$FLAMEDOTS_DIR" checkout -B flamedotsv2 origin/flamedotsv2
-    git -C "$FLAMEDOTS_DIR" reset --hard origin/flamedotsv2
+    echo "🔄 Switching to 'flamedotsv3' branch and forcing update from remote..."
+    git -C "$FLAMEDOTS_DIR" fetch origin flamedotsv3
+    git -C "$FLAMEDOTS_DIR" checkout -B flamedotsv3 origin/flamedotsv3
+    git -C "$FLAMEDOTS_DIR" reset --hard origin/flamedotsv3
 
-    echo "✅ flamedots successfully updated to 'flamedotsv2'!"
+    echo "✅ flamedots successfully updated to 'flamedotsv3'!"
 else
     echo "📥 flamedots not found. Cloning from GitHub..."
-    git clone -b flamedotsv2 "$REPO_URL" "$FLAMEDOTS_DIR"
-    echo "✅ flamedots successfully cloned from 'flamedotsv2' branch!"
+    git clone -b flamedotsv3 "$REPO_URL" "$FLAMEDOTS_DIR"
+    echo "✅ flamedots successfully cloned from 'flamedotsv3' branch!"
 fi
 
 # ───────────────────────────────────────────────

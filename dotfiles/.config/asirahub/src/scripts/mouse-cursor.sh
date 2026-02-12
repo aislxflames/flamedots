@@ -1,52 +1,75 @@
 #!/bin/bash
-# Mouse cursor selector script
+# Enhanced mouse cursor selector script
 
-# Find cursor themes in ~/.icons/
+update_gtk_settings() {
+    local cursor_name="$1"
+    local cursor_size="$2"
+    
+    # Update GTK-3.0 settings
+    local gtk3_settings="$HOME/.config/gtk-3.0/settings.ini"
+    if [ -f "$gtk3_settings" ]; then
+        sed -i "s/^gtk-cursor-theme-name=.*/gtk-cursor-theme-name=$cursor_name/" "$gtk3_settings"
+        sed -i "s/^gtk-cursor-theme-size=.*/gtk-cursor-theme-size=$cursor_size/" "$gtk3_settings"
+    fi
+    
+    # Update GTK-4.0 settings
+    local gtk4_settings="$HOME/.config/gtk-4.0/settings.ini"
+    if [ -f "$gtk4_settings" ]; then
+        sed -i "s/^gtk-cursor-theme-name=.*/gtk-cursor-theme-name=$cursor_name/" "$gtk4_settings"
+        sed -i "s/^gtk-cursor-theme-size=.*/gtk-cursor-theme-size=$cursor_size/" "$gtk4_settings"
+    fi
+}
+
+# Find cursor themes
 cursor_themes=""
-icons_dir="$HOME/.icons"
+for dir in "$HOME/.icons" "/usr/share/icons"; do
+    if [ -d "$dir" ]; then
+        for theme_dir in "$dir"/*; do
+            if [ -d "$theme_dir/cursors" ]; then
+                theme_name=$(basename "$theme_dir")
+                cursor_themes="$cursor_themes$theme_name\n"
+            fi
+        done
+    fi
+done
 
-if [ -d "$icons_dir" ]; then
-    for theme_dir in "$icons_dir"/*; do
-        if [ -d "$theme_dir" ] && [ -d "$theme_dir/cursors" ] && [ -f "$theme_dir/index.theme" ]; then
-            theme_name=$(basename "$theme_dir")
-            cursor_themes="$cursor_themes$theme_name\n"
-        fi
-    done
-fi
-
-# Remove empty lines and sort
-cursor_themes=$(echo -e "$cursor_themes" | grep -v "^$" | sort)
+cursor_themes=$(echo -e "$cursor_themes" | grep -v "^$" | sort -u)
 
 if [ -z "$cursor_themes" ]; then
-    notify-send "󰇀 Cursor Selector" "No cursor themes found in ~/.icons/"
+    notify-send "󰇀 Cursor Selector" "No cursor themes found"
     exit 1
 fi
 
+# Select cursor theme
 selected_cursor=$(echo -e "$cursor_themes" | rofi -dmenu -i -p "󰇀 Select Cursor" -theme ./menu-theme.rasi)
+[ -z "$selected_cursor" ] && exit 0
 
-if [ -n "$selected_cursor" ]; then
-    hyprctl setcursor "$selected_cursor" 24 &
-    
-    # Update autostart.conf
-    autostart_conf="$HOME/.config/hypr/conf/autostart.conf"
-    if [ -f "$autostart_conf" ]; then
-        # Remove existing cursor line and add new one
-        grep -v "exec-once = hyprctl setcursor" "$autostart_conf" > "$autostart_conf.tmp"
-        echo "exec-once = hyprctl setcursor $selected_cursor 24" >> "$autostart_conf.tmp"
-        mv "$autostart_conf.tmp" "$autostart_conf"
-    else
-        # Create autostart.conf if it doesn't exist
-        mkdir -p "$(dirname "$autostart_conf")"
-        echo "exec-once = hyprctl setcursor $selected_cursor 24" > "$autostart_conf"
-    fi
-    
-    # Add flatpak override to autostart if not exists
-    if ! grep -q "flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user" "$autostart_conf"; then
-        echo "exec-once = flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user" >> "$autostart_conf"
-    fi
-    
-    # Run flatpak override command
-    flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user &
-    
-    notify-send "󰇀 Cursor Applied" "Set cursor to: $selected_cursor (size 24)"
+# Select cursor size
+cursor_size=$(echo -e "16\n20\n24\n28\n32\n36\n48" | rofi -dmenu -i -p "󰇀 Cursor Size" -theme ./menu-theme.rasi)
+[ -z "$cursor_size" ] && cursor_size=24
+
+# Apply cursor
+hyprctl setcursor "$selected_cursor" "$cursor_size" &
+
+# Update configurations
+autostart_conf="$HOME/.config/hypr/conf/autostart.conf"
+mkdir -p "$(dirname "$autostart_conf")"
+
+if [ -f "$autostart_conf" ]; then
+    grep -v "exec-once = hyprctl setcursor" "$autostart_conf" > "$autostart_conf.tmp"
+    mv "$autostart_conf.tmp" "$autostart_conf"
 fi
+
+echo "exec-once = hyprctl setcursor $selected_cursor $cursor_size" >> "$autostart_conf"
+
+if ! grep -q "flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user" "$autostart_conf"; then
+    echo "exec-once = flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user" >> "$autostart_conf"
+fi
+
+# Update GTK settings
+update_gtk_settings "$selected_cursor" "$cursor_size"
+
+# Apply flatpak override
+flatpak override --filesystem=~/.themes:ro --filesystem=~/.icons:ro --user &
+
+notify-send "󰇀 Cursor Applied" "Theme: $selected_cursor | Size: $cursor_size"

@@ -1,0 +1,8 @@
+[Nemo Action]
+Name=Open with Visual Studio Code 
+Comment=Run nemo in code..
+Exec=code %F
+Icon-Name=utilities-terminal
+Selection=any
+Extensions=any;
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+WALLPAPER="$1"
+[ -z "$WALLPAPER" ] && { echo "Usage: $0 <wallpaper_path>"; exit 1; }
+[ ! -f "$WALLPAPER" ] && { echo "Error: File '$WALLPAPER' not found"; exit 1; }
+
+
+
+TRANSITIONS=("fade" "wipe" "wave" "grow" "center" "outer")
+RANDOM_TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
+RANDOM_X=$(awk "BEGIN {printf \"%.2f\", $RANDOM/32767}")
+RANDOM_Y=$(awk "BEGIN {printf \"%.2f\", $RANDOM/32767}")
+swww img "$WALLPAPER" --transition-type "$RANDOM_TRANSITION" --transition-pos "$RANDOM_X,$RANDOM_Y" --transition-duration 1 
+
+
+# Set wallpaper with Wallust
+wallust run "$WALLPAPER"
+sleep 0.2
+tmux source-file ~/.tmux.conf &
+~/.config/flames/scripts/cava.sh
+killall waybar
+~/.config/waybar/launch.sh &
+killall swaync
+swaync &
+killall swayosd-server 
+swayosd-server &
+pywalfox update
+cp -r $WALLPAPER ~/.config/flames/current.png &

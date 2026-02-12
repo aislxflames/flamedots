@@ -1,0 +1,28 @@
+{
+  "layer": "top",
+  "margin-top": 5,
+  "margin-left": 40,
+  "margin-right": 40,
+  "modules-left": [
+    "custom/apps",
+    "wlr/taskbar",
+    "hyprland/window",
+    "group/stats",
+    "custom/cava"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "custom/updates",
+    "pulseaudio",
+    "battery",
+    "tray",
+    "custom/power",
+    "network",
+    "clock"
+  ],
+  "include": [
+    "~/.config/waybar/modules.jsonc"
+  ]
+}

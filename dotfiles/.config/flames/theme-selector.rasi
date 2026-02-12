@@ -1,0 +1,78 @@
+@import "~/.config/rofi/colors/flamedots.rasi"
+
+* {
+    background-color: #28282890;
+    text-color: @foreground;
+}
+
+window {
+    transparency: "real";
+    location: center;
+    anchor: center;
+    height: 70%;
+    width: 80%;
+    border-radius: 15px;
+}
+
+mainbox {
+    spacing: 20px;
+    padding: 25px;
+    background-color: transparent;
+    children: [ "inputbar", "listview" ];
+}
+
+inputbar {
+    spacing: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #3c383650;
+    children: [ "prompt", "entry" ];
+}
+
+prompt {
+    text-color: @foreground;
+}
+
+entry {
+    text-color: @foreground;
+    background-color: transparent;
+}
+
+listview {
+    columns: 4;
+    lines: 4;
+    spacing: 15px;
+    background-color: transparent;
+    scrollbar: false;
+    cycle: false;
+    dynamic: true;
+    layout: vertical;
+}
+
+element {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    orientation: vertical;
+    children: [ "element-icon", "element-text" ];
+}
+
+element selected {
+    background-color: @selected;
+    text-color: @background;
+}
+
+element-icon {
+    size: 100px;
+    background-color: transparent;
+    border-radius: 8px;
+    horizontal-align: 0.5;
+}
+
+element-text {
+    padding: 8px 0px 0px 0px;
+    background-color: transparent;
+    text-color: inherit;
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+}
